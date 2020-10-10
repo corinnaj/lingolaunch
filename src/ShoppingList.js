@@ -4,6 +4,7 @@ import { Translate } from '@material-ui/icons';
 import { TextField, Checkbox, List, ListItem, ListItemIcon, IconButton, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
 import { Dictionary } from "./Dictionary.js";
 import Confetti from "react-dom-confetti";
+import { T } from "./PartialTranslationParagraph";
 
 const useStyles = makeStyles((theme) =>
     ({
@@ -44,7 +45,7 @@ export default function ShoppingList() {
     const [checked, setChecked] = useState([0]);
     const [items, setItems] = useState([])
     const [newItem, setNewItem] = useState('');
-    const { usedWord } = useContext(Dictionary);
+    const { usedWord, hasWord } = useContext(Dictionary);
     const [success, setSuccess] = useState(false);
 
     const handleToggle = (value) => () => {
@@ -75,6 +76,11 @@ export default function ShoppingList() {
         }
     }
 
+    function showWord(word, labelId) {
+        if (hasWord(word)) return (<T w={word} readonly />);
+        else return (
+            <ListItemText id={labelId} primary={word} />);
+    }
 
     return (
         <div className={classes.container}>
@@ -93,7 +99,7 @@ export default function ShoppingList() {
                                     inputProps={{ 'aria-labelledby': labelId }}
                                 />
                             </ListItemIcon>
-                            <ListItemText id={labelId} primary={value} />
+                            {showWord(value, labelId)}
                             <ListItemSecondaryAction>
                                 <IconButton edge="end" aria-label="comments">
                                     <Translate />

@@ -22,9 +22,10 @@ body {
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
     position: relative;
     text-shadow: 0 1px 0px #fff;
+    z-index: 2;
 }
 .partial-translation:after {
-    z-index: -2;
+    z-index: 1;
     content: "";
     display: block;
     position: absolute;

@@ -18,7 +18,7 @@ const confettiConfig = {
   colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
 };
 
-export const T = ({ w: german }) => {
+export const T = ({ w: german, readonly }) => {
   const [opened, setOpened] = useState(false);
   const { confirmWord, getWordCount } = useContext(Dictionary);
   const [success, setSuccess] = useState(false);
@@ -40,7 +40,7 @@ export const T = ({ w: german }) => {
         className={
           "partial-translation " + (colors[getWordCount(german)] ?? "completed")
         }
-        onClick={() => !success && setOpened((o) => !o)}
+        onClick={() => !readonly && !success && setOpened((o) => !o)}
         whileHover={{ scale: [1, 1.2] }}
         transition={{
           ease: "linear",
