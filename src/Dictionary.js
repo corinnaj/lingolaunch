@@ -1,5 +1,15 @@
 import React, { createContext, useState, useEffect, useCallback } from "react";
 
+export const translate = (text) =>
+  window
+    .fetch("http://localhost:8000/translate", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text }),
+    })
+    .then((res) => res.json())
+    .then((json) => json.translated);
+
 export const Dictionary = createContext({
   confirmWord: (german, guess) => false,
   getWordCount: (german) => 0,
@@ -35,7 +45,6 @@ export const DictionaryContainer = ({ children }) => {
     if (data) return JSON.parse(data);
     else return {};
   });
-  console.log(wordCounts);
 
   const save = useCallback(() => {
     localStorage.setItem("wordCounts", JSON.stringify(wordCounts));
@@ -59,14 +68,20 @@ export const DictionaryContainer = ({ children }) => {
         },
         getWordCount: (german) => wordCounts[german] ?? 0,
         usedWord: (german) => {
-          if (dictionary[german] || dictionary[german[0].toUpperCase() + german.substring(1)]) {
+          if (
+            dictionary[german] ||
+            dictionary[german[0].toUpperCase() + german.substring(1)]
+          ) {
             setWordCounts((c) => ({ ...c, [german]: (c[german] ?? 0) + 1 }));
             return true;
           }
           return false;
         },
         hasWord: (german) => {
-          return (dictionary[german] || dictionary[german[0].toUpperCase() + german.substring(1)]);
+          return (
+            dictionary[german] ||
+            dictionary[german[0].toUpperCase() + german.substring(1)]
+          );
         },
         progress: () => {
           return [

@@ -22,6 +22,8 @@ import { CapitainBluebear } from "./articles/CapitainBluebear";
 import { Kangaroo } from "./articles/Kangaroo";
 import { ArticleList } from "./ArticleList";
 import { Translate } from "./Translate";
+import { Welcome } from "./Welcome";
+import { PictureGame } from "./PictureGame";
 
 const theme = createMuiTheme({
   typography: {
@@ -29,7 +31,7 @@ const theme = createMuiTheme({
     fontFamily: ["Mulish", "sans-serif"].join(","),
     h3: {
       fontWeight: 900,
-      margin: "1.5rem 0 2rem 0",
+      margin: "1.5rem 0 4rem 0",
       letterSpacing: "-1px",
     },
     h4: {
@@ -69,6 +71,9 @@ function App() {
               <Route exact path="/">
                 <Dashboard />
               </Route>
+              <Route exact path="/welcome">
+                <Welcome />
+              </Route>
               <Route exact path="/articles/applepie">
                 <ApplePie />
               </Route>
@@ -91,6 +96,9 @@ function App() {
               </Route>
               <Route path="/articles">
                 <ArticleList />
+              </Route>
+              <Route path="/picture-game">
+                <PictureGame />
               </Route>
               <Route path="/translate">
                 <Translate />
