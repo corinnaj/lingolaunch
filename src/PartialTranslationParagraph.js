@@ -51,7 +51,7 @@ export const T = ({ w: german }) => {
       >
         {german}
       </motion.span>
-      <div class="confetti-wrapper">
+      <div className="confetti-wrapper">
         <Confetti
           style={{ position: "absolute" }}
           active={success}
