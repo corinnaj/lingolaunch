@@ -17,6 +17,7 @@ import { T } from "./PartialTranslationParagraph";
 import { DictionaryContainer } from "./Dictionary";
 import { lightGreen } from "@material-ui/core/colors";
 import { ApplePie } from "./articles/ApplePie";
+import { ArticleList } from "./ArticleList";
 
 const theme = createMuiTheme({
   typography: {
@@ -73,6 +74,9 @@ function App() {
               </Route>
               <Route path="/shopping">
                 <ShoppingList />
+              </Route>
+              <Route path="/articles">
+                <ArticleList />
               </Route>
             </Switch>
           </div>
