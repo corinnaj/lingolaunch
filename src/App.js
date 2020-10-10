@@ -98,13 +98,11 @@ function App() {
               <Route path="/articles">
                 <ArticleList />
               </Route>
-<<<<<<< HEAD
               <Route path="/vocab">
                 <VocabTrainer />
-=======
+              </Route>
               <Route path="/picture-game">
                 <PictureGame />
->>>>>>> a43dc86ac52f38272c24e76945f4ee3690003700
               </Route>
               <Route path="/translate">
                 <Translate />
