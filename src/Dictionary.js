@@ -1,5 +1,15 @@
 import React, { createContext, useState, useEffect, useCallback } from "react";
 
+export const translate = (text, targetLanguageCode) =>
+  window
+    .fetch("http://localhost:8000/translate", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text, targetLanguageCode }),
+    })
+    .then((res) => res.json())
+    .then((json) => json.translated);
+
 export const Dictionary = createContext({
   confirmWord: (german, guess) => false,
   getWordCount: (german) => 0,
@@ -22,7 +32,12 @@ export const dictionary = {
   Himmel: { en: "sky", wrong: ["hell", "sea", "land", "island"] },
   nicht: { en: "not", wrong: ["but", "only", "after", "never"] },
   du: { en: "you", wrong: ["I", "we", "he", "she"] },
-  nur: { en: "just", wrong: ["but", "before", "also", "start"] },
+  Tür: { en: "door", wrong: [] },
+  weil: { en: "because", wrong: [] },
+  Straße: { en: "street", wrong: [] },
+  nur: { en: "only", wrong: ["but", "before", "also", "start"] },
+  Küche: { en: "kitchen", wrong: [] },
+  Kopf: { en: "head", wrong: [] },
 };
 
 export const DictionaryContainer = ({ children }) => {
@@ -31,7 +46,6 @@ export const DictionaryContainer = ({ children }) => {
     if (data) return JSON.parse(data);
     else return {};
   });
-  console.log(wordCounts);
 
   const save = useCallback(() => {
     localStorage.setItem("wordCounts", JSON.stringify(wordCounts));
@@ -55,14 +69,20 @@ export const DictionaryContainer = ({ children }) => {
         },
         getWordCount: (german) => wordCounts[german] ?? 0,
         usedWord: (german) => {
-          if (dictionary[german] || dictionary[german[0].toUpperCase() + german.substring(1)]) {
+          if (
+            dictionary[german] ||
+            dictionary[german[0].toUpperCase() + german.substring(1)]
+          ) {
             setWordCounts((c) => ({ ...c, [german]: (c[german] ?? 0) + 1 }));
             return true;
           }
           return false;
         },
         hasWord: (german) => {
-          return (dictionary[german] || dictionary[german[0].toUpperCase() + german.substring(1)]);
+          return (
+            dictionary[german] ||
+            dictionary[german[0].toUpperCase() + german.substring(1)]
+          );
         },
         progress: () => {
           return [

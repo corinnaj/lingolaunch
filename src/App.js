@@ -19,9 +19,12 @@ import { DictionaryContainer } from "./Dictionary";
 import { lightGreen } from "@material-ui/core/colors";
 import { ApplePie } from "./articles/ApplePie";
 import { CapitainBluebear } from "./articles/CapitainBluebear";
+import { Kangaroo } from "./articles/Kangaroo";
 import { ArticleList } from "./ArticleList";
 import { Translate } from "./Translate";
 import { VocabTrainer } from "./VocabTrainer";
+import { Welcome } from "./Welcome";
+import { PictureGame } from "./PictureGame";
 
 const theme = createMuiTheme({
   typography: {
@@ -29,7 +32,7 @@ const theme = createMuiTheme({
     fontFamily: ["Mulish", "sans-serif"].join(","),
     h3: {
       fontWeight: 900,
-      margin: "1.5rem 0 2rem 0",
+      margin: "1.5rem 0 4rem 0",
       letterSpacing: "-1px",
     },
     h4: {
@@ -69,11 +72,17 @@ function App() {
               <Route exact path="/">
                 <Dashboard />
               </Route>
+              <Route exact path="/welcome">
+                <Welcome />
+              </Route>
               <Route exact path="/articles/applepie">
                 <ApplePie />
               </Route>
               <Route exact path="/articles/bluebear">
                 <CapitainBluebear />
+              </Route>
+              <Route exact path="/articles/kangaroo">
+                <Kangaroo />
               </Route>
               <Route exact path="/article">
                 <Container>
@@ -89,8 +98,13 @@ function App() {
               <Route path="/articles">
                 <ArticleList />
               </Route>
+<<<<<<< HEAD
               <Route path="/vocab">
                 <VocabTrainer />
+=======
+              <Route path="/picture-game">
+                <PictureGame />
+>>>>>>> a43dc86ac52f38272c24e76945f4ee3690003700
               </Route>
               <Route path="/translate">
                 <Translate />
