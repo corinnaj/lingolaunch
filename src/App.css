@@ -1,0 +1,51 @@
+
+.partial-translation-overlay {
+    position: absolute;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 1rem;
+    width: 150px;
+    left: -0.5rem;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.partial-translation {
+    cursor: pointer;
+    display: inline-block;
+    padding: 0.25em 0.5em;
+    border: 3px solid rgb(18, 133, 37);
+    border-radius: 5px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    position: relative;
+    text-shadow: 0 1px 0px #fff;
+}
+.partial-translation:after {
+    z-index: -2;
+    content: "";
+    display: block;
+    position: absolute;
+    background: linear-gradient(120deg,
+        rgb(217, 241, 218),
+        rgb(15, 206, 15) 50%,
+        /* rgb(255, 255, 255) 52%, */
+        rgb(105, 192, 65) 57%,
+        rgb(46, 104, 19));
+    opacity: 0.5;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.9), inset 0 2px 1px white;
+}
+/*.partial-translation:before {
+    z-index: -1;
+    content: "";
+    display: block;
+    position: absolute;
+    background: radial-gradient(circle at 95% 5%, #fff, transparent 30%);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}*/
