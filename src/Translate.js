@@ -62,7 +62,7 @@ export function Translate() {
               setLoading(false);
               console.log(json);
               for (var i = 0; i < tasks.length; i++) {
-                if (!completed[i] && tasks[i].check(json.translation))
+                if (!completed[i] && tasks[i].check(json.text))
                   setCompleted((list) =>
                     list.map((c, index) => (index === i ? !c : c))
                   );
@@ -73,7 +73,12 @@ export function Translate() {
 
       <div style={{ padding: "3rem" }}>
         <p>
-          {loading && <CircularProgress />}
+          {loading && (
+            <>
+              <CircularProgress />
+              <br />
+            </>
+          )}
           {text && <>Found Text: {text}</>}
           <br />
           {translatedText && <>Translated: {translatedText}</>}
