@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Divider, Card, CardContent } from "@material-ui/core";
 import { Link } from "react-router-dom";
+
 import { deepOrange, deepPurple } from "@material-ui/core/colors";
 import Fab from "@material-ui/core/Fab";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
@@ -9,6 +10,7 @@ import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import SpellcheckIcon from "@material-ui/icons/Spellcheck";
 import TranslateIcon from "@material-ui/icons/Translate";
 import bundeseagle from "./bundeseagle.svg";
+import ProgressBarExample from "./ProgressBar.js";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -96,6 +98,13 @@ function Dashboard() {
 
       <Divider variant="middle" />
 
+      <div className={classes.section}>
+        <Typography variant="body1">Your Progress:</Typography>
+        <ProgressBarExample />
+      </div>
+
+      <Divider variant="middle" />
+
       <div className={classes.avatar_root}>
         <Fab color="primary" href="./shopping" className="icon-button">
           <ShoppingCartIcon />
@@ -109,7 +118,7 @@ function Dashboard() {
           <SpellcheckIcon />
           Check Your Vocab
         </Fab>
-        <Fab color="secondary" href="./shopping" className="icon-button">
+        <Fab color="secondary" href="./translate" className="icon-button">
           <TranslateIcon />
           Translate
         </Fab>

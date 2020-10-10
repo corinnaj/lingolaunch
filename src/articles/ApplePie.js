@@ -1,10 +1,12 @@
 import React from "react";
 import { Article } from "./Article";
-import { T } from "../PartialTranslationParagraph";
+
+export const applePieImage =
+  "https://assets.tmecosys.com/image/upload/t_web767x639/img/recipe/ras/Assets/95DA8238-D11B-4F63-84CC-4AFD648E3704/Derivates/7E0F300B-A162-4100-BA16-26DF2613BC76.jpg";
 
 export const ApplePie = () => {
   return (
-    <Article title="Apple Pie">
+    <Article title="Apple Pie" image={applePieImage}>
       Apple Pie Ingredients:
       <ul>
         <li> 120 g soft butter</li>
