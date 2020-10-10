@@ -16,6 +16,11 @@ const dictionary = {
   'nach': { en: 'after', wrong: ['before', 'during', 'less', 'while'] },
   'braun': { en: 'brown', wrong: ['red', 'black', 'dark', 'light'] },
   'falls': { en: 'if', wrong: ['when', 'since', 'after', 'before'] },
+  'klein': { en: 'small', wrong: ['big', 'blue', 'red', 'wet'] },
+  'Himmel': { en: 'sky', wrong: ['hell', 'sea', 'land', 'island'] },
+  'nicht': { en: 'not', wrong: ['but', 'only', 'after', 'never'] },
+  'du': { en: 'you', wrong: ['I', 'we', 'he', 'she'] },
+  'nur': { en: 'just', wrong: ['but', 'before', 'also', 'start'] },
 }
 
 export const DictionaryContainer = ({ children }) => {
