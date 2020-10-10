@@ -12,7 +12,7 @@ import Dashboard from "./Dashboard.js";
 import ShoppingList from "./ShoppingList.js";
 import bundeseagleIcon from "./bundeseagle-icon.svg";
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import { T } from "./PartialTranslationParagraph";
 import { DictionaryContainer } from "./Dictionary";
@@ -51,15 +51,18 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <DictionaryContainer>
-        <AppBar position="static" elevation={0}>
-          <Toolbar>
-            <Typography variant="h6" style={{ flexGrow: 1 }}>
-              LingoLaunch
-            </Typography>
-            <img src={bundeseagleIcon} />
-          </Toolbar>
-        </AppBar>
         <Router>
+          <AppBar position="static" elevation={0}>
+            <Toolbar>
+              <Link
+                to="/"
+                style={{ flexGrow: 1, color: "black", textDecoration: "none" }}
+              >
+                <Typography variant="h6">LingoLaunch</Typography>
+              </Link>
+              <img src={bundeseagleIcon} />
+            </Toolbar>
+          </AppBar>
           <div>
             <Switch>
               <Route exact path="/">
