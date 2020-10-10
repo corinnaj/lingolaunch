@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Typography } from "@material-ui/core";
+import { Typography, Avatar } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
@@ -9,6 +9,8 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import { deepOrange, deepPurple } from '@material-ui/core/colors';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,6 +37,23 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     fontSize: 14,
+  },
+  avatar_root: {
+    display: 'flex',
+    '& > *': {
+      margin: theme.spacing(1),
+      width: theme.spacing(10),
+      height: theme.spacing(10),
+    },
+  },
+  orange: {
+    align: 'center',
+    color: theme.palette.getContrastText(deepOrange[500]),
+    backgroundColor: deepOrange[500],
+  },
+  purple: {
+    color: theme.palette.getContrastText(deepPurple[500]),
+    backgroundColor: deepPurple[500],
   },
   wordRow: {
     display: "flex",
@@ -76,6 +95,20 @@ function Dashboard() {
             </Typography>
           </CardContent>
         </Card>
+      </div>
+
+      <Divider variant="middle"/>
+      
+      <div className={classes.avatar_root}>
+        <Avatar>
+          <Typography align='center'> Shopping List </Typography>
+        </Avatar>
+        <Avatar className={classes.orange}>
+          <Typography align='center'> Learn About Culture </Typography>
+        </Avatar>
+        <Avatar className={classes.purple}>
+          <Typography align='center'> Check your Vocab </Typography>
+        </Avatar>
       </div>
       <Divider variant="middle" />
     </div>
