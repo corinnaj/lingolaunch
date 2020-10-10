@@ -5,10 +5,10 @@ import { Dictionary } from "./Dictionary";
 
 export const T = ({ german, english }) => {
   const [opened, setOpened] = useState(false);
-  const { confirmWord, getWord } = useContext(Dictionary);
+  const { confirmWord, getWordCount } = useContext(Dictionary);
 
   const handleSubmit = (answer) => {
-    if (confirmWord(english, answer)) {
+    if (confirmWord(german, answer)) {
       setOpened(false);
       return true;
     }
@@ -21,7 +21,7 @@ export const T = ({ german, english }) => {
     <span style={{ position: "relative" }}>
       <motion.span
         className={
-          "partial-translation " + (colors[getWord(german)] ?? "completed")
+          "partial-translation " + (colors[getWordCount(german)] ?? "completed")
         }
         onClick={() => setOpened(true)}
         whileHover={{ scale: [1, 1.1] }}
