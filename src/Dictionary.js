@@ -47,6 +47,11 @@ const defaultDictionary = {
   Züge: { en: "trains", wrong: [] },
   Regeln: { en: "rules", wrong: [] },
   Privatsphäre: { en: "privacy", wrong: [] },
+  Löffel: { en: "spoon", wrong: [] },
+  Zwiebel: { en: "onion", wrong: [] },
+  gesalzen: { en: "salted", wrong: [] },
+  fertig: { en: "done", wrong: [] },
+  geschmolzen: { en: "melted", wrong: [] },
   ...newWordsDictionary,
 };
 

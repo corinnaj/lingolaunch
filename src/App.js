@@ -21,6 +21,7 @@ import { ApplePie } from "./articles/ApplePie";
 import { CapitainBluebear } from "./articles/CapitainBluebear";
 import { Kangaroo } from "./articles/Kangaroo";
 import { Characteristics } from "./articles/Characteristics";
+import { Spaetzle } from "./articles/ASortOfPasta";
 
 import { ArticleList } from "./ArticleList";
 import { Translate } from "./Translate";
@@ -88,6 +89,9 @@ function App() {
               </Route>
               <Route exact path="/articles/characteristics">
                 <Characteristics />
+              </Route>
+              <Route exact path="/articles/spaetzle">
+                <Spaetzle />
               </Route>
               <Route exact path="/article">
                 <Container>

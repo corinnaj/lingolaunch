@@ -7,6 +7,7 @@ import { tippingImage } from "./articles/Tipping";
 import { applePieImage } from "./articles/ApplePie";
 import { kangarooImage } from "./articles/Kangaroo";
 import { germanImage } from "./articles/Characteristics";
+import { spaetzleImage } from "./articles/ASortOfPasta";
 
 const useStyles = makeStyles((theme) => ({
     article: {
@@ -44,5 +45,6 @@ export function ArticleList() {
         {preview("Capitain Bluebear", "The 13​¹⁄₂ Lives of Captain Bluebear is a 1999 fantasy novel by German writer and cartoonist Walter Moers which details the numerous lives of a human-sized bear with blue fur. It's a modern german classic.", "bluebear", "Media", capitainBluebearImage)}
         {preview("The Kangaroo Chronicles", "", "kangaroo", "Media", kangarooImage)}
         {preview("German Characteristics", "It is true that many Germans tend to place punctuality as a high priority. Hence the global observation that German trains often run perfectly on time.", "characteristics", "Cultural Tips", germanImage)}
+        {preview("Käsespätzle", "Spätzle is a type of pasta made with fresh eggs and found in the cuisines of southern Germany and Austria, Switzerland, Hungary, Slovenia, Alsace, Moselle and South Tyrol.", "spaetzle", "Recipes", spaetzleImage)}
     </div>
 }
