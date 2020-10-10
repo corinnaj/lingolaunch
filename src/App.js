@@ -21,6 +21,7 @@ import { ApplePie } from "./articles/ApplePie";
 import { CapitainBluebear } from "./articles/CapitainBluebear";
 import { ArticleList } from "./ArticleList";
 import { Translate } from "./Translate";
+import { VocabTrainer } from "./VocabTrainer";
 
 const theme = createMuiTheme({
   typography: {
@@ -87,6 +88,9 @@ function App() {
               </Route>
               <Route path="/articles">
                 <ArticleList />
+              </Route>
+              <Route path="/vocab">
+                <VocabTrainer />
               </Route>
               <Route path="/translate">
                 <Translate />
