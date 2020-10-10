@@ -40,7 +40,7 @@ export function ArticleList() {
     }
 
     return <div>
-        {preview("Tipping Culture", "Tipping in Germany and tipping in some other countries, such as the United States, are totally different. In Germany, waitresses are paid more and so the tips are smaller compared to the USA. Nevertheless, the 5-10% rule of thumb still applies.", "tipping", "Cultural Tips", tippingImage)}
+        {preview("Tipping Tips", "Tipping in Germany and tipping in some other countries, such as the United States, are totally different. In Germany, waitresses are paid more and so the tips are smaller compared to the USA. Nevertheless, the 5-10% rule of thumb still applies.", "tipping", "Cultural Tips", tippingImage)}
         {preview("Apple Pie", "Apple pie on Sunday at grandmas place is a childhood memory many germans share. Here is a recipe for your own apple pie.", "applepie", "Recipes", applePieImage)}
         {preview("Capitain Bluebear", "The 13​¹⁄₂ Lives of Captain Bluebear is a 1999 fantasy novel by German writer and cartoonist Walter Moers which details the numerous lives of a human-sized bear with blue fur. It's a modern german classic.", "bluebear", "Media", capitainBluebearImage)}
         {preview("The Kangaroo Chronicles", "", "kangaroo", "Media", kangarooImage)}

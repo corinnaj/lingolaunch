@@ -7,7 +7,7 @@ export const tippingImage =
 export const Tipping = () => {
     return (
       <Article
-        title="Tipping &amp; Etiquette?"
+        title="Tipping &amp; Etiquette"
         image={tippingImage}
       >
         <p>Service and VAT are included in the menu price in restaurants, bars, etc. all over Germany. 
