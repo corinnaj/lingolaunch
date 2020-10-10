@@ -15,6 +15,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import SpellcheckIcon from '@material-ui/icons/Spellcheck';
 import TranslateIcon from '@material-ui/icons/Translate';
+import ProgressBar from "./ProgressBar.js"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -92,6 +93,8 @@ function Dashboard() {
         </Card>
       </div>
 
+      <Divider variant="middle"/>
+        <ProgressBar />
       <Divider variant="middle"/>
       
       <div className={classes.avatar_root}>
