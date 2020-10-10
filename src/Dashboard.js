@@ -92,7 +92,7 @@ function Dashboard() {
           <ShoppingCartIcon />
           Shopping List
         </Fab>
-        <Fab color="secondary" href="./shopping" className="icon-button">
+        <Fab color="secondary" href="./articles" className="icon-button">
           <MusicNoteIcon />
           Learn About Culture
         </Fab>
