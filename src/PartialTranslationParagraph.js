@@ -3,12 +3,12 @@ import { motion } from "framer-motion";
 import { TextField } from "@material-ui/core";
 import { Dictionary } from "./Dictionary";
 
-export const T = ({ german, english }) => {
+export const T = ({ w: german }) => {
   const [opened, setOpened] = useState(false);
   const { confirmWord, getWord } = useContext(Dictionary);
 
   const handleSubmit = (answer) => {
-    if (confirmWord(english, answer)) {
+    if (confirmWord(german, answer)) {
       setOpened(false);
       return true;
     }
