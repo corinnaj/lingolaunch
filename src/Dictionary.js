@@ -37,6 +37,10 @@ export const dictionary = {
   nur: { en: "only", wrong: ["but", "before", "also", "start"] },
   Küche: { en: "kitchen", wrong: [] },
   Kopf: { en: "head", wrong: [] },
+  wahr: { en: "true", wrong: [] },
+  Züge: { en: "trains", wrong: [] },
+  Regeln: { en: "rules", wrong: [] },
+  Privatsphäre: { en: "privacy", wrong: [] },
 };
 
 export const DictionaryContainer = ({ children }) => {

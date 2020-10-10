@@ -20,6 +20,8 @@ import { lightGreen } from "@material-ui/core/colors";
 import { ApplePie } from "./articles/ApplePie";
 import { CapitainBluebear } from "./articles/CapitainBluebear";
 import { Kangaroo } from "./articles/Kangaroo";
+import { Characteristics } from "./articles/Characteristics";
+
 import { ArticleList } from "./ArticleList";
 import { Translate } from "./Translate";
 import { Welcome } from "./Welcome";
@@ -82,6 +84,9 @@ function App() {
               </Route>
               <Route exact path="/articles/kangaroo">
                 <Kangaroo />
+              </Route>
+              <Route exact path="/articles/characteristics">
+                <Characteristics />
               </Route>
               <Route exact path="/article">
                 <Container>
