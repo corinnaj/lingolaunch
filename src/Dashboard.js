@@ -73,12 +73,21 @@ function Dashboard() {
           Word of the Day
         </Typography>
         <div className={classes.wordRow}>
+          <Typography variant="h5">Ge{bull}sund{bull}heit</Typography>
+          <div style={{ fontSize: "2rem", marginLeft: "0.5rem" }}>🤧</div>
+        </div>
+        <Typography className={classes.pos} color="textSecondary">
+          noun
+        </Typography>
+
+        {false && <><div className={classes.wordRow}>
           <Typography variant="h5">Ap{bull}fel</Typography>
           <div style={{ fontSize: "2rem", marginLeft: "0.5rem" }}>🍏</div>
         </div>
-        <Typography className={classes.pos} color="textSecondary">
-          noun, fruit
+          <Typography className={classes.pos} color="textSecondary">
+            noun, fruit
         </Typography>
+        </>}
       </div>
 
       <div className={classes.section}>
@@ -88,9 +97,8 @@ function Dashboard() {
               Tips for Tipping
             </Typography>
             <Typography variant="body1" color="textSecondary">
-              Turns out, the Deutsche do not like to zahl proper Geld to their
-              staff in Restaurants. Thus, you have to do it.{" "}
-              <Link to="/article/tipping">Read More...</Link>
+              Tipping in Germany and tipping in some other countries, such as the United States, are totally different. In Germany, waitresses are paid more and so the tips are smaller compared to the USA. Nevertheless, the 5-10% rule of thumb still applies.{" "}
+              <Link to="/articles/tipping">Read More...</Link>
             </Typography>
           </CardContent>
         </Card>
