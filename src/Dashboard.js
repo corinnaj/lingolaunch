@@ -1,13 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Typography } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import Divider from "@material-ui/core/Divider";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
+import { Typography, Divider, Card, CardContent } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
 import Fab from '@material-ui/core/Fab';
@@ -95,8 +88,8 @@ function Dashboard() {
         </Card>
       </div>
 
-      <Divider variant="middle"/>
-      
+      <Divider variant="middle" />
+
       <div className={classes.avatar_root}>
         <Fab color="primary">
           Shopping List
