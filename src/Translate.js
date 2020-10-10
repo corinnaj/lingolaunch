@@ -44,7 +44,7 @@ export function Translate() {
       )}
 
       <div style={{ padding: "1rem" }}>
-        <FormControl className={clsx(classes.margin, classes.textField)}>
+        <FormControl>
           <InputLabel>Password</InputLabel>
           <Input
             label="Enter Text to translate ..."
