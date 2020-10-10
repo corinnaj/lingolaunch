@@ -1,7 +1,10 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-#google cloud
+# google cloud
 server/My Project-386a662ca057.json
+
+# image upload
+**uploads
 
 # dependencies
 /node_modules
