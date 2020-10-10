@@ -110,3 +110,7 @@ body {
     top: 0;
     left: 0;
 }*/
+
+.confetti-wrapper, .confetti-wrapper > div {
+    display: inline-block;
+}
