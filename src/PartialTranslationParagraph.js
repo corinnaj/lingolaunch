@@ -10,7 +10,7 @@ const confettiConfig = {
   startVelocity: "23",
   elementCount: "55",
   dragFriction: 0.12,
-  duration: 3000,
+  duration: 1500,
   stagger: "0",
   width: "10px",
   height: "10px",
@@ -40,12 +40,12 @@ export const T = ({ w: german }) => {
         className={
           "partial-translation " + (colors[getWordCount(german)] ?? "completed")
         }
-        onClick={() => !success && setOpened(true)}
-        whileHover={{ scale: [1, 1.1] }}
+        onClick={() => !success && setOpened((o) => !o)}
+        whileHover={{ scale: [1, 1.2] }}
         transition={{
           ease: "linear",
           repeat: 4,
-          duration: 0.3,
+          duration: 0.35,
           repeatType: "reverse",
         }}
       >
