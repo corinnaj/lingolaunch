@@ -9,7 +9,6 @@ import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import SpellcheckIcon from "@material-ui/icons/Spellcheck";
 import TranslateIcon from "@material-ui/icons/Translate";
 import bundeseagle from "./bundeseagle.svg";
-console.log(bundeseagle);
 
 const useStyles = makeStyles((theme) => ({
   root: {
