@@ -4,7 +4,7 @@ import { TextField } from "@material-ui/core";
 import { Dictionary } from "./Dictionary";
 import Confetti from "react-dom-confetti";
 
-const confettiConfig = {
+export const confettiConfig = {
   angle: "78",
   spread: "164",
   startVelocity: "23",

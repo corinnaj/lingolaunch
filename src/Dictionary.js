@@ -1,5 +1,15 @@
 import React, { createContext, useState, useEffect, useCallback } from "react";
 
+export const translate = (text) =>
+  window
+    .fetch("http://localhost:8000/translate", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text }),
+    })
+    .then((res) => res.json())
+    .then((json) => json.translated);
+
 export const Dictionary = createContext({
   confirmWord: (german, guess) => false,
   getWordCount: (german) => 0,

@@ -1,5 +1,6 @@
 import {
   Checkbox,
+  CircularProgress,
   List,
   ListItem,
   ListItemIcon,
@@ -9,15 +10,18 @@ import {
 import React, { useState } from "react";
 import Camera from "react-html5-camera-photo";
 import "react-html5-camera-photo/build/css/index.css";
+import Confetti from "react-dom-confetti";
+import { confettiConfig } from "./PartialTranslationParagraph";
+import { translate } from "./Dictionary";
 
 export function Translate() {
   const tasks = [
     {
-      check: (response) => response.text.includes("Straße"),
+      check: (text) => text.includes("Straße"),
       label: 'Take a photo of a label containing "Straße"',
     },
     {
-      check: (response) => response.text.includes("Weg"),
+      check: (text) => text.includes("Weg"),
       label: 'Take a photo of a label containing "Weg"',
     },
   ];
@@ -28,6 +32,10 @@ export function Translate() {
     return bools;
   });
 
+  const [loading, setLoading] = useState(false);
+  const [text, setText] = useState("");
+  const [translatedText, setTranslatedText] = useState("");
+
   return (
     <div
       style={{
@@ -37,29 +45,40 @@ export function Translate() {
       }}
     >
       <Camera
-        onTakePhoto={(dataUri) =>
-          // Buffer.from(req.body, 'base64')
-          {
-            /* Buffer.from(req.body, 'base64')*/
-            console.log(dataUri);
-            window
-              .fetch("http://localhost:8000/detect", {
-                method: "post",
-                body: dataUri.substring("data:image/png;base64,".length),
-              })
-              .then((json) => {
-                for (var i = 0; i < tasks.length; i++) {
-                  if (!completed[i] && tasks[i].check(json))
-                    setCompleted((list) =>
-                      list.map((c, index) => (index === i ? !c : c))
-                    );
-                }
-              });
-          }
-        }
+        onTakePhoto={(dataUri) => {
+          setLoading(true);
+          window
+            .fetch("http://localhost:8000/upload-image", {
+              method: "post",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                base64: dataUri.substring("data:image/png;base64,".length),
+              }),
+            })
+            .then((res) => res.json())
+            .then((json) => {
+              setText(json.text);
+              setTranslatedText(json.translation);
+              setLoading(false);
+              console.log(json);
+              for (var i = 0; i < tasks.length; i++) {
+                if (!completed[i] && tasks[i].check(json.translation))
+                  setCompleted((list) =>
+                    list.map((c, index) => (index === i ? !c : c))
+                  );
+              }
+            });
+        }}
       />
 
       <div style={{ padding: "3rem" }}>
+        <p>
+          {loading && <CircularProgress />}
+          {text && <>Found Text: {text}</>}
+          <br />
+          {translatedText && <>Translated: {translatedText}</>}
+        </p>
+
         <Typography variant="h4">Your current Tasks:</Typography>
         <List>
           {tasks.map(({ label }, index) => (
@@ -67,6 +86,13 @@ export function Translate() {
               <ListItemIcon>
                 <Checkbox edge="start" checked={completed[index]} readOnly />
               </ListItemIcon>
+              <div className="confetti-wrapper">
+                <Confetti
+                  style={{ position: "absolute" }}
+                  active={completed[index]}
+                  config={confettiConfig}
+                />
+              </div>
               <ListItemText primary={label} />
             </ListItem>
           ))}
