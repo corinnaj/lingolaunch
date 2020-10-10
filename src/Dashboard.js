@@ -110,7 +110,7 @@ function Dashboard() {
           <SpellcheckIcon />
           Check Your Vocab
         </Fab>
-        <Fab color="secondary" href="./shopping" className="icon-button">
+        <Fab color="secondary" href="./translate" className="icon-button">
           <TranslateIcon />
           Translate
         </Fab>
