@@ -51,6 +51,8 @@ const defaultDictionary = {
   gesalzen: { en: "salted", wrong: [] },
   fertig: { en: "done", wrong: [] },
   geschmolzen: { en: "melted", wrong: [] },
+  Kellner: { en: "waiter", wrong: [] },
+  Geld: { en: "money", wrong: [] },
   ...newWordsDictionary,
 };
 

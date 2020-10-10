@@ -17,6 +17,8 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { T } from "./PartialTranslationParagraph";
 import { DictionaryContainer } from "./Dictionary";
 import { lightGreen } from "@material-ui/core/colors";
+
+import { Tipping } from "./articles/Tipping";
 import { ApplePie } from "./articles/ApplePie";
 import { CapitainBluebear } from "./articles/CapitainBluebear";
 import { Kangaroo } from "./articles/Kangaroo";
@@ -77,6 +79,9 @@ function App() {
               </Route>
               <Route exact path="/welcome">
                 <Welcome />
+              </Route>
+              <Route exact path="/articles/tipping">
+                <Tipping />
               </Route>
               <Route exact path="/articles/applepie">
                 <ApplePie />
