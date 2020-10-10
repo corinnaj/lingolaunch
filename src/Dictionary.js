@@ -16,6 +16,7 @@ export const Dictionary = createContext({
   usedWord: (german) => false,
   progress: () => [0, 0],
   hasWord: (german) => false,
+  getKnownWords: () => {},
 });
 
 export const dictionary = {
@@ -37,6 +38,10 @@ export const dictionary = {
   nur: { en: "only", wrong: ["but", "before", "also", "start"] },
   Küche: { en: "kitchen", wrong: [] },
   Kopf: { en: "head", wrong: [] },
+  wahr: { en: "true", wrong: [] },
+  Züge: { en: "trains", wrong: [] },
+  Regeln: { en: "rules", wrong: [] },
+  Privatsphäre: { en: "privacy", wrong: [] },
 };
 
 export const DictionaryContainer = ({ children }) => {
@@ -88,6 +93,13 @@ export const DictionaryContainer = ({ children }) => {
             Object.values(wordCounts).filter((count) => count > 3).length,
             Object.keys(dictionary).length,
           ];
+        },
+        getKnownWords: () => {
+          return wordCounts;
+        },
+        reverseMap: () => {
+          return Object.fromEntries(
+            Object.entries(dictionary).map(([german, { en }]) => [en, german]))
         },
       }}
     >
