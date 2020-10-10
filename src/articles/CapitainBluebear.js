@@ -1,6 +1,5 @@
 import React from "react";
 import { Article } from "./Article";
-import { T } from "../PartialTranslationParagraph";
 
 export const capitainBluebearImage =
   "https://vignette.wikia.nocookie.net/zamonien/images/2/2a/Blaub%C3%A4r_in_der_Walnussschale.png/revision/latest?cb=20160124161219&path-prefix=de";
