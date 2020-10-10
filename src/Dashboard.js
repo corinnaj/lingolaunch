@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Divider, Card, CardContent } from "@material-ui/core";
 import { Link } from "react-router-dom";
+
 import { deepOrange, deepPurple } from "@material-ui/core/colors";
 import Fab from "@material-ui/core/Fab";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
@@ -9,6 +10,7 @@ import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import SpellcheckIcon from "@material-ui/icons/Spellcheck";
 import TranslateIcon from "@material-ui/icons/Translate";
 import bundeseagle from "./bundeseagle.svg";
+import ProgressBarExample from "./ProgressBar.js"
 console.log(bundeseagle);
 
 const useStyles = makeStyles((theme) => ({
@@ -93,6 +95,13 @@ function Dashboard() {
             </Typography>
           </CardContent>
         </Card>
+      </div>
+
+      <Divider variant="middle" />
+
+      <div className={classes.section}> 
+        <Typography variant="body1">Your Progress:</Typography>
+        <ProgressBarExample />
       </div>
 
       <Divider variant="middle" />
