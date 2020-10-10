@@ -24,6 +24,7 @@ import { Characteristics } from "./articles/Characteristics";
 
 import { ArticleList } from "./ArticleList";
 import { Translate } from "./Translate";
+import { VocabTrainer } from "./VocabTrainer";
 import { Welcome } from "./Welcome";
 import { PictureGame } from "./PictureGame";
 
@@ -101,6 +102,9 @@ function App() {
               </Route>
               <Route path="/articles">
                 <ArticleList />
+              </Route>
+              <Route path="/vocab">
+                <VocabTrainer />
               </Route>
               <Route path="/picture-game">
                 <PictureGame />

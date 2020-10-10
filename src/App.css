@@ -133,25 +133,54 @@ body {
 }
   
 .filler {
-background: #1DA598;
-height: 100%;
-border-radius: inherit;
-transition: width .2s ease-in;
+    background: #1DA598;
+    height: 100%;
+    border-radius: inherit;
+    transition: width .2s ease-in;
 }
 
 #vids {
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #vids a:first-of-type {
-margin-bottom: 5px;
+    margin-bottom: 5px;
 }
   
 .coverImage {
     width: calc(100% + 32px);
     margin-left: -16px;
     margin-right: -16px;
+}
+
+.MuiListSubheader-sticky {
+    font-size: 15px;
+    margin: 5px;
+}
+
+.subheader-0 {
+    background-color: rgba(167, 114, 18, 0.959) !important;
+}
+
+.subheader-1 {
+    font-size: 15px !important;
+    background-color: rgba(226, 226, 226, 0.959) !important;
+}
+
+.subheader-2 {
+    font-size: 15px !important;
+    background-color: rgb(255, 217, 0) !important;
+}
+
+.subheader-3 {
+    font-size: 15px !important;
+    background-color: rgb(18, 133, 37) !important;
+}
+
+.subheader-4 {
+    font-size: 15px !important;
+    background-color:rgb(217, 241, 218) !important;
 }

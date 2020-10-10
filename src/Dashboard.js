@@ -136,7 +136,7 @@ function Dashboard() {
           <Fab
             color="primary"
             component={Link}
-            to="/shopping"
+            to="/vocab"
             className="icon-button"
           >
             <SpellcheckIcon />
