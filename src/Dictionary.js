@@ -7,6 +7,12 @@ export const Dictionary = createContext({
 
 const dictionary = {
   'hier': { en: 'here', wrong: ['there', 'herd', 'near', 'kitchen'] },
+  'Apfel': { en: 'apple', wrong: ['pear', 'cherry', 'blueberry', 'strawberry'] },
+  'Eier': { en: 'eggs', wrong: ['milk', 'apples', 'eggplants', 'chickens'] },
+  'Salz': { en: 'salt', wrong: ['sugar', 'flour', 'soy sauce', 'peanuts'] },
+  'Kreis': { en: 'circle', wrong: ['rectangle', 'triangle', 'round', 'shape'] },
+  'nach': { en: 'after', wrong: ['before', 'during', 'less', 'while'] },
+  'braun': { en: 'brown', wrong: ['red', 'black', 'dark', 'light'] }
 }
 
 export const DictionaryContainer = ({ children }) => {
