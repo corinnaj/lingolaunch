@@ -6,6 +6,7 @@ import { capitainBluebearImage } from "./articles/CapitainBluebear";
 import { tippingImage } from "./articles/Tipping";
 import { applePieImage } from "./articles/ApplePie";
 import { kangarooImage } from "./articles/Kangaroo";
+import { germanImage } from "./articles/Characteristics";
 
 const useStyles = makeStyles((theme) => ({
     article: {
@@ -42,5 +43,6 @@ export function ArticleList() {
         {preview("Apple Pie", "Apple pie on Sunday at grandmas place is a childhood memory many germans share. Here is a recipe for your own apple pie.", "applepie", "Recipes", applePieImage)}
         {preview("Capitain Bluebear", "The 13​¹⁄₂ Lives of Captain Bluebear is a 1999 fantasy novel by German writer and cartoonist Walter Moers which details the numerous lives of a human-sized bear with blue fur. It's a modern german classic.", "bluebear", "Media", capitainBluebearImage)}
         {preview("The Kangaroo Chronicles", "", "kangaroo", "Media", kangarooImage)}
+        {preview("German Characteristics", "It is true that many Germans tend to place punctuality as a high priority. Hence the global observation that German trains often run perfectly on time.", "characteristics", "Cultural Tips", germanImage)}
     </div>
 }

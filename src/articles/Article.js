@@ -72,12 +72,13 @@ const tagChildList = (children, dictionary) => {
 
 export const Article = ({ title, children, image }) => {
   const { dictionary } = useContext(Dictionary);
+  let styleObject = { fontSize: 30, fontWeight: "bold" };
 
   return (
     <Container>
       <img className="coverImage" src={image} />
       <div style={{ padding: "2rem" }}>
-        <Typography variant="h3">{title}</Typography>
+        <Typography variant="h4" style={styleObject}>{title}</Typography>
         <div style={{ fontSize: "1.1rem", lineHeight: "1.7rem" }}>{tagChildList(children, dictionary)}</div>
         <div style={{ height: "1.5rem" }}></div>
       </div>

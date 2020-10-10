@@ -18,6 +18,7 @@ export const Dictionary = createContext({
   hasWord: (german) => false,
   addWord: (german, english) => null,
   dictionary: {},
+  getKnownWords: () => { },
 });
 
 const newWordsDictionary = JSON.parse(localStorage.getItem("newWordDictionary")) || {};
@@ -41,6 +42,10 @@ const defaultDictionary = {
   nur: { en: "only", wrong: ["but", "before", "also", "start"] },
   Küche: { en: "kitchen", wrong: [] },
   Kopf: { en: "head", wrong: [] },
+  wahr: { en: "true", wrong: [] },
+  Züge: { en: "trains", wrong: [] },
+  Regeln: { en: "rules", wrong: [] },
+  Privatsphäre: { en: "privacy", wrong: [] },
   ...newWordsDictionary,
 };
 
@@ -103,7 +108,14 @@ export const DictionaryContainer = ({ children }) => {
           setWordCounts({ ...wordCounts, [german]: 0 });
           setDictionary(d => ({ ...d, [german]: { en: english, wrong: [] } }))
           newWordsDictionary[german] = { en: english };
-        }
+        },
+        getKnownWords: () => {
+          return wordCounts;
+        },
+        reverseMap: () => {
+          return Object.fromEntries(
+            Object.entries(dictionary).map(([german, { en }]) => [en, german]))
+        },
       }}
     >
       {children}
