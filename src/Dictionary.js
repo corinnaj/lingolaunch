@@ -3,6 +3,7 @@ import React, { createContext, useState, useEffect, useCallback } from "react";
 export const Dictionary = createContext({
   confirmWord: (german, guess) => false,
   getWordCount: (german) => 0,
+  usedWord: (german) => false,
 });
 
 const dictionary = {
@@ -48,6 +49,13 @@ export const DictionaryContainer = ({ children }) => {
           }
         },
         getWordCount: (german) => wordCounts[german] ?? 0,
+        usedWord: (german) => {
+          if (dictionary[german]) {
+            setWordCounts(c => ({ ...c, [german]: (c[german] ?? 0) + 1 }));
+            return true;
+          }
+          return false;
+        }
       }}
     >
       {children}
