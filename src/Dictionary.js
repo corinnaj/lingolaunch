@@ -62,6 +62,7 @@ export const DictionaryContainer = ({ children }) => {
           return false;
         },
         progress: () => {
+          console.log("neues Wort")
           return [Object.values(wordCounts).filter((count) => count > 3).length, Object.keys(dictionary).length]
         }
       }}
