@@ -10,8 +10,7 @@ import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import SpellcheckIcon from "@material-ui/icons/Spellcheck";
 import TranslateIcon from "@material-ui/icons/Translate";
 import bundeseagle from "./bundeseagle.svg";
-import ProgressBarExample from "./ProgressBar.js"
-console.log(bundeseagle);
+import ProgressBarExample from "./ProgressBar.js";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -99,7 +98,7 @@ function Dashboard() {
 
       <Divider variant="middle" />
 
-      <div className={classes.section}> 
+      <div className={classes.section}>
         <Typography variant="body1">Your Progress:</Typography>
         <ProgressBarExample />
       </div>
