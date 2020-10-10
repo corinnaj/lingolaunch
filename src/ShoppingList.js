@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { Translate } from '@material-ui/icons';
 import { TextField, Checkbox, List, ListItem, ListItemIcon, IconButton, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
 import { Dictionary } from "./Dictionary.js";
+import Confetti from "react-dom-confetti";
 
 const useStyles = makeStyles((theme) =>
     ({
@@ -19,17 +20,32 @@ const useStyles = makeStyles((theme) =>
         },
         input: {
             maxWidth: 360,
-            width: '100%',
+            width: '90%',
         },
     }),
 );
 
+const confettiConfig = {
+    angle: "78",
+    spread: "164",
+    startVelocity: "23",
+    elementCount: "55",
+    dragFriction: 0.12,
+    duration: 1500,
+    stagger: "0",
+    width: "10px",
+    height: "10px",
+    perspective: "500px",
+    colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
+};
+
 export default function ShoppingList() {
     const classes = useStyles();
-    const [checked, setChecked] = React.useState([0]);
-    const [items, setItems] = React.useState([])
-    const [newItem, setNewItem] = React.useState('');
+    const [checked, setChecked] = useState([0]);
+    const [items, setItems] = useState([])
+    const [newItem, setNewItem] = useState('');
     const { usedWord } = useContext(Dictionary);
+    const [success, setSuccess] = useState(false);
 
     const handleToggle = (value) => () => {
         const currentIndex = checked.indexOf(value);
@@ -46,7 +62,8 @@ export default function ShoppingList() {
 
     function submit() {
         if (usedWord(newItem)) {
-            console.log("WELL DONE");
+            setSuccess(true);
+            setTimeout(() => setSuccess(false));
         }
         setItems([...items, newItem]);
         setNewItem('');
@@ -57,6 +74,7 @@ export default function ShoppingList() {
             submit();
         }
     }
+
 
     return (
         <div className={classes.container}>
@@ -85,6 +103,11 @@ export default function ShoppingList() {
                     );
                 })}
             </List>
+            <Confetti
+                style={{ position: "absolute" }}
+                active={success}
+                config={confettiConfig}
+            />
             <TextField className={classes.input} value={newItem} onChange={(event) => setNewItem(event.target.value)} onKeyPress={handleKeyPress} autoFocus={true} />
         </div>
     );
