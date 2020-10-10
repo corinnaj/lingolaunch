@@ -1,6 +1,5 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import "./ShoppingList.css";
 import { Translate } from '@material-ui/icons';
 import { TextField, Checkbox, List, ListItem, ListItemIcon, IconButton, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
 
