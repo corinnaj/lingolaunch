@@ -5,6 +5,7 @@ export const Dictionary = createContext({
   getWordCount: (german) => 0,
   usedWord: (german) => false,
   progress: () => [0, 0],
+  hasWord: (german) => false,
 });
 
 export const dictionary = {
@@ -58,6 +59,9 @@ export const DictionaryContainer = ({ children }) => {
             return true;
           }
           return false;
+        },
+        hasWord: (german) => {
+          return (dictionary[german] || dictionary[german[0].toUpperCase() + german.substring(1)]);
         },
         progress: () => {
           return [
