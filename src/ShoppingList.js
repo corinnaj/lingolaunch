@@ -107,11 +107,6 @@ export default function ShoppingList() {
                                 />
                             </ListItemIcon>
                             {showWord(value, labelId)}
-                            <ListItemSecondaryAction>
-                                <IconButton edge="end" aria-label="comments">
-                                    <Translate />
-                                </IconButton>
-                            </ListItemSecondaryAction>
                         </ListItem>
                     );
                 })}
