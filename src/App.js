@@ -22,6 +22,7 @@ import { CapitainBluebear } from "./articles/CapitainBluebear";
 import { ArticleList } from "./ArticleList";
 import { Translate } from "./Translate";
 import { Welcome } from "./Welcome";
+import { PictureGame } from "./PictureGame";
 
 const theme = createMuiTheme({
   typography: {
@@ -91,6 +92,9 @@ function App() {
               </Route>
               <Route path="/articles">
                 <ArticleList />
+              </Route>
+              <Route path="/picture-game">
+                <PictureGame />
               </Route>
               <Route path="/translate">
                 <Translate />
