@@ -12,7 +12,8 @@ const dictionary = {
   'Salz': { en: 'salt', wrong: ['sugar', 'flour', 'soy sauce', 'peanuts'] },
   'Kreis': { en: 'circle', wrong: ['rectangle', 'triangle', 'round', 'shape'] },
   'nach': { en: 'after', wrong: ['before', 'during', 'less', 'while'] },
-  'braun': { en: 'brown', wrong: ['red', 'black', 'dark', 'light'] }
+  'braun': { en: 'brown', wrong: ['red', 'black', 'dark', 'light'] },
+  'falls': { en: 'if', wrong: ['when', 'since', 'after', 'before'] },
 }
 
 export const DictionaryContainer = ({ children }) => {
