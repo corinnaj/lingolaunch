@@ -15,7 +15,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { T } from "./PartialTranslationParagraph";
 import { DictionaryContainer } from "./Dictionary";
-import { green, lightGreen } from "@material-ui/core/colors";
+import { lightGreen } from "@material-ui/core/colors";
+import { ApplePie } from "./articles/ApplePie";
 
 const theme = createMuiTheme({
   typography: {
@@ -59,7 +60,10 @@ function App() {
               <Route exact path="/">
                 <Dashboard />
               </Route>
-              <Route path="/article">
+              <Route exact path="/articles/applepie">
+                <ApplePie />
+              </Route>
+              <Route exact path="/article">
                 <Container>
                   <Typography variant="h3">Apple Pie Recipe</Typography>
                   <div style={{ fontSize: "1.1rem" }}>
