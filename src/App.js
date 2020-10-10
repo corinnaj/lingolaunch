@@ -28,7 +28,7 @@ const theme = createMuiTheme({
     fontFamily: ["Mulish", "sans-serif"].join(","),
     h3: {
       fontWeight: 900,
-      margin: "1.5rem 0 2rem 0",
+      margin: "1.5rem 0 4rem 0",
       letterSpacing: "-1px",
     },
     h4: {

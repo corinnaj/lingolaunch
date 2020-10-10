@@ -64,7 +64,7 @@ function Dashboard() {
         backgroundSize: "contain",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "bottom left",
-        minHeight: "100vh",
+        minHeight: "140vh",
       }}
     >
       <div className={classes.section}>

@@ -74,9 +74,11 @@ export const Article = ({ title, children, image }) => {
   return (
     <Container>
       <img className="coverImage" src={image} />
-      <Typography variant="h3">{title}</Typography>
-      <div style={{ fontSize: "1.1rem" }}>{tagChildList(children)}</div>
-      <div style={{ height: "2rem" }}></div>
+      <div style={{ padding: "2rem" }}>
+        <Typography variant="h3">{title}</Typography>
+        <div style={{ fontSize: "1.1rem" }}>{tagChildList(children)}</div>
+        <div style={{ height: "1.5rem" }}></div>
+      </div>
     </Container>
   );
 };

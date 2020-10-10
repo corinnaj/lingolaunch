@@ -30,7 +30,6 @@ export const DictionaryContainer = ({ children }) => {
     if (data) return JSON.parse(data);
     else return {};
   });
-  console.log(wordCounts);
 
   const save = useCallback(() => {
     localStorage.setItem("wordCounts", JSON.stringify(wordCounts));
@@ -54,14 +53,20 @@ export const DictionaryContainer = ({ children }) => {
         },
         getWordCount: (german) => wordCounts[german] ?? 0,
         usedWord: (german) => {
-          if (dictionary[german] || dictionary[german[0].toUpperCase() + german.substring(1)]) {
+          if (
+            dictionary[german] ||
+            dictionary[german[0].toUpperCase() + german.substring(1)]
+          ) {
             setWordCounts((c) => ({ ...c, [german]: (c[german] ?? 0) + 1 }));
             return true;
           }
           return false;
         },
         hasWord: (german) => {
-          return (dictionary[german] || dictionary[german[0].toUpperCase() + german.substring(1)]);
+          return (
+            dictionary[german] ||
+            dictionary[german[0].toUpperCase() + german.substring(1)]
+          );
         },
         progress: () => {
           return [
