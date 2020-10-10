@@ -1,50 +1,46 @@
 import {
   Button,
   ButtonGroup,
-  Checkbox,
   CircularProgress,
-  FilledInput,
   FormControl,
   IconButton,
-  Input,
   InputAdornment,
   InputLabel,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   OutlinedInput,
-  TextField,
   Typography,
 } from "@material-ui/core";
 import { PlaylistAdd, PlaylistAddCheck, Send } from "@material-ui/icons";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Camera from "react-html5-camera-photo";
 import "react-html5-camera-photo/build/css/index.css";
-import { translate } from "./Dictionary";
+import { Dictionary, translate } from "./Dictionary";
 
 export function Translate() {
+  const { addWord, hasWord } = useContext(Dictionary);
   const [loading, setLoading] = useState(false);
   const [text, setText] = useState("");
   const [translatedText, setTranslatedText] = useState("");
   const [textToTranslate, setTextToTranslate] = useState("");
   const [targetLanguageCode, setTargetLanguageCode] = useState("de");
-  const [wordAdded, setWordAdded] = useState(false);
 
   const translateText = async () => {
     try {
       setLoading(true);
-      setWordAdded(false);
       setTranslatedText(await translate(textToTranslate, "en"));
     } finally {
       setLoading(false);
     }
   };
 
-  const addWord = () => {
-    setWordAdded(true);
-    // TODO add to dict via corinnas code
+  const addNewWord = () => {
+    addWord(
+      targetLanguageCode === "de" ? translatedText : textToTranslate,
+      targetLanguageCode === "de" ? textToTranslate : translatedText
+    );
   };
+  const hasTheWord =
+    (targetLanguageCode === "de" ? translatedText : textToTranslate) &&
+    hasWord(targetLanguageCode === "de" ? translatedText : textToTranslate);
 
   return (
     <div>
@@ -55,8 +51,12 @@ export function Translate() {
             <div style={{ display: "flex", alignItems: "center" }}>
               <Typography variant="h5">{translatedText}</Typography>
               <div style={{ flexGrow: 1 }}></div>
-              <IconButton disabled={wordAdded} onClick={addWord}>
-                {wordAdded ? <PlaylistAddCheck /> : <PlaylistAdd />}
+              <IconButton
+                disabled={hasTheWord}
+                onClick={addNewWord}
+                tooltip="Add to vocabulary"
+              >
+                {hasTheWord ? <PlaylistAddCheck /> : <PlaylistAdd />}
               </IconButton>
             </div>
           </>
