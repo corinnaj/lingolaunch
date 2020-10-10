@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useState } from "react";
 import { motion } from "framer-motion";
 import { TextField } from "@material-ui/core";
 import { Dictionary } from "./Dictionary";
@@ -16,10 +16,14 @@ export const T = ({ german, english }) => {
     return false;
   };
 
+  const colors = ["emerald", "gold", "silver", "bronze"];
+
   return (
     <span style={{ position: "relative" }}>
       <motion.span
-        className="partial-translation"
+        className={
+          "partial-translation " + (colors[getWord(german)] ?? "completed")
+        }
         onClick={() => setOpened(true)}
         whileHover={{ scale: [1, 1.1] }}
         transition={{

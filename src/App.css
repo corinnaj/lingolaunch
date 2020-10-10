@@ -14,7 +14,6 @@
     cursor: pointer;
     display: inline-block;
     padding: 0.25em 0.5em;
-    border: 3px solid rgb(18, 133, 37);
     border-radius: 5px;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
     position: relative;
@@ -25,12 +24,6 @@
     content: "";
     display: block;
     position: absolute;
-    background: linear-gradient(120deg,
-        rgb(217, 241, 218),
-        rgb(15, 206, 15) 50%,
-        /* rgb(255, 255, 255) 52%, */
-        rgb(105, 192, 65) 57%,
-        rgb(46, 104, 19));
     opacity: 0.5;
     width: 100%;
     height: 100%;
@@ -38,6 +31,71 @@
     left: 0;
     box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.9), inset 0 2px 1px white;
 }
+
+.partial-translation.emerald {
+    border: 3px solid rgb(18, 133, 37);
+}
+.partial-translation.emerald:after {
+    background: linear-gradient(120deg,
+        rgb(217, 241, 218),
+        rgb(15, 206, 15) 50%,
+        /* rgb(255, 255, 255) 52%, */
+        rgb(105, 192, 65) 57%,
+        rgb(46, 104, 19));
+}
+
+.partial-translation.gold {
+    border: 3px solid rgb(255, 217, 0);
+}
+.partial-translation.gold:after {
+    background: linear-gradient(120deg,
+        rgb(245, 243, 123),
+        rgb(236, 204, 22) 50%,
+        rgb(236, 178, 20) 57%,
+        rgb(214, 162, 49));
+}
+
+.partial-translation.silver {
+    border: 3px solid rgba(226, 226, 226, 0.959);
+}
+.partial-translation.silver:after {
+    background: linear-gradient(120deg,
+        rgb(214, 214, 214),
+        rgb(170, 170, 169) 50%,
+        rgb(187, 187, 187) 57%,
+        rgb(85, 85, 85));
+}
+
+.partial-translation.silver {
+    border: 3px solid rgba(226, 226, 226, 0.959);
+}
+.partial-translation.silver:after {
+    background: linear-gradient(120deg,
+        rgb(214, 214, 214),
+        rgb(170, 170, 169) 50%,
+        rgb(187, 187, 187) 57%,
+        rgb(85, 85, 85));
+}
+
+.partial-translation.bronze {
+    border: 3px solid rgba(167, 114, 18, 0.959);
+}
+.partial-translation.bronze:after {
+    background: linear-gradient(120deg,
+        rgb(165, 147, 66),
+        rgb(116, 83, 24) 50%,
+        rgb(187, 83, 35) 57%,
+        rgb(83, 32, 17));
+}
+
+.partial-translation.completed {
+    box-shadow: none;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+}
+.partial-translation.completed:after {
+    display: none;
+}
+
 /*.partial-translation:before {
     z-index: -1;
     content: "";
