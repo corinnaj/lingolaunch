@@ -9,12 +9,15 @@ import {
     IconButton,
     ListItemText,
     ListItemSecondaryAction,
+    Snackbar,
+    Button
 } from "@material-ui/core";
 import { Dictionary, translate } from "./Dictionary.js";
 import Confetti from "react-dom-confetti";
 import { T } from "./PartialTranslationParagraph";
 import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
 import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
+import CloseIcon from "@material-ui/icons/Close";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -56,6 +59,7 @@ export default function ShoppingList() {
     const [newItem, setNewItem] = useState('');
     const { usedWord, hasWord, addWord } = useContext(Dictionary);
     const [success, setSuccess] = useState(false);
+    const [open, setOpen] = useState(false);
 
     const handleToggle = (value) => () => {
         const currentIndex = checked.indexOf(value);
@@ -71,6 +75,11 @@ export default function ShoppingList() {
     };
 
     async function submit() {
+        if (items.includes(newItem)) {
+            setNewItem("");
+            setOpen(true);
+            return;
+        }
         let translation
         if (usedWord(newItem)) {
             setSuccess(true);
@@ -152,6 +161,26 @@ export default function ShoppingList() {
                 onChange={(event) => setNewItem(event.target.value)}
                 onKeyPress={handleKeyPress}
                 autoFocus={true}
+            />
+            <Snackbar
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                }}
+                open={open}
+                autoHideDuration={4000}
+                onClose={() => setOpen(false)}
+                message="Items already exists"
+                action={
+                    <>
+                        <Button color="secondary" size="small" onClick={() => setOpen(false)}>
+                            Close
+                        </Button>
+                        <IconButton size="small" aria-label="close" color="inherit" onClick={() => setOpen(false)}>
+                            <CloseIcon fontSize="small" />
+                        </IconButton>
+                    </>
+                }
             />
         </div>
     );
