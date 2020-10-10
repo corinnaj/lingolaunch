@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
   section: {
     padding: theme.spacing(1),
-    margin: "2rem",
+    margin: "3rem",
   },
   bullet: {
     display: "inline-block",
@@ -41,9 +41,10 @@ const useStyles = makeStyles((theme) => ({
   avatar_root: {
     "& > *": {
       fontSize: 10,
+      padding: theme.spacing(0.65),
       margin: theme.spacing(1),
-      width: theme.spacing(12),
-      height: theme.spacing(12),
+      width: theme.spacing(11),
+      height: theme.spacing(11),
     },
   },
   wordRow: {
@@ -104,7 +105,15 @@ function Dashboard() {
       </div>
 
       <div className={classes.section}>
-        <div className={classes.avatar_root}>
+        <div
+          className={classes.avatar_root}
+          style={{
+            alignItems: "center",
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
           <Fab
             color="primary"
             component={Link}
