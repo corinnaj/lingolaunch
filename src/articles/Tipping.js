@@ -1,0 +1,1 @@
+export const tippingImage = "https://ais.badische-zeitung.de/piece/09/3a/f6/13/154859027-h-720.jpg";

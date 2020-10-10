@@ -17,7 +17,7 @@ import { T } from "./PartialTranslationParagraph";
 import { DictionaryContainer } from "./Dictionary";
 import { lightGreen } from "@material-ui/core/colors";
 import { ApplePie } from "./articles/ApplePie";
-import { CaptnBluebear } from "./articles/CaptnBluebear";
+import { CapitainBluebear } from "./articles/CapitainBluebear";
 import { ArticleList } from "./ArticleList";
 
 const theme = createMuiTheme({
@@ -66,7 +66,7 @@ function App() {
                 <ApplePie />
               </Route>
               <Route exact path="/articles/bluebear">
-                <CaptnBluebear />
+                <CapitainBluebear />
               </Route>
               <Route exact path="/article">
                 <Container>

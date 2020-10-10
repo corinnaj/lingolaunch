@@ -122,3 +122,9 @@ body {
 .confetti-wrapper, .confetti-wrapper > div {
     display: inline-block;
 }
+
+.coverImage {
+    width: calc(100% + 32px);
+    margin-left: -16px;
+    margin-right: -16px;
+}
