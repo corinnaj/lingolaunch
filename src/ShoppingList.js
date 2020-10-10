@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { Translate } from '@material-ui/icons';
 import { TextField, Checkbox, List, ListItem, ListItemIcon, IconButton, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
+import { Dictionary } from "./Dictionary.js";
 
 const useStyles = makeStyles((theme) =>
     ({
@@ -28,6 +29,7 @@ export default function ShoppingList() {
     const [checked, setChecked] = React.useState([0]);
     const [items, setItems] = React.useState([])
     const [newItem, setNewItem] = React.useState('');
+    const { usedWord } = useContext(Dictionary);
 
     const handleToggle = (value) => () => {
         const currentIndex = checked.indexOf(value);
@@ -43,6 +45,9 @@ export default function ShoppingList() {
     };
 
     function submit() {
+        if (usedWord(newItem)) {
+            console.log("WELL DONE");
+        }
         setItems([...items, newItem]);
         setNewItem('');
     }

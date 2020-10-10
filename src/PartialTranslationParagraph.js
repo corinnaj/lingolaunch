@@ -2,13 +2,30 @@ import React, { useContext, useState } from "react";
 import { motion } from "framer-motion";
 import { TextField } from "@material-ui/core";
 import { Dictionary } from "./Dictionary";
+import Confetti from "react-dom-confetti";
+
+const confettiConfig = {
+  angle: "78",
+  spread: "164",
+  startVelocity: "23",
+  elementCount: "55",
+  dragFriction: 0.12,
+  duration: 1500,
+  stagger: "0",
+  width: "10px",
+  height: "10px",
+  perspective: "500px",
+  colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
+};
 
 export const T = ({ w: german }) => {
   const [opened, setOpened] = useState(false);
   const { confirmWord, getWordCount } = useContext(Dictionary);
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = (answer) => {
     if (confirmWord(german, answer)) {
+      setSuccess(true);
       setOpened(false);
       return true;
     }
@@ -23,17 +40,24 @@ export const T = ({ w: german }) => {
         className={
           "partial-translation " + (colors[getWordCount(german)] ?? "completed")
         }
-        onClick={() => setOpened(true)}
-        whileHover={{ scale: [1, 1.1] }}
+        onClick={() => !success && setOpened((o) => !o)}
+        whileHover={{ scale: [1, 1.2] }}
         transition={{
           ease: "linear",
           repeat: 4,
-          duration: 0.3,
+          duration: 0.35,
           repeatType: "reverse",
         }}
       >
         {german}
       </motion.span>
+      <div class="confetti-wrapper">
+        <Confetti
+          style={{ position: "absolute" }}
+          active={success}
+          config={confettiConfig}
+        />
+      </div>
       {opened && <PartialTranslationOverlay onSubmit={handleSubmit} />}
     </span>
   );
