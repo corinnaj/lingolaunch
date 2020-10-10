@@ -8,6 +8,7 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,6 +36,10 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontSize: 14,
   },
+  wordRow: {
+    display: "flex",
+    alignItems: "center",
+  },
 }));
 
 function Dashboard() {
@@ -44,50 +49,35 @@ function Dashboard() {
   return (
     <div>
       <div className={classes.section}>
-        <Typography
-          className={classes.title}
-          color="textSecondary"
-          gutterBottom
-        >
+        <Typography className={classes.title} color="textSecondary">
           Word of the Day
         </Typography>
-        <Typography variant="h5">
-          be{bull}nev{bull}o{bull}lent
-        </Typography>
+        <div className={classes.wordRow}>
+          <Typography variant="h5">A{bull}pfel</Typography>
+          <div style={{ fontSize: "2rem", marginLeft: "0.5rem" }}>🍏</div>
+        </div>
         <Typography className={classes.pos} color="textSecondary">
-          adjective
+          noun, fruit
         </Typography>
-        <Button size="small">Learn More</Button>
       </div>
 
       <Divider variant="middle" />
 
       <div className={classes.section}>
-        <Card>
+        <Card elevation={4}>
           <CardContent>
-            <Typography
-              className={classes.title}
-              color="textSecondary"
-              gutterBottom
-            >
+            <Typography variant="h4" gutterBottom>
               Tips for Tipping
             </Typography>
-            <Typography variant="body1" component="h2">
+            <Typography variant="body1">
               Turns out, the Deutsche do not like to zahl proper Geld to their
               staff in Restaurants. Thus, you have to do it.{" "}
-              <a href="#">Read More...</a>
+              <Link to="/article/tipping">Read More...</Link>
             </Typography>
           </CardContent>
-          <CardActions>
-            <Button size="small">Learn More</Button>
-          </CardActions>
         </Card>
       </div>
       <Divider variant="middle" />
-      <div className={classes.section}>
-        <Typography variant="h6">Word of the day:</Typography>
-        <Typography variant="body1">Apfelkuchen</Typography>
-      </div>
     </div>
   );
 }
