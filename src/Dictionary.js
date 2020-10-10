@@ -4,6 +4,7 @@ export const Dictionary = createContext({
   confirmWord: (german, guess) => false,
   getWordCount: (german) => 0,
   usedWord: (german) => false,
+  progress: () => [0, 0],
 });
 
 const dictionary = {
@@ -54,6 +55,9 @@ export const DictionaryContainer = ({ children }) => {
             return true;
           }
           return false;
+        },
+        progress: () => {
+          return [Object.values(wordCounts).filter((count) => count > 3).length, Object.keys(dictionary).length]
         }
       }}
     >
