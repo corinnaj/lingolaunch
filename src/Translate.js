@@ -1,48 +1,70 @@
 import {
   Checkbox,
   CircularProgress,
+  FormControl,
+  IconButton,
+  Input,
+  InputAdornment,
+  InputLabel,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
+  TextField,
   Typography,
 } from "@material-ui/core";
+import { Send } from "@material-ui/icons";
 import React, { useState } from "react";
 import Camera from "react-html5-camera-photo";
 import "react-html5-camera-photo/build/css/index.css";
-import Confetti from "react-dom-confetti";
-import { confettiConfig } from "./PartialTranslationParagraph";
+import { dictionary } from "./Dictionary";
 
 export function Translate() {
-  const tasks = [
-    {
-      check: (text) => text.toLowerCase().includes("straße"),
-      label: 'Take a photo of a label containing "Straße"',
-    },
-    {
-      check: (text) => text.toLowerCase().includes("weg"),
-      label: 'Take a photo of a label containing "Weg"',
-    },
-  ];
-
-  const [completed, setCompleted] = useState(() => {
-    const bools = [];
-    for (let i = 0; i < tasks.length; i++) bools.push(false);
-    return bools;
-  });
-
   const [loading, setLoading] = useState(false);
   const [text, setText] = useState("");
   const [translatedText, setTranslatedText] = useState("");
+  const [textToTranslate, setTextToTranslate] = useState("");
+
+  const translateText = async () => {
+    try {
+      setLoading(true);
+      setTranslatedText(await dictionary.translate(textToTranslate));
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div
-      style={{
-        background: "#000",
-        color: "#fff",
-        minHeight: "calc(100vh - 56px)",
-      }}
-    >
+    <div>
+      {translatedText && <>Translated: {translatedText}</>}
+      {loading && (
+        <div>
+          <CircularProgress />
+        </div>
+      )}
+
+      <div style={{ padding: "1rem" }}>
+        <FormControl className={clsx(classes.margin, classes.textField)}>
+          <InputLabel>Password</InputLabel>
+          <Input
+            label="Enter Text to translate ..."
+            variant="outlined"
+            fullWidth
+            value={textToTranslate}
+            onChange={(e) => setTextToTranslate(e.target.value)}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton onClick={translateText}>
+                  <Send />
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
+      </div>
+
+      <div style={{ padding: "1rem" }}>Or take a picture ...</div>
+
       <Camera
         onTakePhoto={(dataUri) => {
           setLoading(true);
@@ -59,48 +81,10 @@ export function Translate() {
               setText(json.text);
               setTranslatedText(json.translation);
               setLoading(false);
-              console.log(json);
-              for (var i = 0; i < tasks.length; i++) {
-                if (!completed[i] && tasks[i].check(json.text))
-                  setCompleted((list) =>
-                    list.map((c, index) => (index === i ? !c : c))
-                  );
-              }
             });
         }}
       />
-
-      <div style={{ padding: "3rem" }}>
-        <p>
-          {loading && (
-            <div>
-              <CircularProgress />
-            </div>
-          )}
-          {text && <>Found Text: {text}</>}
-          <br />
-          {translatedText && <>Translated: {translatedText}</>}
-        </p>
-
-        <Typography variant="h4">Your current Tasks:</Typography>
-        <List>
-          {tasks.map(({ label }, index) => (
-            <ListItem key={label} dense>
-              <ListItemIcon>
-                <Checkbox edge="start" checked={completed[index]} readOnly />
-              </ListItemIcon>
-              <div className="confetti-wrapper">
-                <Confetti
-                  style={{ position: "absolute" }}
-                  active={completed[index]}
-                  config={confettiConfig}
-                />
-              </div>
-              <ListItemText primary={label} />
-            </ListItem>
-          ))}
-        </List>
-      </div>
+      <div>{text && <>Found Text: {text}</>}</div>
     </div>
   );
 }

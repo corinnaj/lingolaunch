@@ -12,8 +12,8 @@ const translate = new Translate();
 
 const app = express();
 
-async function translateText(text) {
-  const [translation] = await translate.translate(text, "en");
+async function translateText(text, targetLanguageCode) {
+  const [translation] = await translate.translate(text, targetLanguageCode);
   return translation;
 }
 
@@ -28,7 +28,7 @@ async function translateImage(imageBuffer) {
     [translateDetection] = translateDetection;
   }*/
 
-  const [translation] = await translate.translate(text, "de");
+  const [translation] = await translate.translate(text, "en");
   console.log(`Translated Text:`, translation);
 
   return { translation, text };
@@ -50,7 +50,12 @@ app.post("/upload-image", async (req, res) => {
 
 app.post("/translate", async (req, res) => {
   try {
-    res.send({ translated: await translateText(req.body.text) });
+    res.send({
+      translated: await translateText(
+        req.body.text,
+        req.body.targetLanguageCode
+      ),
+    });
   } catch (err) {
     console.log(err);
     res.status(500).send(err);

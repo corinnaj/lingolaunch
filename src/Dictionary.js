@@ -1,11 +1,11 @@
 import React, { createContext, useState, useEffect, useCallback } from "react";
 
-export const translate = (text) =>
+export const translate = (text, targetLanguageCode) =>
   window
     .fetch("http://localhost:8000/translate", {
       method: "post",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text }),
+      body: JSON.stringify({ text, targetLanguageCode }),
     })
     .then((res) => res.json())
     .then((json) => json.translated);
