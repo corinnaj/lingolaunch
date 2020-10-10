@@ -10,6 +10,7 @@ import {
 import "./App.css";
 import Dashboard from "./Dashboard.js";
 import ShoppingList from "./ShoppingList.js";
+import bundeseagleIcon from "./bundeseagle-icon.svg";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -55,6 +56,7 @@ function App() {
             <Typography variant="h6" style={{ flexGrow: 1 }}>
               LingoLaunch
             </Typography>
+            <img src={bundeseagleIcon} />
           </Toolbar>
         </AppBar>
         <Router>
