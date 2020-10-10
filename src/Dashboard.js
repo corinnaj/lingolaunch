@@ -2,12 +2,14 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Divider, Card, CardContent } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { deepOrange, deepPurple } from '@material-ui/core/colors';
-import Fab from '@material-ui/core/Fab';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import MusicNoteIcon from '@material-ui/icons/MusicNote';
-import SpellcheckIcon from '@material-ui/icons/Spellcheck';
-import TranslateIcon from '@material-ui/icons/Translate';
+import { deepOrange, deepPurple } from "@material-ui/core/colors";
+import Fab from "@material-ui/core/Fab";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import MusicNoteIcon from "@material-ui/icons/MusicNote";
+import SpellcheckIcon from "@material-ui/icons/Spellcheck";
+import TranslateIcon from "@material-ui/icons/Translate";
+import bundeseagle from "./bundeseagle.svg";
+console.log(bundeseagle);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 14,
   },
   avatar_root: {
-    '& > *': {
+    "& > *": {
       fontSize: 10,
       margin: theme.spacing(1),
       width: theme.spacing(12),
@@ -54,7 +56,15 @@ function Dashboard() {
   const bull = <span className={classes.bullet}>•</span>;
 
   return (
-    <div>
+    <div
+      style={{
+        backgroundImage: `url(${bundeseagle})`,
+        backgroundSize: "contain",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "bottom left",
+        minHeight: "100vh",
+      }}
+    >
       <div className={classes.section}>
         <Typography className={classes.title} color="textSecondary">
           Word of the Day
@@ -105,8 +115,6 @@ function Dashboard() {
           Translate
         </Fab>
       </div>
-
-      <Divider variant="middle" />
     </div>
   );
 }
