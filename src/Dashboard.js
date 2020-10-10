@@ -73,12 +73,21 @@ function Dashboard() {
           Word of the Day
         </Typography>
         <div className={classes.wordRow}>
+          <Typography variant="h5">Ge{bull}sund{bull}heit</Typography>
+          <div style={{ fontSize: "2rem", marginLeft: "0.5rem" }}>🤧</div>
+        </div>
+        <Typography className={classes.pos} color="textSecondary">
+          noun
+        </Typography>
+
+        {false && <><div className={classes.wordRow}>
           <Typography variant="h5">Ap{bull}fel</Typography>
           <div style={{ fontSize: "2rem", marginLeft: "0.5rem" }}>🍏</div>
         </div>
-        <Typography className={classes.pos} color="textSecondary">
-          noun, fruit
+          <Typography className={classes.pos} color="textSecondary">
+            noun, fruit
         </Typography>
+        </>}
       </div>
 
       <div className={classes.section}>
