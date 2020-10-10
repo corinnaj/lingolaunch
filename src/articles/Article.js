@@ -7,13 +7,17 @@ import { Dictionary } from "../Dictionary";
 const processChildString = (string, dictionary) => {
   const englishWords = new RegExp(
     "\\b(" +
-    Object.values(dictionary)
-      .map((d) => d.en)
-      .join("|") +
-    ")\\b"
+      Object.values(dictionary)
+        .map((d) => d.en)
+        .join("|") +
+      ")(s?\\b)",
+    "i"
   );
   const reverseMap = Object.fromEntries(
-    Object.entries(dictionary).map(([german, { en }]) => [en, german])
+    Object.entries(dictionary).map(([german, { en }]) => [
+      en.toLowerCase(),
+      german,
+    ])
   );
   const output = [];
 
@@ -23,11 +27,13 @@ const processChildString = (string, dictionary) => {
   let result = englishWords.exec(processedInput);
   while (result !== null) {
     const matchStartAt = result.index;
-    const match = result[0];
+    const match = result[1];
     const contentBeforeMatch = processedInput.substring(0, matchStartAt);
 
     output.push(contentBeforeMatch);
-    output.push(React.createElement(T, { w: reverseMap[match], key }));
+    output.push(
+      React.createElement(T, { w: reverseMap[match.toLowerCase()], key })
+    );
 
     processedInput = processedInput.substring(
       matchStartAt + match.length,
@@ -78,8 +84,12 @@ export const Article = ({ title, children, image }) => {
     <Container>
       <img className="coverImage" src={image} />
       <div style={{ padding: "2rem" }}>
-        <Typography variant="h4" style={styleObject}>{title}</Typography>
-        <div style={{ fontSize: "1.1rem", lineHeight: "1.7rem" }}>{tagChildList(children, dictionary)}</div>
+        <Typography variant="h4" style={styleObject}>
+          {title}
+        </Typography>
+        <div style={{ fontSize: "1.1rem", lineHeight: "1.7rem" }}>
+          {tagChildList(children, dictionary)}
+        </div>
         <div style={{ height: "1.5rem" }}></div>
       </div>
     </Container>
