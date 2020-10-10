@@ -1,29 +1,37 @@
 import React, { useState, useContext } from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import { Translate } from '@material-ui/icons';
-import { TextField, Checkbox, List, ListItem, ListItemIcon, IconButton, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
+import { makeStyles } from "@material-ui/core/styles";
+import { Translate } from "@material-ui/icons";
+import {
+    TextField,
+    Checkbox,
+    List,
+    ListItem,
+    ListItemIcon,
+    IconButton,
+    ListItemText,
+    ListItemSecondaryAction,
+} from "@material-ui/core";
 import { Dictionary } from "./Dictionary.js";
 import Confetti from "react-dom-confetti";
+import { T } from "./PartialTranslationParagraph";
 
-const useStyles = makeStyles((theme) =>
-    ({
-        container: {
-            display: 'flex',
-            width: '100%',
-            alignItems: 'center',
-            flexDirection: 'column',
-        },
-        list: {
-            maxWidth: 360,
-            width: '100%',
-            backgroundColor: theme.palette.background.paper,
-        },
-        input: {
-            maxWidth: 360,
-            width: '90%',
-        },
-    }),
-);
+const useStyles = makeStyles((theme) => ({
+    container: {
+        display: "flex",
+        width: "100%",
+        alignItems: "center",
+        flexDirection: "column",
+    },
+    list: {
+        maxWidth: 360,
+        width: "100%",
+        backgroundColor: theme.palette.background.paper,
+    },
+    input: {
+        maxWidth: 360,
+        width: "90%",
+    },
+}));
 
 const confettiConfig = {
     angle: "78",
@@ -44,7 +52,7 @@ export default function ShoppingList() {
     const [checked, setChecked] = useState([0]);
     const [items, setItems] = useState([])
     const [newItem, setNewItem] = useState('');
-    const { usedWord } = useContext(Dictionary);
+    const { usedWord, hasWord } = useContext(Dictionary);
     const [success, setSuccess] = useState(false);
 
     const handleToggle = (value) => () => {
@@ -66,15 +74,20 @@ export default function ShoppingList() {
             setTimeout(() => setSuccess(false));
         }
         setItems([...items, newItem]);
-        setNewItem('');
+        setNewItem("");
     }
 
     function handleKeyPress(event) {
-        if (event.key === 'Enter') {
+        if (event.key === "Enter") {
             submit();
         }
     }
 
+    function showWord(word, labelId) {
+        if (hasWord(word)) return (<T w={word} readonly />);
+        else return (
+            <ListItemText id={labelId} primary={word} />);
+    }
 
     return (
         <div className={classes.container}>
@@ -93,7 +106,7 @@ export default function ShoppingList() {
                                     inputProps={{ 'aria-labelledby': labelId }}
                                 />
                             </ListItemIcon>
-                            <ListItemText id={labelId} primary={value} />
+                            {showWord(value, labelId)}
                             <ListItemSecondaryAction>
                                 <IconButton edge="end" aria-label="comments">
                                     <Translate />
@@ -108,7 +121,14 @@ export default function ShoppingList() {
                 active={success}
                 config={confettiConfig}
             />
-            <TextField className={classes.input} value={newItem} onChange={(event) => setNewItem(event.target.value)} onKeyPress={handleKeyPress} autoFocus={true} />
+            <TextField
+                label="Your item ... (try to type it in German!)"
+                className={classes.input}
+                value={newItem}
+                onChange={(event) => setNewItem(event.target.value)}
+                onKeyPress={handleKeyPress}
+                autoFocus={true}
+            />
         </div>
     );
 }

@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
   section: {
     padding: theme.spacing(1),
-    marginLeft: "5px",
+    margin: "3rem",
   },
   bullet: {
     display: "inline-block",
@@ -41,9 +41,10 @@ const useStyles = makeStyles((theme) => ({
   avatar_root: {
     "& > *": {
       fontSize: 10,
+      padding: theme.spacing(0.65),
       margin: theme.spacing(1),
-      width: theme.spacing(12),
-      height: theme.spacing(12),
+      width: theme.spacing(11),
+      height: theme.spacing(11),
     },
   },
   wordRow: {
@@ -79,8 +80,6 @@ function Dashboard() {
         </Typography>
       </div>
 
-      <Divider variant="middle" />
-
       <div className={classes.section}>
         <Card elevation={4}>
           <CardContent>
@@ -96,32 +95,62 @@ function Dashboard() {
         </Card>
       </div>
 
-      <Divider variant="middle" />
-
       <div className={classes.section}>
-        <Typography variant="body1">Your Progress:</Typography>
-        <ProgressBarExample />
+        <Card elevation={4}>
+          <CardContent>
+            <Typography variant="body1">Your Progress:</Typography>
+            <ProgressBarExample />
+          </CardContent>
+        </Card>
       </div>
 
-      <Divider variant="middle" />
-
-      <div className={classes.avatar_root}>
-        <Fab color="primary" href="./shopping" className="icon-button">
-          <ShoppingCartIcon />
-          Shopping List
-        </Fab>
-        <Fab color="secondary" href="./articles" className="icon-button">
-          <MusicNoteIcon />
-          Learn About Culture
-        </Fab>
-        <Fab color="primary" href="./shopping" className="icon-button">
-          <SpellcheckIcon />
-          Check Your Vocab
-        </Fab>
-        <Fab color="secondary" href="./translate" className="icon-button">
-          <TranslateIcon />
-          Translate
-        </Fab>
+      <div className={classes.section}>
+        <div
+          className={classes.avatar_root}
+          style={{
+            alignItems: "center",
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
+          <Fab
+            color="primary"
+            component={Link}
+            to="./shopping"
+            className="icon-button"
+          >
+            <ShoppingCartIcon />
+            Shopping List
+          </Fab>
+          <Fab
+            color="secondary"
+            to="/articles"
+            component={Link}
+            className="icon-button"
+          >
+            <MusicNoteIcon />
+            Learn About Culture
+          </Fab>
+          <Fab
+            color="primary"
+            component={Link}
+            to="/shopping"
+            className="icon-button"
+          >
+            <SpellcheckIcon />
+            Check Your Vocab
+          </Fab>
+          <Fab
+            color="secondary"
+            component={Link}
+            to="/translate"
+            className="icon-button"
+          >
+            <TranslateIcon />
+            Translate
+          </Fab>
+        </div>
       </div>
     </div>
   );
