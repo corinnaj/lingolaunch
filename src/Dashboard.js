@@ -2,15 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Divider, Card, CardContent } from "@material-ui/core";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
-import { deepOrange, deepPurple } from '@material-ui/core/colors';
-import Fab from '@material-ui/core/Fab';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import MusicNoteIcon from '@material-ui/icons/MusicNote';
-import SpellcheckIcon from '@material-ui/icons/Spellcheck';
-import TranslateIcon from '@material-ui/icons/Translate';
-import ProgressBar from "./ProgressBar.js"
-=======
+
 import { deepOrange, deepPurple } from "@material-ui/core/colors";
 import Fab from "@material-ui/core/Fab";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
@@ -18,8 +10,8 @@ import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import SpellcheckIcon from "@material-ui/icons/Spellcheck";
 import TranslateIcon from "@material-ui/icons/Translate";
 import bundeseagle from "./bundeseagle.svg";
+import ProgressBarExample from "./ProgressBar.js"
 console.log(bundeseagle);
->>>>>>> 4c61b1773874a0c629934cded42506aedae88faa
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -105,15 +97,15 @@ function Dashboard() {
         </Card>
       </div>
 
-<<<<<<< HEAD
-      <Divider variant="middle"/>
-        <ProgressBar />
-      <Divider variant="middle"/>
-      
-=======
       <Divider variant="middle" />
 
->>>>>>> 4c61b1773874a0c629934cded42506aedae88faa
+      <div className={classes.section}> 
+        <Typography variant="body1">Your Progress:</Typography>
+        <ProgressBarExample />
+      </div>
+
+      <Divider variant="middle" />
+
       <div className={classes.avatar_root}>
         <Fab color="primary" href="./shopping" className="icon-button">
           <ShoppingCartIcon />
