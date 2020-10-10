@@ -19,9 +19,11 @@ import { DictionaryContainer } from "./Dictionary";
 import { lightGreen } from "@material-ui/core/colors";
 import { ApplePie } from "./articles/ApplePie";
 import { CapitainBluebear } from "./articles/CapitainBluebear";
+import { Kangaroo } from "./articles/Kangaroo";
 import { ArticleList } from "./ArticleList";
 import { Translate } from "./Translate";
 import { Welcome } from "./Welcome";
+import { PictureGame } from "./PictureGame";
 
 const theme = createMuiTheme({
   typography: {
@@ -78,6 +80,9 @@ function App() {
               <Route exact path="/articles/bluebear">
                 <CapitainBluebear />
               </Route>
+              <Route exact path="/articles/kangaroo">
+                <Kangaroo />
+              </Route>
               <Route exact path="/article">
                 <Container>
                   <Typography variant="h3">Apple Pie Recipe</Typography>
@@ -91,6 +96,9 @@ function App() {
               </Route>
               <Route path="/articles">
                 <ArticleList />
+              </Route>
+              <Route path="/picture-game">
+                <PictureGame />
               </Route>
               <Route path="/translate">
                 <Translate />

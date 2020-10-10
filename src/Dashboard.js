@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Divider, Card, CardContent } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
-import { deepOrange, deepPurple } from "@material-ui/core/colors";
+import { blue, deepOrange, deepPurple } from "@material-ui/core/colors";
 import Fab from "@material-ui/core/Fab";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import MusicNoteIcon from "@material-ui/icons/MusicNote";
@@ -11,6 +11,7 @@ import SpellcheckIcon from "@material-ui/icons/Spellcheck";
 import TranslateIcon from "@material-ui/icons/Translate";
 import bundeseagle from "./bundeseagle.svg";
 import ProgressBarExample from "./ProgressBar.js";
+import { CameraEnhance } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -149,6 +150,10 @@ function Dashboard() {
           >
             <TranslateIcon />
             Translate
+          </Fab>
+          <Fab component={Link} to="/picture-game" className="icon-button">
+            <CameraEnhance />
+            Picture Game
           </Fab>
         </div>
       </div>

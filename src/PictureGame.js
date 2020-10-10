@@ -1,4 +1,5 @@
 import {
+  Button,
   Checkbox,
   CircularProgress,
   List,
@@ -12,19 +13,70 @@ import Camera from "react-html5-camera-photo";
 import "react-html5-camera-photo/build/css/index.css";
 import Confetti from "react-dom-confetti";
 import { confettiConfig } from "./PartialTranslationParagraph";
+import { AddShoppingCart, Apartment } from "@material-ui/icons";
 
-export function Translate() {
-  const tasks = [
+export function PictureGame() {
+  const [tasks, setTasks] = useState(null);
+
+  const challenges = [
     {
-      check: (text) => text.toLowerCase().includes("straße"),
-      label: 'Take a photo of a label containing "Straße"',
+      title: "A Walk Through the Streets",
+      icon: () => <Apartment />,
+      tasks: [
+        {
+          check: (text) => text.toLowerCase().includes("straße"),
+          label: 'Take a photo of a label containing "Straße"',
+        },
+        {
+          check: (text) => text.toLowerCase().includes("weg"),
+          label: 'Take a photo of a label containing "Weg"',
+        },
+      ],
     },
     {
-      check: (text) => text.toLowerCase().includes("weg"),
-      label: 'Take a photo of a label containing "Weg"',
+      title: "Skimming the Supermarket",
+      icon: () => <AddShoppingCart />,
+      tasks: [
+        {
+          check: (text) => text.toLowerCase().includes("käse"),
+          label: 'Take a photo of a label containing "Käse"',
+        },
+        {
+          check: (text) => text.toLowerCase().includes("wurst"),
+          label: 'Take a photo of a label containing "Wurst"',
+        },
+      ],
     },
   ];
 
+  return tasks ? (
+    <PictureGameTasks tasks={tasks} />
+  ) : (
+    <div
+      style={{
+        background: "#000",
+        color: "#fff",
+        minHeight: "calc(100vh - 56px)",
+        overflow: "hidden",
+      }}
+    >
+      <Typography style={{ margin: "2rem" }} variant="h4">
+        Pick Your Challenge!
+      </Typography>
+      {challenges.map((challenge) => (
+        <Button
+          variant="contained"
+          onClick={() => setTasks(challenge.tasks)}
+          style={{ margin: "1rem 2rem" }}
+        >
+          {challenge.icon()} {challenge.title}
+        </Button>
+      ))}
+    </div>
+  );
+}
+
+function PictureGameTasks({ tasks }) {
   const [completed, setCompleted] = useState(() => {
     const bools = [];
     for (let i = 0; i < tasks.length; i++) bools.push(false);

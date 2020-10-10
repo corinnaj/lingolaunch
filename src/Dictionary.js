@@ -31,7 +31,12 @@ export const dictionary = {
   Himmel: { en: "sky", wrong: ["hell", "sea", "land", "island"] },
   nicht: { en: "not", wrong: ["but", "only", "after", "never"] },
   du: { en: "you", wrong: ["I", "we", "he", "she"] },
-  nur: { en: "just", wrong: ["but", "before", "also", "start"] },
+  Tür: { en: "door", wrong: [] },
+  weil: { en: "because", wrong: [] },
+  Straße: { en: "street", wrong: [] },
+  nur: { en: "only", wrong: ["but", "before", "also", "start"] },
+  Küche: { en: "kitchen", wrong: [] },
+  Kopf: { en: "head", wrong: [] },
 };
 
 export const DictionaryContainer = ({ children }) => {

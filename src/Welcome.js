@@ -23,7 +23,7 @@ export const Welcome = () => {
       >
         Get to know the German Language
       </Typography>
-      <Typography variant="h4">with Bulli the Bundesadler</Typography>
+      <Typography variant="h4">with Billi the Bundesadler</Typography>
       <img src={bundeseagle} style={{ margin: "3rem 0", width: "100%" }} />
       <Button
         component={Link}
