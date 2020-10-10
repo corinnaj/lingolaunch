@@ -11,6 +11,10 @@ import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
 import Fab from '@material-ui/core/Fab';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import MusicNoteIcon from '@material-ui/icons/MusicNote';
+import SpellcheckIcon from '@material-ui/icons/Spellcheck';
+import TranslateIcon from '@material-ui/icons/Translate';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,18 +44,11 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar_root: {
     '& > *': {
+      fontSize: 10,
       margin: theme.spacing(1),
       width: theme.spacing(12),
       height: theme.spacing(12),
     },
-  },
-  orange: {
-    color: theme.palette.getContrastText(deepOrange[500]),
-    backgroundColor: deepOrange[500],
-  },
-  purple: {
-    color: theme.palette.getContrastText(deepPurple[500]),
-    backgroundColor: deepPurple[500],
   },
   wordRow: {
     display: "flex",
@@ -98,19 +95,24 @@ function Dashboard() {
       <Divider variant="middle"/>
       
       <div className={classes.avatar_root}>
-        <Fab color="primary">
+        <Fab color="primary" href="./shopping" className="icon-button">
+          <ShoppingCartIcon />
           Shopping List
         </Fab>
-        <Fab color="secondary">
+        <Fab color="secondary" href="./shopping" className="icon-button">
+          <MusicNoteIcon />
           Learn About Culture
         </Fab>
-        <Fab color="primary">
+        <Fab color="primary" href="./shopping" className="icon-button">
+          <SpellcheckIcon />
           Check Your Vocab
         </Fab>
-        <Fab color="secondary">
-          Translate and OCR
+        <Fab color="secondary" href="./shopping" className="icon-button">
+          <TranslateIcon />
+          Translate
         </Fab>
       </div>
+
       <Divider variant="middle" />
     </div>
   );

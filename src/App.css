@@ -99,6 +99,14 @@ body {
     display: none;
 }
 
+.icon-button .MuiFab-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: bold;
+}
 /*.partial-translation:before {
     z-index: -1;
     content: "";
