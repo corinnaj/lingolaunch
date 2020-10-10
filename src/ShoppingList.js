@@ -71,20 +71,21 @@ export default function ShoppingList() {
     };
 
     async function submit() {
+        let translation
         if (usedWord(newItem)) {
             setSuccess(true);
             setTimeout(() => setSuccess(false));
+            translation = newItem
+        } else {
+            translation = await translate(newItem, "de");
         }
-        var translation = await translate(newItem, "de");
         setItems([...items, newItem]);
         setTranslatedItems([...translatedItems, translation]);
         setNewItem("");
     }
 
     function addWordToDictionary(item, translation) {
-        if (!hasWord(translation)) {
-            addWord(translation, item);
-        }
+        addWord(translation, item);
     }
 
     function handleKeyPress(event) {
@@ -100,7 +101,7 @@ export default function ShoppingList() {
     }
 
     function showButton(item, translatedItem) {
-        if (!translatedItem || !hasWord(translatedItem)) {
+        if (translatedItem && !hasWord(translatedItem)) {
             return <ListItemSecondaryAction onClick={() => addWordToDictionary(item, translatedItem)}>
                 <IconButton>
                     <PlaylistAddIcon />

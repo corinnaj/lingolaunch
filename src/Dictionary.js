@@ -104,7 +104,7 @@ export const DictionaryContainer = ({ children }) => {
           ];
         },
         addWord: (german, english) => {
-          if (!dictionary[german]) return;
+          if (dictionary[german]) return;
           setWordCounts({ ...wordCounts, [german]: 0 });
           setDictionary(d => ({ ...d, [german]: { en: english, wrong: [] } }))
           newWordsDictionary[german] = { en: english };
