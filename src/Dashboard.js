@@ -1,30 +1,28 @@
 import React from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Avatar, AppBar, Toolbar } from "@material-ui/core";
-import Paper from '@material-ui/core/Paper';
-import "./App.css";
-import Grid from '@material-ui/core/Grid';
-import Divider from '@material-ui/core/Divider';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
+import { makeStyles } from "@material-ui/core/styles";
+import { Typography, Avatar } from "@material-ui/core";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
+import Divider from "@material-ui/core/Divider";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width:'100%',
+    width: "100%",
     flexGrow: 1,
   },
   menuButton: {
     marginRight: theme.spacing(0),
   },
-  title: {
-    flexGrow: 1,
-  },
   paper: {
     padding: theme.spacing(0),
-    textAlign: 'center',
+    textAlign: "center",
     color: theme.palette.text.secondary,
     margin: "5px",
   },
@@ -33,9 +31,9 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "5px",
   },
   bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
+    display: "inline-block",
+    margin: "0 2px",
+    transform: "scale(0.8)",
   },
   title: {
     fontSize: 14,
@@ -57,6 +55,10 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
   },
+  wordRow: {
+    display: "flex",
+    alignItems: "center",
+  },
 }));
 
 function Dashboard() {
@@ -65,58 +67,51 @@ function Dashboard() {
 
   return (
     <div>
-      <AppBar position='static'>
-          <Toolbar>
-              <Typography variant="h6" className={classes.title}>LingoLaunch</Typography>
-          </Toolbar>
-      </AppBar>
-      <div>
-        <div className={classes.section}>
-          <Typography className={classes.title} color="textSecondary" gutterBottom>
-            Word of the Day
-          </Typography>
-          <Typography variant="h5">
-            be{bull}nev{bull}o{bull}lent
-          </Typography>
-          <Typography className={classes.pos} color="textSecondary">
-            adjective
-          </Typography>
-          <Button size="small">Learn More</Button>
+      <div className={classes.section}>
+        <Typography className={classes.title} color="textSecondary">
+          Word of the Day
+        </Typography>
+        <div className={classes.wordRow}>
+          <Typography variant="h5">A{bull}pfel</Typography>
+          <div style={{ fontSize: "2rem", marginLeft: "0.5rem" }}>🍏</div>
         </div>
-        
-        <Divider variant="middle"/>
+        <Typography className={classes.pos} color="textSecondary">
+          noun, fruit
+        </Typography>
+      </div>
 
-        <div className={classes.section}>
-        <Card>
+      <Divider variant="middle" />
+
+      <div className={classes.section}>
+        <Card elevation={4}>
           <CardContent>
-            <Typography className={classes.title} color="textSecondary" gutterBottom>
+            <Typography variant="h4" gutterBottom>
               Tips for Tipping
             </Typography>
-            <Typography variant="body1" component="h2">
-              Turns out, the Deutsche do not like to zahl proper Geld to their staff in Restaurants. Thus, you have to do it. <a href="#">Read More...</a>            
+            <Typography variant="body1">
+              Turns out, the Deutsche do not like to zahl proper Geld to their
+              staff in Restaurants. Thus, you have to do it.{" "}
+              <Link to="/article/tipping">Read More...</Link>
             </Typography>
           </CardContent>
-          <CardActions>
-            <Button size="small">Learn More</Button>
-          </CardActions>
         </Card>
-        </div>
-
-        <Divider variant="middle"/>
-        
-        <div className={classes.avatar_root}>
-          <Avatar>
-            <Typography align='center'> Shopping List </Typography>
-          </Avatar>
-          <Avatar className={classes.orange}>
-            <Typography align='center'> Learn About Culture </Typography>
-          </Avatar>
-          <Avatar className={classes.purple}>
-            <Typography align='center'> Check your Vocab </Typography>
-          </Avatar>
-        </div>
       </div>
-  </div>
+
+      <Divider variant="middle"/>
+      
+      <div className={classes.avatar_root}>
+        <Avatar>
+          <Typography align='center'> Shopping List </Typography>
+        </Avatar>
+        <Avatar className={classes.orange}>
+          <Typography align='center'> Learn About Culture </Typography>
+        </Avatar>
+        <Avatar className={classes.purple}>
+          <Typography align='center'> Check your Vocab </Typography>
+        </Avatar>
+      </div>
+      <Divider variant="middle" />
+    </div>
   );
 }
 

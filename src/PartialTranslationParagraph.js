@@ -1,25 +1,28 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useState } from "react";
 import { motion } from "framer-motion";
 import { TextField } from "@material-ui/core";
 import { Dictionary } from "./Dictionary";
 
-export const T = ({ german, english }) => {
+export const T = ({ w: german }) => {
   const [opened, setOpened] = useState(false);
-  const { confirmWord, getWord } = useContext(Dictionary);
+  const { confirmWord, getWordCount } = useContext(Dictionary);
 
   const handleSubmit = (answer) => {
-    if (answer === english) {
-      confirmWord(english);
+    if (confirmWord(german, answer)) {
       setOpened(false);
       return true;
     }
     return false;
   };
 
+  const colors = ["emerald", "gold", "silver", "bronze"];
+
   return (
     <span style={{ position: "relative" }}>
       <motion.span
-        className="partial-translation"
+        className={
+          "partial-translation " + (colors[getWordCount(german)] ?? "completed")
+        }
         onClick={() => setOpened(true)}
         whileHover={{ scale: [1, 1.1] }}
         transition={{
