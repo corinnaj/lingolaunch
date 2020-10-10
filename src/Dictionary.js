@@ -21,7 +21,7 @@ export const Dictionary = createContext({
   getKnownWords: () => {},
 });
 
-const newWordsDictionary =
+let newWordsDictionary =
   JSON.parse(localStorage.getItem("newWordDictionary")) || {};
 
 const defaultDictionary = {
@@ -76,6 +76,14 @@ export const DictionaryContainer = ({ children }) => {
     window.addEventListener("beforeunload", save);
     return () => window.removeEventListener("beforeunload", save);
   }, [save]);
+
+  const clearAllProgress = () => {
+    delete localStorage.newWordsDictionary;
+    delete localStorage.wordCounts;
+    setWordCounts({});
+    newWordsDictionary = {};
+  };
+  // useEffect(() => { clearAllProgress(); }, []);
 
   return (
     <Dictionary.Provider
