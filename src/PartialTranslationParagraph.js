@@ -8,8 +8,7 @@ export const T = ({ german, english }) => {
   const { confirmWord, getWord } = useContext(Dictionary);
 
   const handleSubmit = (answer) => {
-    if (answer === english) {
-      confirmWord(english);
+    if (confirmWord(english, answer)) {
       setOpened(false);
       return true;
     }

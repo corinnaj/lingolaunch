@@ -11,7 +11,10 @@ export const DictionaryContainer = ({ children }) => {
   return (
     <Dictionary.Provider
       value={{
-        confirmWord: (german) => setCorrect((c) => c + 1),
+        confirmWord: (german, guess) => {
+          setCorrect((c) => c + 1);
+          return true;
+        },
         getWord: (german) => correct,
       }}
     >
