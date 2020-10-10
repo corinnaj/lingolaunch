@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Translate } from "@material-ui/icons";
 import {
     TextField,
     Checkbox,
@@ -11,9 +10,11 @@ import {
     ListItemText,
     ListItemSecondaryAction,
 } from "@material-ui/core";
-import { Dictionary } from "./Dictionary.js";
+import { Dictionary, translate } from "./Dictionary.js";
 import Confetti from "react-dom-confetti";
 import { T } from "./PartialTranslationParagraph";
+import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
+import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -51,8 +52,9 @@ export default function ShoppingList() {
     const classes = useStyles();
     const [checked, setChecked] = useState([0]);
     const [items, setItems] = useState([])
+    const [translatedItems, setTranslatedItems] = useState([])
     const [newItem, setNewItem] = useState('');
-    const { usedWord, hasWord } = useContext(Dictionary);
+    const { usedWord, hasWord, addWord } = useContext(Dictionary);
     const [success, setSuccess] = useState(false);
 
     const handleToggle = (value) => () => {
@@ -68,13 +70,21 @@ export default function ShoppingList() {
         setChecked(newChecked);
     };
 
-    function submit() {
+    async function submit() {
         if (usedWord(newItem)) {
             setSuccess(true);
             setTimeout(() => setSuccess(false));
         }
+        var translation = await translate(newItem, "de");
         setItems([...items, newItem]);
+        setTranslatedItems([...translatedItems, translation]);
         setNewItem("");
+    }
+
+    function addWordToDictionary(item, translation) {
+        if (!hasWord(translation)) {
+            addWord(translation, item);
+        }
     }
 
     function handleKeyPress(event) {
@@ -83,16 +93,33 @@ export default function ShoppingList() {
         }
     }
 
-    function showWord(word, labelId) {
+    function showWord(word, labelId, index) {
         if (hasWord(word)) return (<T w={word} readonly />);
         else return (
-            <ListItemText id={labelId} primary={word} />);
+            <ListItemText id={labelId} primary={word} secondary={translatedItems[index]} />);
+    }
+
+    function showButton(item, translatedItem) {
+        if (!translatedItem || !hasWord(translatedItem)) {
+            return <ListItemSecondaryAction onClick={() => addWordToDictionary(item, translatedItem)}>
+                <IconButton>
+                    <PlaylistAddIcon />
+                </IconButton>
+            </ListItemSecondaryAction>
+        }
+        else {
+            return <ListItemSecondaryAction disabled>
+                <IconButton>
+                    <PlaylistAddCheckIcon />
+                </IconButton>
+            </ListItemSecondaryAction>
+        }
     }
 
     return (
         <div className={classes.container}>
             <List className={classes.list}>
-                {items.map((value) => {
+                {items.map((value, index) => {
                     const labelId = `checkbox-list-label-${value}`;
 
                     return (
@@ -106,7 +133,8 @@ export default function ShoppingList() {
                                     inputProps={{ 'aria-labelledby': labelId }}
                                 />
                             </ListItemIcon>
-                            {showWord(value, labelId)}
+                            {showWord(value, labelId, index)}
+                            {showButton(value, translatedItems[index])}
                         </ListItem>
                     );
                 })}

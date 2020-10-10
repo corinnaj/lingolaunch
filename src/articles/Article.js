@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { T } from "../PartialTranslationParagraph";
 import { Container, Typography } from "@material-ui/core";
-import { dictionary } from "../Dictionary";
+import { Dictionary } from "../Dictionary";
 
-const processChildString = (string) => {
+const processChildString = (string, dictionary) => {
   const englishWords = new RegExp(
     "\\b(" +
     Object.values(dictionary)
@@ -43,23 +43,23 @@ const processChildString = (string) => {
   return output;
 };
 
-const tagChildList = (children) => {
+const tagChildList = (children, dictionary) => {
   const output = [];
 
   if (typeof children === "string") {
-    return processChildString(children);
+    return processChildString(children, dictionary);
   }
 
   for (const child of children) {
     if (typeof child === "string") {
-      for (const c of processChildString(child)) output.push(c);
+      for (const c of processChildString(child, dictionary)) output.push(c);
     } else {
       if (child.props.children) {
         output.push({
           ...child,
           props: {
             ...child.props,
-            children: tagChildList(child.props.children),
+            children: tagChildList(child.props.children, dictionary),
           },
         });
       } else {
@@ -71,12 +71,14 @@ const tagChildList = (children) => {
 };
 
 export const Article = ({ title, children, image }) => {
+  const { dictionary } = useContext(Dictionary);
+
   return (
     <Container>
       <img className="coverImage" src={image} />
       <div style={{ padding: "2rem" }}>
         <Typography variant="h3">{title}</Typography>
-        <div style={{ fontSize: "1.1rem", lineHeight: "1.7rem" }}>{tagChildList(children)}</div>
+        <div style={{ fontSize: "1.1rem", lineHeight: "1.7rem" }}>{tagChildList(children, dictionary)}</div>
         <div style={{ height: "1.5rem" }}></div>
       </div>
     </Container>

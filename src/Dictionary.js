@@ -16,9 +16,13 @@ export const Dictionary = createContext({
   usedWord: (german) => false,
   progress: () => [0, 0],
   hasWord: (german) => false,
+  addWord: (german, english) => null,
+  dictionary: {},
 });
 
-export const dictionary = {
+const newWordsDictionary = JSON.parse(localStorage.getItem("newWordDictionary")) || {};
+
+const defaultDictionary = {
   hier: { en: "here", wrong: ["there", "herd", "near", "kitchen"] },
   Apfel: { en: "apple", wrong: ["pear", "cherry", "blueberry", "strawberry"] },
   Eier: { en: "eggs", wrong: ["milk", "apples", "eggplants", "chickens"] },
@@ -37,7 +41,9 @@ export const dictionary = {
   nur: { en: "only", wrong: ["but", "before", "also", "start"] },
   Küche: { en: "kitchen", wrong: [] },
   Kopf: { en: "head", wrong: [] },
+  ...newWordsDictionary,
 };
+
 
 export const DictionaryContainer = ({ children }) => {
   const [wordCounts, setWordCounts] = useState(() => {
@@ -45,6 +51,8 @@ export const DictionaryContainer = ({ children }) => {
     if (data) return JSON.parse(data);
     else return {};
   });
+
+  const [dictionary, setDictionary] = useState(defaultDictionary);
 
   const save = useCallback(() => {
     localStorage.setItem("wordCounts", JSON.stringify(wordCounts));
@@ -58,6 +66,7 @@ export const DictionaryContainer = ({ children }) => {
   return (
     <Dictionary.Provider
       value={{
+        dictionary,
         confirmWord: (german, guess) => {
           if (dictionary[german].en === guess) {
             setWordCounts((c) => ({ ...c, [german]: (c[german] ?? 0) + 1 }));
@@ -89,9 +98,15 @@ export const DictionaryContainer = ({ children }) => {
             Object.keys(dictionary).length,
           ];
         },
+        addWord: (german, english) => {
+          if (!dictionary[german]) return;
+          setWordCounts({ ...wordCounts, [german]: 0 });
+          setDictionary(d => ({ ...d, [german]: { en: english, wrong: [] } }))
+          newWordsDictionary[german] = { en: english };
+        }
       }}
     >
       {children}
-    </Dictionary.Provider>
+    </Dictionary.Provider >
   );
 };
