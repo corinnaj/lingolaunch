@@ -7,10 +7,10 @@ import { dictionary } from "../Dictionary";
 const processChildString = (string) => {
   const englishWords = new RegExp(
     "\\b(" +
-      Object.values(dictionary)
-        .map((d) => d.en)
-        .join("|") +
-      ")\\b"
+    Object.values(dictionary)
+      .map((d) => d.en)
+      .join("|") +
+    ")\\b"
   );
   const reverseMap = Object.fromEntries(
     Object.entries(dictionary).map(([german, { en }]) => [en, german])
@@ -75,7 +75,7 @@ export const Article = ({ title, children, image }) => {
     <Container>
       <img className="coverImage" src={image} />
       <Typography variant="h3">{title}</Typography>
-      <div style={{ fontSize: "1.1rem" }}>{tagChildList(children)}</div>
+      <div style={{ fontSize: "1.1rem", lineHeight: "1.7rem" }}>{tagChildList(children)}</div>
       <div style={{ height: "2rem" }}></div>
     </Container>
   );

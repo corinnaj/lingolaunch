@@ -19,6 +19,7 @@ import { DictionaryContainer } from "./Dictionary";
 import { lightGreen } from "@material-ui/core/colors";
 import { ApplePie } from "./articles/ApplePie";
 import { CapitainBluebear } from "./articles/CapitainBluebear";
+import { Kangaroo } from "./articles/Kangaroo";
 import { ArticleList } from "./ArticleList";
 import { Translate } from "./Translate";
 
@@ -73,6 +74,9 @@ function App() {
               </Route>
               <Route exact path="/articles/bluebear">
                 <CapitainBluebear />
+              </Route>
+              <Route exact path="/articles/kangaroo">
+                <Kangaroo />
               </Route>
               <Route exact path="/article">
                 <Container>
