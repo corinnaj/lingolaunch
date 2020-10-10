@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Typography, Avatar } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
@@ -10,7 +10,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
-
+import Fab from '@material-ui/core/Fab';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,15 +39,13 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 14,
   },
   avatar_root: {
-    display: 'flex',
     '& > *': {
       margin: theme.spacing(1),
-      width: theme.spacing(10),
-      height: theme.spacing(10),
+      width: theme.spacing(12),
+      height: theme.spacing(12),
     },
   },
   orange: {
-    align: 'center',
     color: theme.palette.getContrastText(deepOrange[500]),
     backgroundColor: deepOrange[500],
   },
@@ -72,7 +70,7 @@ function Dashboard() {
           Word of the Day
         </Typography>
         <div className={classes.wordRow}>
-          <Typography variant="h5">A{bull}pfel</Typography>
+          <Typography variant="h5">Ap{bull}fel</Typography>
           <div style={{ fontSize: "2rem", marginLeft: "0.5rem" }}>🍏</div>
         </div>
         <Typography className={classes.pos} color="textSecondary">
@@ -88,7 +86,7 @@ function Dashboard() {
             <Typography variant="h4" gutterBottom>
               Tips for Tipping
             </Typography>
-            <Typography variant="body1">
+            <Typography variant="body1" color="textSecondary">
               Turns out, the Deutsche do not like to zahl proper Geld to their
               staff in Restaurants. Thus, you have to do it.{" "}
               <Link to="/article/tipping">Read More...</Link>
@@ -100,15 +98,18 @@ function Dashboard() {
       <Divider variant="middle"/>
       
       <div className={classes.avatar_root}>
-        <Avatar>
-          <Typography align='center'> Shopping List </Typography>
-        </Avatar>
-        <Avatar className={classes.orange}>
-          <Typography align='center'> Learn About Culture </Typography>
-        </Avatar>
-        <Avatar className={classes.purple}>
-          <Typography align='center'> Check your Vocab </Typography>
-        </Avatar>
+        <Fab color="primary">
+          Shopping List
+        </Fab>
+        <Fab color="secondary">
+          Learn About Culture
+        </Fab>
+        <Fab color="primary">
+          Check Your Vocab
+        </Fab>
+        <Fab color="secondary">
+          Translate and OCR
+        </Fab>
       </div>
       <Divider variant="middle" />
     </div>
