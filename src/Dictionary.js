@@ -18,10 +18,11 @@ export const Dictionary = createContext({
   hasWord: (german) => false,
   addWord: (german, english) => null,
   dictionary: {},
-  getKnownWords: () => { },
+  getKnownWords: () => {},
 });
 
-const newWordsDictionary = JSON.parse(localStorage.getItem("newWordDictionary")) || {};
+const newWordsDictionary =
+  JSON.parse(localStorage.getItem("newWordDictionary")) || {};
 
 const defaultDictionary = {
   hier: { en: "here", wrong: ["there", "herd", "near", "kitchen"] },
@@ -49,7 +50,6 @@ const defaultDictionary = {
   ...newWordsDictionary,
 };
 
-
 export const DictionaryContainer = ({ children }) => {
   const [wordCounts, setWordCounts] = useState(() => {
     const data = localStorage.getItem("wordCounts");
@@ -61,6 +61,10 @@ export const DictionaryContainer = ({ children }) => {
 
   const save = useCallback(() => {
     localStorage.setItem("wordCounts", JSON.stringify(wordCounts));
+    localStorage.setItem(
+      "newWordDictionary",
+      JSON.stringify(newWordsDictionary)
+    );
   }, [wordCounts]);
 
   useEffect(() => {
@@ -106,7 +110,10 @@ export const DictionaryContainer = ({ children }) => {
         addWord: (german, english) => {
           if (dictionary[german]) return;
           setWordCounts({ ...wordCounts, [german]: 0 });
-          setDictionary(d => ({ ...d, [german]: { en: english, wrong: [] } }))
+          setDictionary((d) => ({
+            ...d,
+            [german]: { en: english, wrong: [] },
+          }));
           newWordsDictionary[german] = { en: english };
         },
         getKnownWords: () => {
@@ -114,11 +121,12 @@ export const DictionaryContainer = ({ children }) => {
         },
         reverseMap: () => {
           return Object.fromEntries(
-            Object.entries(dictionary).map(([german, { en }]) => [en, german]))
+            Object.entries(dictionary).map(([german, { en }]) => [en, german])
+          );
         },
       }}
     >
       {children}
-    </Dictionary.Provider >
+    </Dictionary.Provider>
   );
 };
