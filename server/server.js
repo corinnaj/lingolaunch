@@ -10,18 +10,18 @@ const filename = 'menu.jpg';
 async function things() {
     const [textDetections] = await vision.textDetection(
         `gs://${bucketName}/${filename}`
-      );
-      const [annotation] = textDetections.textAnnotations;
-      const text = annotation ? annotation.description : '';
-      console.log(`Extracted text from image:`, text);
-    
-      let [translateDetection] = await translate.detect(text);
-      if (Array.isArray(translateDetection)) {
-        [translateDetection] = translateDetection;
-      }
+    );
+    const [annotation] = textDetections.textAnnotations;
+    const text = annotation ? annotation.description : '';
+    console.log(`Extracted text from image:`, text);
 
-      const [translation] = await translate.translate(text, "en");
-      console.log(`Translated Text:`, translation);
+    let [translateDetection] = await translate.detect(text);
+    if (Array.isArray(translateDetection)) {
+        [translateDetection] = translateDetection;
+    }
+
+    const [translation] = await translate.translate(text, "en");
+    console.log(`Translated Text:`, translation);
 
     return "done"
 }

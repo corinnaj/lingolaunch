@@ -19,5 +19,6 @@ export function Translate() {
                 <div />
             </div>
         </Camera>
+        
     </div>);
 }
