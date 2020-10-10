@@ -156,8 +156,12 @@ body {
     margin-right: -16px;
 }
 
+.MuiListSubheader-sticky {
+    font-size: 15px;
+    margin: 5px;
+}
+
 .subheader-0 {
-    font-size: 15px !important;
     background-color: rgba(167, 114, 18, 0.959) !important;
 }
 
