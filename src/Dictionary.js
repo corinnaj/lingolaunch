@@ -28,7 +28,6 @@ export const DictionaryContainer = ({ children }) => {
   console.log(wordCounts)
 
   const save = useCallback(() => {
-    console.log('SAVAVEVE')
     localStorage.setItem('wordCounts', JSON.stringify(wordCounts))
   }, [wordCounts])
 
