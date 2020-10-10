@@ -53,7 +53,7 @@ export const DictionaryContainer = ({ children }) => {
         },
         getWordCount: (german) => wordCounts[german] ?? 0,
         usedWord: (german) => {
-          if (dictionary[german]) {
+          if (dictionary[german] || dictionary[german[0].toUpperCase() + german.substring(1)]) {
             setWordCounts((c) => ({ ...c, [german]: (c[german] ?? 0) + 1 }));
             return true;
           }
