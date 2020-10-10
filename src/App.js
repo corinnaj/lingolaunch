@@ -17,6 +17,8 @@ import { T } from "./PartialTranslationParagraph";
 import { DictionaryContainer } from "./Dictionary";
 import { lightGreen } from "@material-ui/core/colors";
 import { ApplePie } from "./articles/ApplePie";
+import { CaptnBluebear } from "./articles/CaptnBluebear";
+import { ArticleList } from "./ArticleList";
 
 const theme = createMuiTheme({
   typography: {
@@ -63,6 +65,9 @@ function App() {
               <Route exact path="/articles/applepie">
                 <ApplePie />
               </Route>
+              <Route exact path="/articles/bluebear">
+                <CaptnBluebear />
+              </Route>
               <Route exact path="/article">
                 <Container>
                   <Typography variant="h3">Apple Pie Recipe</Typography>
@@ -73,6 +78,9 @@ function App() {
               </Route>
               <Route path="/shopping">
                 <ShoppingList />
+              </Route>
+              <Route path="/articles">
+                <ArticleList />
               </Route>
             </Switch>
           </div>

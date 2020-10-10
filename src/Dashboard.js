@@ -1,14 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Typography } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import Divider from "@material-ui/core/Divider";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
+import { Typography, Divider, Card, CardContent } from "@material-ui/core";
 import { Link } from "react-router-dom";
+<<<<<<< HEAD
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
 import Fab from '@material-ui/core/Fab';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
@@ -16,6 +10,16 @@ import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import SpellcheckIcon from '@material-ui/icons/Spellcheck';
 import TranslateIcon from '@material-ui/icons/Translate';
 import ProgressBar from "./ProgressBar.js"
+=======
+import { deepOrange, deepPurple } from "@material-ui/core/colors";
+import Fab from "@material-ui/core/Fab";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import MusicNoteIcon from "@material-ui/icons/MusicNote";
+import SpellcheckIcon from "@material-ui/icons/Spellcheck";
+import TranslateIcon from "@material-ui/icons/Translate";
+import bundeseagle from "./bundeseagle.svg";
+console.log(bundeseagle);
+>>>>>>> 4c61b1773874a0c629934cded42506aedae88faa
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 14,
   },
   avatar_root: {
-    '& > *': {
+    "& > *": {
       fontSize: 10,
       margin: theme.spacing(1),
       width: theme.spacing(12),
@@ -62,7 +66,15 @@ function Dashboard() {
   const bull = <span className={classes.bullet}>•</span>;
 
   return (
-    <div>
+    <div
+      style={{
+        backgroundImage: `url(${bundeseagle})`,
+        backgroundSize: "contain",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "bottom left",
+        minHeight: "100vh",
+      }}
+    >
       <div className={classes.section}>
         <Typography className={classes.title} color="textSecondary">
           Word of the Day
@@ -93,16 +105,21 @@ function Dashboard() {
         </Card>
       </div>
 
+<<<<<<< HEAD
       <Divider variant="middle"/>
         <ProgressBar />
       <Divider variant="middle"/>
       
+=======
+      <Divider variant="middle" />
+
+>>>>>>> 4c61b1773874a0c629934cded42506aedae88faa
       <div className={classes.avatar_root}>
         <Fab color="primary" href="./shopping" className="icon-button">
           <ShoppingCartIcon />
           Shopping List
         </Fab>
-        <Fab color="secondary" href="./shopping" className="icon-button">
+        <Fab color="secondary" href="./articles" className="icon-button">
           <MusicNoteIcon />
           Learn About Culture
         </Fab>
@@ -115,8 +132,6 @@ function Dashboard() {
           Translate
         </Fab>
       </div>
-
-      <Divider variant="middle" />
     </div>
   );
 }
