@@ -4,6 +4,8 @@ import { T } from "../PartialTranslationParagraph";
 import { Container, Typography } from "@material-ui/core";
 import { Dictionary } from "../Dictionary";
 
+export const Difficulty = React.createContext({ useSuggestions: false });
+
 const processChildString = (string, dictionary) => {
   const englishWords = new RegExp(
     "\\b(" +
@@ -81,17 +83,19 @@ export const Article = ({ title, children, image }) => {
   let styleObject = { fontSize: 30, fontWeight: "bold" };
 
   return (
-    <Container>
-      <img className="coverImage" src={image} />
-      <div style={{ padding: "2rem" }}>
-        <Typography variant="h4" style={styleObject}>
-          {title}
-        </Typography>
-        <div style={{ fontSize: "1.1rem", lineHeight: "1.7rem" }}>
-          {tagChildList(children, dictionary)}
+    <Difficulty.Provider value={{ useSuggestions: true }}>
+      <Container>
+        <img className="coverImage" src={image} />
+        <div style={{ padding: "2rem" }}>
+          <Typography variant="h4" style={styleObject}>
+            {title}
+          </Typography>
+          <div style={{ fontSize: "1.1rem", lineHeight: "1.7rem" }}>
+            {tagChildList(children, dictionary)}
+          </div>
+          <div style={{ height: "1.5rem" }}></div>
         </div>
-        <div style={{ height: "1.5rem" }}></div>
-      </div>
-    </Container>
+      </Container>
+    </Difficulty.Provider>
   );
 };
