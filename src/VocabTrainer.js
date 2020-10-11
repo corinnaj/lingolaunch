@@ -23,10 +23,12 @@ export function VocabTrainer() {
   const { getKnownWords, dictionary } = useContext(Dictionary);
   const knownWords = getKnownWords();
   const classes = useStyles();
-  console.log(knownWords);
 
-  function showWord(word, labelId, index) {
-    console.log(word);
+  function showWord(word, labelId) {
+    if (!dictionary[word]) {
+      word = word.charAt(0).toUpperCase() + word.slice(1)
+    }
+
     var engWord = dictionary[word].en;
     return <ListItemText id={labelId} primary={word} secondary={engWord} />;
   }
