@@ -82,92 +82,100 @@ function App() {
       };
 
   return (
-    <ThemeProvider theme={theme}>
-      <DictionaryContainer>
-        <Router>
-          <AppBar position="static" elevation={8} style={appBarStyles}>
-            <Toolbar style={{ minHeight: "56px" }}>
-              <Link
-                to="/"
-                style={{ flexGrow: 1, color: "black", textDecoration: "none" }}
-              >
-                <Typography
-                  variant="h6"
-                  style={{ color: isJapanese ? "black" : "white" }}
-                >
-                  LingoLaunch
-                </Typography>
-              </Link>
-              {!isJapanese ? (
-                <img src={bundeseagleIcon} />
-              ) : (
-                <img height="40px" src={pheasantIcon} />
-              )}
-            </Toolbar>
-          </AppBar>
-          <div>
-            <Switch>
-              <Route exact path="/">
-                <Dashboard isJapanese={isJapanese} />
-              </Route>
-              <Route exact path="/welcome">
-                <Welcome />
-              </Route>
-              <Route exact path="/articles/tipping">
-                <Tipping />
-              </Route>
-              <Route exact path="/articles/applepie">
-                <ApplePie />
-              </Route>
-              <Route exact path="/articles/bluebear">
-                <CapitainBluebear />
-              </Route>
-              <Route exact path="/articles/kangaroo">
-                <Kangaroo />
-              </Route>
-              <Route exact path="/articles/characteristics">
-                <Characteristics />
-              </Route>
-              <Route exact path="/articles/spaetzle">
-                <Spaetzle />
-              </Route>
-              <Route exact path="/articles/myarticle">
-                <MyArticle />
-              </Route>
-              <Route exact path="/article">
-                <Container>
-                  <Typography variant="h3">Apple Pie Recipe</Typography>
-                  <div style={{ fontSize: "1.1rem" }}>
-                    Text comes <T w="hier" />
-                  </div>
-                </Container>
-              </Route>
-              <Route path="/shopping">
-                <ShoppingList />
-              </Route>
-              <Route path="/articles">
-                <ArticleList />
-              </Route>
-              <Route path="/vocab">
-                <VocabTrainer />
-              </Route>
-              <Route path="/picture-game">
-                <PictureGame />
-              </Route>
-              <Route path="/translate">
-                <Translate />
-              </Route>
-              <Route path="/indexcards">
-                <IndexCard />
-              </Route>
-              <Route path="/vocablist">
-                <VocabList />
-              </Route>
-            </Switch>
-          </div>
-        </Router>
-      </DictionaryContainer>
-    </ThemeProvider>
+    <div className="phone-wrapper-outer">
+      <div className="phone-wrapper">
+        <ThemeProvider theme={theme}>
+          <DictionaryContainer>
+            <Router>
+              <AppBar position="static" elevation={8} style={appBarStyles}>
+                <Toolbar style={{ minHeight: "56px" }}>
+                  <Link
+                    to="/"
+                    style={{
+                      flexGrow: 1,
+                      color: "black",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <Typography
+                      variant="h6"
+                      style={{ color: isJapanese ? "black" : "white" }}
+                    >
+                      LingoLaunch
+                    </Typography>
+                  </Link>
+                  {!isJapanese ? (
+                    <img src={bundeseagleIcon} />
+                  ) : (
+                    <img height="40px" src={pheasantIcon} />
+                  )}
+                </Toolbar>
+              </AppBar>
+              <div>
+                <Switch>
+                  <Route exact path="/">
+                    <Dashboard isJapanese={isJapanese} />
+                  </Route>
+                  <Route exact path="/welcome">
+                    <Welcome />
+                  </Route>
+                  <Route exact path="/articles/tipping">
+                    <Tipping />
+                  </Route>
+                  <Route exact path="/articles/applepie">
+                    <ApplePie />
+                  </Route>
+                  <Route exact path="/articles/bluebear">
+                    <CapitainBluebear />
+                  </Route>
+                  <Route exact path="/articles/kangaroo">
+                    <Kangaroo />
+                  </Route>
+                  <Route exact path="/articles/characteristics">
+                    <Characteristics />
+                  </Route>
+                  <Route exact path="/articles/spaetzle">
+                    <Spaetzle />
+                  </Route>
+                  <Route exact path="/articles/myarticle">
+                    <MyArticle />
+                  </Route>
+                  <Route exact path="/article">
+                    <Container>
+                      <Typography variant="h3">Apple Pie Recipe</Typography>
+                      <div style={{ fontSize: "1.1rem" }}>
+                        Text comes <T w="hier" />
+                      </div>
+                    </Container>
+                  </Route>
+                  <Route path="/shopping">
+                    <ShoppingList />
+                  </Route>
+                  <Route path="/articles">
+                    <ArticleList />
+                  </Route>
+                  <Route path="/vocab">
+                    <VocabTrainer />
+                  </Route>
+                  <Route path="/picture-game">
+                    <PictureGame />
+                  </Route>
+                  <Route path="/translate">
+                    <Translate />
+                  </Route>
+                  <Route path="/indexcards">
+                    <IndexCard />
+                  </Route>
+                  <Route path="/vocablist">
+                    <VocabList />
+                  </Route>
+                </Switch>
+              </div>
+            </Router>
+          </DictionaryContainer>
+        </ThemeProvider>
+      </div>
+    </div>
   );
 }
 

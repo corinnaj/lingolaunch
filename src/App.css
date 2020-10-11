@@ -202,3 +202,20 @@ body {
 #addText {
     height: 100px!important;
 }
+
+.phone-wrapper {
+    max-width: 412px;
+    max-height: 732px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15),
+        0 30px 80px rgba(0, 0, 0, 0.15);
+    overflow: scroll;
+    scrollbar-width: none;
+    border-radius: 5px;
+    border: 1px solid #888;
+}
+.phone-wrapper-outer {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    justify-content: center;
+}
