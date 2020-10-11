@@ -39,27 +39,42 @@ const processChildString = (string, dictionary, englishWords, reverseMap) => {
 };
 
 const tagChildList = (children, dictionary, englishWords, reverseMap) => {
-  const output = [];
-
   if (typeof children === "string") {
     return processChildString(children, dictionary, englishWords, reverseMap);
   }
 
   // is a single element
-  if (children.length === undefined) {
-    return tagChildList(children.props.children, dictionary, englishWords, reverseMap);
+  if (children.length === undefined && children.props.children) {
+    return tagChildList(
+      children.props.children,
+      dictionary,
+      englishWords,
+      reverseMap
+    );
   }
 
+  const output = [];
   for (const child of children) {
     if (typeof child === "string") {
-      for (const c of processChildString(child, dictionary, englishWords, reverseMap)) output.push(c);
+      for (const c of processChildString(
+        child,
+        dictionary,
+        englishWords,
+        reverseMap
+      ))
+        output.push(c);
     } else {
       if (child.props.children) {
         output.push({
           ...child,
           props: {
             ...child.props,
-            children: tagChildList(child.props.children, dictionary, englishWords, reverseMap),
+            children: tagChildList(
+              child.props.children,
+              dictionary,
+              englishWords,
+              reverseMap
+            ),
           },
         });
       } else {
@@ -89,17 +104,20 @@ export const Article = ({ title, children, image }) => {
     ])
   );
 
+  const wordCount =
+    Math.max(parseInt(Object.keys(dictionary).length * percentage), 1) + 5;
   const englishWords = new RegExp(
     "\\b(" +
-    Object.values(dictionary).slice(0, parseInt(Object.keys(dictionary).length * percentage))
-      .map((d) => d.en)
-      .join("|") +
-    ")(s?\\b)",
+      Object.values(dictionary)
+        .slice(0, wordCount)
+        .map((d) => d.en)
+        .join("|") +
+      ")(s?\\b)",
     "i"
   );
 
   return (
-    <Difficulty.Provider value={{ useSuggestions: myProgress[0] < 13 }}>
+    <Difficulty.Provider value={{ useSuggestions: wordCount < 13 }}>
       <Container>
         <img className="coverImage" src={image} />
         <div style={{ padding: "2rem" }}>

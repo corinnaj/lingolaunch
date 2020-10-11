@@ -16,7 +16,7 @@ import "react-html5-camera-photo/build/css/index.css";
 import { Dictionary, translate } from "./Dictionary";
 
 export function Translate() {
-  const { addWord, hasWord } = useContext(Dictionary);
+  const { addWord, hasWord, usedWord } = useContext(Dictionary);
   const [loading, setLoading] = useState(false);
   const [text, setText] = useState("");
   const [translatedText, setTranslatedText] = useState("");
@@ -37,7 +37,9 @@ export function Translate() {
       targetLanguageCode === "de" ? translatedText : textToTranslate,
       targetLanguageCode === "de" ? textToTranslate : translatedText
     );
+    usedWord(targetLanguageCode === "de" ? translatedText : textToTranslate);
   };
+
   const hasTheWord =
     (targetLanguageCode === "de" ? translatedText : textToTranslate) &&
     hasWord(targetLanguageCode === "de" ? translatedText : textToTranslate);
