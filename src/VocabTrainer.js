@@ -27,6 +27,17 @@ export function VocabTrainer() {
   function showWord(word, labelId) {
     if (!dictionary[word]) {
       word = word.charAt(0).toUpperCase() + word.slice(1)
+      let counter = 0
+      
+      for (let knownWord in knownWords) {
+        let knownWordUpper = knownWord.charAt(0).toUpperCase() + knownWord.slice(1)
+        if (knownWord === word || knownWordUpper === word) {
+          counter ++
+        }
+      }
+      if (counter > 1) {
+        return
+      }
     }
 
     var engWord = dictionary[word].en;
