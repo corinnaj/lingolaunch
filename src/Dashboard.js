@@ -1,9 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Typography, Divider, Card, CardContent } from "@material-ui/core";
+import { Typography, Card, CardContent } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
-import { blue, deepOrange, deepPurple } from "@material-ui/core/colors";
 import Fab from "@material-ui/core/Fab";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import MusicNoteIcon from "@material-ui/icons/MusicNote";
@@ -57,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
 function Dashboard() {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
+  const isJapanese = false;
 
   return (
     <div
@@ -72,13 +72,22 @@ function Dashboard() {
         <Typography className={classes.title} color="textSecondary">
           Word of the Day
         </Typography>
-        <div className={classes.wordRow}>
+        {!isJapanese && <><div className={classes.wordRow}>
           <Typography variant="h5">Ge{bull}sund{bull}heit</Typography>
           <div style={{ fontSize: "2rem", marginLeft: "0.5rem" }}>🤧</div>
         </div>
-        <Typography className={classes.pos} color="textSecondary">
-          noun
+          <Typography className={classes.pos} color="textSecondary">
+            noun
+        </Typography></>}
+
+        {isJapanese && <><div className={classes.wordRow}>
+          <Typography variant="h5">かさ&nbsp;&nbsp;kasa&nbsp;&nbsp;</Typography>
+          <div style={{ fontSize: "2rem", marginLeft: "0.5rem" }}>🌂</div>
+        </div>
+          <Typography className={classes.pos} color="textSecondary">
+            noun
         </Typography>
+        </>}
 
         {false && <><div className={classes.wordRow}>
           <Typography variant="h5">Ap{bull}fel</Typography>
