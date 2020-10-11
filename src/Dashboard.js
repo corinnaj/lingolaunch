@@ -9,6 +9,7 @@ import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import SpellcheckIcon from "@material-ui/icons/Spellcheck";
 import TranslateIcon from "@material-ui/icons/Translate";
 import bundeseagle from "./bundeseagle.svg";
+import pheasant from "./green-pheasant.svg"
 import ProgressBarExample from "./ProgressBar.js";
 import { CameraEnhance } from "@material-ui/icons";
 
@@ -57,11 +58,15 @@ function Dashboard() {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
   const isJapanese = false;
+  var logo = bundeseagle
+  if (isJapanese) {
+    logo = pheasant
+  }
 
   return (
     <div
       style={{
-        backgroundImage: `url(${bundeseagle})`,
+        backgroundImage: `url(${logo})`,
         backgroundSize: "contain",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "bottom left",
@@ -99,7 +104,7 @@ function Dashboard() {
         </>}
       </div>
 
-      <div className={classes.section}>
+      {!isJapanese && <><div className={classes.section}>
         <Card elevation={4}>
           <CardContent>
             <Typography variant="h4" gutterBottom>
@@ -112,6 +117,22 @@ function Dashboard() {
           </CardContent>
         </Card>
       </div>
+      </>}
+
+      {isJapanese && <><div className={classes.section}>
+        <Card elevation={4}>
+          <CardContent>
+            <Typography variant="h4" gutterBottom>
+              Bowing Culture
+            </Typography>
+            <Typography variant="body1" color="textSecondary">
+              The bow is an integral part of Japanese society. It is used to greet when meeting, to get attention, to show gratitude, to express sympathy, or to convey an apology. While doing business in Japan as a Westerner, you would not be expected to bow.{" "}
+              <Link to="/articles/tipping">Read More...</Link>
+            </Typography>
+          </CardContent>
+        </Card>
+      </div>
+      </>}
 
       <div className={classes.section}>
         <Card elevation={4}>

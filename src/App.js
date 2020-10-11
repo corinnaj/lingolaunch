@@ -11,6 +11,8 @@ import "./App.css";
 import Dashboard from "./Dashboard.js";
 import ShoppingList from "./ShoppingList.js";
 import bundeseagleIcon from "./bundeseagle-icon.svg";
+import pheasantIcon from "./pheasant-icon.png";
+import germanFlag from "./german-flag.svg"
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -59,19 +61,21 @@ const theme = createMuiTheme({
 });
 
 function App() {
+  const isJapanese = false;
+
   return (
     <ThemeProvider theme={theme}>
       <DictionaryContainer>
         <Router>
-          <AppBar position="static" elevation={0}>
+          <AppBar position="static" elevation={8} style={{backgroundImage: `url(${germanFlag})`, backgroundPosition: "center center", backgroundRepeat: "no-repeat"}}>
             <Toolbar>
               <Link
                 to="/"
                 style={{ flexGrow: 1, color: "black", textDecoration: "none" }}
               >
-                <Typography variant="h6">LingoLaunch</Typography>
+                <Typography variant="h6" style={{color: "white"}}>LingoLaunch</Typography>
               </Link>
-              <img src={bundeseagleIcon} />
+              {!isJapanese ? <img src={bundeseagleIcon} /> : <img height="40px" src={pheasantIcon}/>}
             </Toolbar>
           </AppBar>
           <div>
