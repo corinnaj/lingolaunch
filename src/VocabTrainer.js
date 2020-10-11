@@ -28,7 +28,7 @@ export function VocabTrainer() {
     if (!dictionary[word]) {
       word = word.charAt(0).toUpperCase() + word.slice(1)
       let counter = 0
-      
+
       for (let knownWord in knownWords) {
         let knownWordUpper = knownWord.charAt(0).toUpperCase() + knownWord.slice(1)
         if (knownWord === word || knownWordUpper === word) {
@@ -54,7 +54,7 @@ export function VocabTrainer() {
                 {sectionId}
               </ListSubheader>
               {Object.keys(knownWords).map((value) => {
-                if (knownWords[value] === index) {
+                if (knownWords[value] === index+1) {
                   return (
                     <ListItem key={value} role={undefined} dense>
                       {showWord(value, { value })}
