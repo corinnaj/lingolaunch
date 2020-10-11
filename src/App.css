@@ -44,6 +44,17 @@ body {
     background: #0000ff;
     box-shadow: 4px 4px 8px #00d, -4px -4px 8px #00d;
 }
+.partial-translation.new:before {
+    content: "NEW";
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: rgb(235, 248, 255);
+    position: absolute;
+    right: -12px;
+    top: -16px;
+    text-shadow: 0 1px 2px #000, 0 1px 2px #000;
+    z-index: 99;
+}
 
 .partial-translation.emerald {
     border: 3px solid rgb(18, 133, 37);
