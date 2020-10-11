@@ -32,7 +32,7 @@ export const T = ({ w: german, readonly }) => {
     return false;
   };
 
-  const colors = ["emerald", "gold", "silver", "bronze"];
+  const colors = ["new", "bronze", "silver", "gold", "emerald"];
 
   return (
     <span style={{ position: "relative" }}>
