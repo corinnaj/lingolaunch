@@ -36,6 +36,7 @@ import { Welcome } from "./Welcome";
 import { PictureGame } from "./PictureGame";
 import { IndexCard } from "./IndexCard";
 import { VocabList } from "./VocabList";
+import ScrollToTop from "./ScrollToTop";
 
 const theme = createMuiTheme({
   typography: {
@@ -67,19 +68,19 @@ function App() {
 
   const appBarStyles = isJapanese
     ? {
-        color: "white",
-        backgroundImage: `url(${japanFlag})`,
-        backgroundPosition: "center center",
-        backgroundColor: "white",
-        backgroundRepeat: "no-repeat",
-      }
+      color: "white",
+      backgroundImage: `url(${japanFlag})`,
+      backgroundPosition: "center center",
+      backgroundColor: "white",
+      backgroundRepeat: "no-repeat",
+    }
     : {
-        color: "black",
-        backgroundImage: `url(${germanFlag})`,
-        backgroundPosition: "center center",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-      };
+      color: "black",
+      backgroundImage: `url(${germanFlag})`,
+      backgroundPosition: "center center",
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+    };
 
   return (
     <div className="phone-wrapper-outer">
@@ -87,6 +88,7 @@ function App() {
         <ThemeProvider theme={theme}>
           <DictionaryContainer>
             <Router>
+              <ScrollToTop />
               <AppBar position="static" elevation={8} style={appBarStyles}>
                 <Toolbar style={{ minHeight: "56px" }}>
                   <Link
@@ -107,8 +109,8 @@ function App() {
                   {!isJapanese ? (
                     <img src={bundeseagleIcon} />
                   ) : (
-                    <img height="40px" src={pheasantIcon} />
-                  )}
+                      <img height="40px" src={pheasantIcon} />
+                    )}
                 </Toolbar>
               </AppBar>
               <div>
