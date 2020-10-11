@@ -18,7 +18,7 @@ export const Dictionary = createContext({
   hasWord: (german) => false,
   addWord: (german, english) => null,
   dictionary: {},
-  getKnownWords: () => {},
+  getKnownWords: () => { },
 });
 
 let newWordsDictionary =
@@ -81,7 +81,6 @@ const defaultDictionary = {
   links: { en: "left", wrong: [] },
   Beispiel: { en: "example", wrong: [] },
   immernoch: { en: "still", wrong: [] },
-  Rücken: { en: "back", wrong: [] },
   schnell: { en: "quick", wrong: [] },
   Gesellschaft: { en: "society", wrong: [] },
   Klingel: { en: "doorbell", wrong: [] },
