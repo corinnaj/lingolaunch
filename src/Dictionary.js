@@ -25,6 +25,9 @@ let newWordsDictionary =
   JSON.parse(localStorage.getItem("newWordDictionary")) || {};
 
 const defaultDictionary = {
+  Kellner: { en: "waiter", wrong: ["chef", "man", "guest", "person"] },
+  Daumen: { en: "thumb", wrong: ["finger", "guess", "suggestion", "hand"] },
+  Bargeld: { en: "cash", wrong: ["money", "visa", "coins", "card"] },
   hier: { en: "here", wrong: ["there", "herd", "near", "kitchen"] },
   Apfel: { en: "apple", wrong: ["pear", "cherry", "blueberry", "strawberry"] },
   Eier: { en: "eggs", wrong: ["milk", "apples", "eggplants", "chickens"] },
@@ -66,7 +69,6 @@ const defaultDictionary = {
   Lärm: { en: "noise", wrong: [] },
   gesalzen: { en: "salted", wrong: [] },
   fertig: { en: "done", wrong: [] },
-  Kellner: { en: "waiter", wrong: [] },
   geschmolzen: { en: "melted", wrong: [] },
   richtig: { en: "correct", wrong: [] },
   pünktlich: { en: "punctual", wrong: [] },
@@ -78,8 +80,6 @@ const defaultDictionary = {
   Nase: { en: "nose", wrong: [] },
   links: { en: "left", wrong: [] },
   Beispiel: { en: "example", wrong: [] },
-  Bargeld: { en: "cash", wrong: [] },
-  Daumen: { en: "thumb", wrong: [] },
   immernoch: { en: "still", wrong: [] },
   Rücken: { en: "back", wrong: [] },
   schnell: { en: "quick", wrong: [] },

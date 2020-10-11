@@ -120,7 +120,7 @@ function Dashboard({ isJapanese }) {
             <Card elevation={4}>
               <CardContent>
                 <Typography variant="h4" gutterBottom>
-                  Tips for Tipping
+                  Article of the Day {bull} Tips for Tipping
                 </Typography>
                 <Typography variant="body1" color="textSecondary">
                   Tipping in Germany and tipping in some other countries, such
@@ -141,7 +141,7 @@ function Dashboard({ isJapanese }) {
             <Card elevation={4}>
               <CardContent>
                 <Typography variant="h4" gutterBottom>
-                  Bowing Culture
+                  Article of the Day {bull} Bowing Culture
                 </Typography>
                 <Typography variant="body1" color="textSecondary">
                   The bow is an integral part of Japanese society. It is used to
