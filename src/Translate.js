@@ -10,8 +10,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import { PlaylistAdd, PlaylistAddCheck, Send } from "@material-ui/icons";
-import React, { useState, useContext } from "react";
 import Camera, { FACING_MODES } from "react-html5-camera-photo";
+import React, { useState, useContext } from "react";
 import "react-html5-camera-photo/build/css/index.css";
 import { Dictionary, translate } from "./Dictionary";
 
@@ -121,6 +121,7 @@ export function Translate() {
       <div style={{ padding: "1rem" }}>Or take a picture ...</div>
 
       <Camera
+        isImageMirror={false}
         idealFacingMode={FACING_MODES.ENVIRONMENT}
         onTakePhoto={(dataUri) => {
           setLoading(true);
