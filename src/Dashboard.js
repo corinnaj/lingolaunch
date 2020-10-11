@@ -114,6 +114,17 @@ function Dashboard({ isJapanese }) {
         )}
       </div>
 
+      <div className={classes.section}>
+        <Card elevation={4}>
+          <CardContent>
+            <Typography variant="body1">
+            <p>Your first German Words!</p>
+            </Typography>
+            <ProgressBarExample />
+          </CardContent>
+        </Card>
+      </div>
+
       {!isJapanese && (
         <>
           <div className={classes.section}>
@@ -155,15 +166,6 @@ function Dashboard({ isJapanese }) {
           </div>
         </>
       )}
-
-      <div className={classes.section}>
-        <Card elevation={4}>
-          <CardContent>
-            <Typography variant="body1">Your Progress:</Typography>
-            <ProgressBarExample />
-          </CardContent>
-        </Card>
-      </div>
 
       <div className={classes.section}>
         <div

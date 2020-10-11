@@ -117,7 +117,7 @@ export const DictionaryContainer = ({ children }) => {
     setWordCounts({});
     newWordsDictionary = {};
   };
-  // useEffect(() => { clearAllProgress(); }, []);
+  //useEffect(() => { clearAllProgress(); }, []);
 
   const usedWord = (german, force) => {
     if (
