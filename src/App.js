@@ -65,26 +65,27 @@ const theme = createMuiTheme({
 
 function App() {
   const isJapanese = false;
+  const usePhoneFrame = false;
 
   const appBarStyles = isJapanese
     ? {
-      color: "white",
-      backgroundImage: `url(${japanFlag})`,
-      backgroundPosition: "center center",
-      backgroundColor: "white",
-      backgroundRepeat: "no-repeat",
-    }
+        color: "white",
+        backgroundImage: `url(${japanFlag})`,
+        backgroundPosition: "center center",
+        backgroundColor: "white",
+        backgroundRepeat: "no-repeat",
+      }
     : {
-      color: "black",
-      backgroundImage: `url(${germanFlag})`,
-      backgroundPosition: "center center",
-      backgroundSize: "cover",
-      backgroundRepeat: "no-repeat",
-    };
+        color: "black",
+        backgroundImage: `url(${germanFlag})`,
+        backgroundPosition: "center center",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+      };
 
   return (
-    <div className="phone-wrapper-outer">
-      <div className="phone-wrapper">
+    <div className={usePhoneFrame ? "phone-wrapper-outer" : null}>
+      <div className={usePhoneFrame ? "phone-wrapper" : null}>
         <ThemeProvider theme={theme}>
           <DictionaryContainer>
             <Router>
@@ -109,8 +110,8 @@ function App() {
                   {!isJapanese ? (
                     <img src={bundeseagleIcon} />
                   ) : (
-                      <img height="40px" src={pheasantIcon} />
-                    )}
+                    <img height="40px" src={pheasantIcon} />
+                  )}
                 </Toolbar>
               </AppBar>
               <div>
