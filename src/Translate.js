@@ -37,7 +37,6 @@ export function Translate() {
       targetLanguageCode === "de" ? translatedText : textToTranslate,
       targetLanguageCode === "de" ? textToTranslate : translatedText
     );
-    usedWord(targetLanguageCode === "de" ? translatedText : textToTranslate);
   };
 
   const hasTheWord =

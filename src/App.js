@@ -67,12 +67,14 @@ function App() {
 
   const appBarStyles = isJapanese
     ? {
+        color: "white",
         backgroundImage: `url(${japanFlag})`,
         backgroundPosition: "center center",
         backgroundColor: "white",
         backgroundRepeat: "no-repeat",
       }
     : {
+        color: "black",
         backgroundImage: `url(${germanFlag})`,
         backgroundPosition: "center center",
         backgroundSize: "cover",

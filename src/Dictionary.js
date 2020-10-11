@@ -18,7 +18,7 @@ export const Dictionary = createContext({
   hasWord: (german) => false,
   addWord: (german, english) => null,
   dictionary: {},
-  getKnownWords: () => { },
+  getKnownWords: () => {},
 });
 
 let newWordsDictionary =
@@ -119,6 +119,18 @@ export const DictionaryContainer = ({ children }) => {
   };
   // useEffect(() => { clearAllProgress(); }, []);
 
+  const usedWord = (german, force) => {
+    if (
+      force ||
+      dictionary[german] ||
+      dictionary[german[0].toUpperCase() + german.substring(1)]
+    ) {
+      setWordCounts((c) => ({ ...c, [german]: (c[german] ?? 0) + 1 }));
+      return true;
+    }
+    return false;
+  };
+
   return (
     <Dictionary.Provider
       value={{
@@ -132,16 +144,7 @@ export const DictionaryContainer = ({ children }) => {
           }
         },
         getWordCount: (german) => wordCounts[german] ?? 0,
-        usedWord: (german) => {
-          if (
-            dictionary[german] ||
-            dictionary[german[0].toUpperCase() + german.substring(1)]
-          ) {
-            setWordCounts((c) => ({ ...c, [german]: (c[german] ?? 0) + 1 }));
-            return true;
-          }
-          return false;
-        },
+        usedWord,
         hasWord: (german) => {
           return (
             dictionary[german] ||
@@ -162,6 +165,7 @@ export const DictionaryContainer = ({ children }) => {
             [german]: { en: english, wrong: [] },
           }));
           newWordsDictionary[german] = { en: english };
+          usedWord(german, true);
         },
         getKnownWords: () => {
           return wordCounts;
