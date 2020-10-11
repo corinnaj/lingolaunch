@@ -213,6 +213,11 @@ body {
     border-radius: 5px;
     border: 1px solid #888;
 }
+.phone-wrapper > *:not(header) {
+    width: 412px;
+    height: 732px;
+}
+
 .phone-wrapper-outer {
     display: flex;
     align-items: center;
