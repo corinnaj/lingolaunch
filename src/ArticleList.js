@@ -94,11 +94,11 @@ export function ArticleList() {
                 </Link>
             </DialogActions>
         </Dialog>
-        {preview("Tipping Tips", "Tipping in Germany and tipping in some other countries, such as the United States, are totally different. In Germany, waitresses are paid more and so the tips are smaller compared to the USA. Nevertheless, the 5-10% rule of thumb still applies.", "tipping", "Cultural Tips", tippingImage)}
         {preview("Apple Pie", "German Apple Cake is a traditional German dessert that is so easy to make even if you aren’t totally kitchen confident! With a simple batter that rises up and bakes around the apples this easy apple coffee cake is the perfect everyday dessert that tastes best with a dollop of whipped cream on top.", "applepie", "Recipes", applePieImage)}
+        {preview("German Characteristics", "It is true that many Germans tend to place punctuality as a high priority. Hence the global observation that German trains often run perfectly on time.", "characteristics", "Cultural Tips", germanImage)}
         {preview("Capitain Bluebear", "The 13​¹⁄₂ Lives of Captain Bluebear is a 1999 fantasy novel by German writer and cartoonist Walter Moers which details the numerous lives of a human-sized bear with blue fur. It's a modern german classic.", "bluebear", "Media", capitainBluebearImage)}
         {preview("The Kangaroo Chronicles", "Marc-Uwe Kling writes funny songs and stories. His business model is to write books that fiercely criticize capitalism and sell incredibly well. For his Kangaroo stories he was awarded the German Radio Award, the German Cabaret Award and the German Audio Book Prize.", "kangaroo", "Media", kangarooImage)}
-        {preview("German Characteristics", "It is true that many Germans tend to place punctuality as a high priority. Hence the global observation that German trains often run perfectly on time.", "characteristics", "Cultural Tips", germanImage)}
+        {preview("Tipping Tips", "Tipping in Germany and tipping in some other countries, such as the United States, are totally different. In Germany, waitresses are paid more and so the tips are smaller compared to the USA. Nevertheless, the 5-10% rule of thumb still applies.", "tipping", "Cultural Tips", tippingImage)}
         {preview("Käsespätzle", "Spätzle is a type of pasta made with fresh eggs and found in the cuisines of southern Germany and Austria, Switzerland, Hungary, Slovenia, Alsace, Moselle and South Tyrol.", "spaetzle", "Recipes", spaetzleImage)}
         <Fab aria-label="import" color="primary" className={classes.fab} onClick={handleClickOpen}>
             <PostAddIcon />
