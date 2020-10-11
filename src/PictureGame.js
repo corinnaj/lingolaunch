@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { useState } from "react";
-import Camera from "react-html5-camera-photo";
+import Camera, { FACING_MODES } from "react-html5-camera-photo";
 import "react-html5-camera-photo/build/css/index.css";
 import Confetti from "react-dom-confetti";
 import { confettiConfig } from "./PartialTranslationParagraph";
@@ -96,6 +96,7 @@ function PictureGameTasks({ tasks }) {
       }}
     >
       <Camera
+        idealFacingMode={FACING_MODES.ENVIRONMENT}
         onTakePhoto={(dataUri) => {
           setLoading(true);
           window

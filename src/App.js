@@ -11,6 +11,9 @@ import "./App.css";
 import Dashboard from "./Dashboard.js";
 import ShoppingList from "./ShoppingList.js";
 import bundeseagleIcon from "./bundeseagle-icon.svg";
+import pheasantIcon from "./pheasant-icon.png";
+import germanFlag from "./german-flag.svg";
+import japanFlag from "./japan-flag.svg";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -60,25 +63,50 @@ const theme = createMuiTheme({
 });
 
 function App() {
+  const isJapanese = false;
+
+  const appBarStyles = isJapanese
+    ? {
+        backgroundImage: `url(${japanFlag})`,
+        backgroundPosition: "center center",
+        backgroundColor: "white",
+        backgroundRepeat: "no-repeat",
+      }
+    : {
+        backgroundImage: `url(${germanFlag})`,
+        backgroundPosition: "center center",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+      };
+
   return (
     <ThemeProvider theme={theme}>
       <DictionaryContainer>
         <Router>
-          <AppBar position="static" elevation={0}>
-            <Toolbar>
+          <AppBar position="static" elevation={8} style={appBarStyles}>
+            <Toolbar style={{ minHeight: "56px" }}>
               <Link
                 to="/"
                 style={{ flexGrow: 1, color: "black", textDecoration: "none" }}
               >
-                <Typography variant="h6">LingoLaunch</Typography>
+                <Typography
+                  variant="h6"
+                  style={{ color: isJapanese ? "black" : "white" }}
+                >
+                  LingoLaunch
+                </Typography>
               </Link>
-              <img src={bundeseagleIcon} />
+              {!isJapanese ? (
+                <img src={bundeseagleIcon} />
+              ) : (
+                <img height="40px" src={pheasantIcon} />
+              )}
             </Toolbar>
           </AppBar>
           <div>
             <Switch>
               <Route exact path="/">
-                <Dashboard />
+                <Dashboard isJapanese={isJapanese} />
               </Route>
               <Route exact path="/welcome">
                 <Welcome />
