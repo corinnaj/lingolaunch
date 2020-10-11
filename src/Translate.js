@@ -122,7 +122,7 @@ export function Translate() {
         onTakePhoto={(dataUri) => {
           setLoading(true);
           window
-            .fetch("http://localhost:8000/upload-image", {
+            .fetch("/upload-image", {
               method: "post",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
