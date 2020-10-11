@@ -114,13 +114,24 @@ function Dashboard({ isJapanese }) {
         )}
       </div>
 
+      <div className={classes.section}>
+        <Card elevation={4}>
+          <CardContent>
+            <Typography variant="body1">
+            <p>Your first German Words!</p>
+            </Typography>
+            <ProgressBarExample />
+          </CardContent>
+        </Card>
+      </div>
+
       {!isJapanese && (
         <>
           <div className={classes.section}>
             <Card elevation={4}>
               <CardContent>
                 <Typography variant="h4" gutterBottom>
-                  Tips for Tipping
+                  Article of the Day {bull} Tips for Tipping
                 </Typography>
                 <Typography variant="body1" color="textSecondary">
                   Tipping in Germany and tipping in some other countries, such
@@ -141,7 +152,7 @@ function Dashboard({ isJapanese }) {
             <Card elevation={4}>
               <CardContent>
                 <Typography variant="h4" gutterBottom>
-                  Bowing Culture
+                  Article of the Day {bull} Bowing Culture
                 </Typography>
                 <Typography variant="body1" color="textSecondary">
                   The bow is an integral part of Japanese society. It is used to
@@ -155,15 +166,6 @@ function Dashboard({ isJapanese }) {
           </div>
         </>
       )}
-
-      <div className={classes.section}>
-        <Card elevation={4}>
-          <CardContent>
-            <Typography variant="body1">Your Progress:</Typography>
-            <ProgressBarExample />
-          </CardContent>
-        </Card>
-      </div>
 
       <div className={classes.section}>
         <div
