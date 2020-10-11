@@ -31,6 +31,7 @@ import { VocabTrainer } from "./VocabTrainer";
 import { Welcome } from "./Welcome";
 import { PictureGame } from "./PictureGame";
 import { IndexCard } from "./IndexCard";
+import { VocabList } from "./VocabList";
 
 const theme = createMuiTheme({
   typography: {
@@ -124,6 +125,9 @@ function App() {
               </Route>
               <Route path="/indexcards">
                 <IndexCard />
+              </Route>
+              <Route path="/vocablist">
+                <VocabList />
               </Route>
             </Switch>
           </div>
