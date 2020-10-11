@@ -30,6 +30,7 @@ import { Translate } from "./Translate";
 import { VocabTrainer } from "./VocabTrainer";
 import { Welcome } from "./Welcome";
 import { PictureGame } from "./PictureGame";
+import { IndexCard } from "./IndexCard";
 
 const theme = createMuiTheme({
   typography: {
@@ -120,6 +121,9 @@ function App() {
               </Route>
               <Route path="/translate">
                 <Translate />
+              </Route>
+              <Route path="/indexcards">
+                <IndexCard />
               </Route>
             </Switch>
           </div>
