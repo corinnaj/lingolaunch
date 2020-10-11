@@ -1,68 +1,25 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Inspiration
+We were inspired by Educaros challenge to build a language learning app that is well suited for their use case and not as generic and inflexible as Duolingo or Babbel.
 
-## Available Scripts
+## What it does
+LingoLaunch gives access to articles, recipes and stories on German culture. 
+It allows users to interactively learn first words in German and to get a first impression of the German culture. The main concept is to use partial translation to allow users to discover the language. LingoLaunch exchanges words in the articles with their german translation. Users can then guess their meaning. As the users’ level of expertise grows, LingoLaunch gradually increases the difficulty and introduces more and more foreign words.
+Further, users can add their own texts that are automatically included in the articles tab. LingoLaunch automatically exchanges words that users have already remembered in these texts with their translation. Now the users can read texts regarding their own interests.
+Using our translation feature, users can search for words by typing or even by taking a picture. These words can then be added to the dictionary, allowing users to build their own collection of words that they deem important. This is especially interesting for domain specific topics as those are rarely covered by standard language learning apps. 
+Discovered words can also be studied using a vocabulary trainer based on the index card method.
+Features such as the shopping list or the picture game allow users to integrate learning German into their daily life. 
 
-In the project directory, you can run:
+## How we built it
+We used React js to build our website. Node and express were used for a server that connects to the Google Cloud Vision and Translate API to find text in images and translate it into German.
 
-### `npm start`
+## Challenges we ran into
+Communication via Hopin was a bit annoying. We had issues with audio quality and performance, that were not present when using, for example, discord. Also, we are still not sure if we filled out all of the necessary google forms to be properly registered. There were so many forms.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Accomplishments that we're proud of
+Coming up with an interesting idea and producing a satisfactory outcome.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## What we learned
+How much optimization potential there is for existing apps that help you to learn a language. Also, we learned how much you are supposed to tip in Germany and how to cook Käsespätzle.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## What's next for LingoLaunch
+The next step would be to include more languages and more content. Parts of our interfaces and user experience could be improved with a bit more time. The LingoLaunch is ready to launch!
