@@ -13,7 +13,7 @@ export const Characteristics = () => {
       <p>
         It is true that many Germans tend to place punctuality as a high
         priority. Hence the global observation that German trains often run
-        perfectly on time. German people tend to be thrifty, be sensible, and
+        perfectly punctual. German people tend to be thrifty, be sensible, and
         respect one another’s privacy, and they typically respect the structure
         and laws of society to an above-average degree. There is no place that
         this sense of ‘order’ is more apparent than in German business culture.
