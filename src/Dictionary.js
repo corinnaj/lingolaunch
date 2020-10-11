@@ -153,7 +153,7 @@ export const DictionaryContainer = ({ children }) => {
         },
         progress: () => {
           return [
-            Object.values(wordCounts).filter((count) => count > 3).length,
+            Object.values(wordCounts).filter((count) => count > 4).length,
             Object.keys(dictionary).length,
           ];
         },
