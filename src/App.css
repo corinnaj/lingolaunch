@@ -198,3 +198,7 @@ body {
 .subheader-4 {
     background-color:rgb(217, 241, 218) !important;
 }
+
+#addText {
+    height: 100px!important;
+}

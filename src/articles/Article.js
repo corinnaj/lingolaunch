@@ -45,6 +45,11 @@ const tagChildList = (children, dictionary, englishWords, reverseMap) => {
     return processChildString(children, dictionary, englishWords, reverseMap);
   }
 
+  // is a single element
+  if (children.length === undefined) {
+    return tagChildList(children.props.children, dictionary, englishWords, reverseMap);
+  }
+
   for (const child of children) {
     if (typeof child === "string") {
       for (const c of processChildString(child, dictionary, englishWords, reverseMap)) output.push(c);
