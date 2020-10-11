@@ -9,6 +9,7 @@ import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import SpellcheckIcon from "@material-ui/icons/Spellcheck";
 import TranslateIcon from "@material-ui/icons/Translate";
 import bundeseagle from "./bundeseagle.svg";
+import pheasant from "./green-pheasant.svg";
 import ProgressBarExample from "./ProgressBar.js";
 import { CameraEnhance } from "@material-ui/icons";
 
@@ -53,15 +54,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Dashboard() {
+function Dashboard({ isJapanese }) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
-  const isJapanese = false;
+  const logo = isJapanese ? pheasant : bundeseagle;
 
   return (
     <div
       style={{
-        backgroundImage: `url(${bundeseagle})`,
+        backgroundImage: `url(${logo})`,
         backgroundSize: "contain",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "bottom left",
@@ -72,46 +73,88 @@ function Dashboard() {
         <Typography className={classes.title} color="textSecondary">
           Word of the Day
         </Typography>
-        {!isJapanese && <><div className={classes.wordRow}>
-          <Typography variant="h5">Ge{bull}sund{bull}heit</Typography>
-          <div style={{ fontSize: "2rem", marginLeft: "0.5rem" }}>🤧</div>
-        </div>
-          <Typography className={classes.pos} color="textSecondary">
-            noun
-        </Typography></>}
+        {!isJapanese && (
+          <>
+            <div className={classes.wordRow}>
+              <Typography variant="h5">
+                Ge{bull}sund{bull}heit
+              </Typography>
+              <div style={{ fontSize: "2rem", marginLeft: "0.5rem" }}>🤧</div>
+            </div>
+            <Typography className={classes.pos} color="textSecondary">
+              noun
+            </Typography>
+          </>
+        )}
 
-        {isJapanese && <><div className={classes.wordRow}>
-          <Typography variant="h5">かさ&nbsp;&nbsp;kasa&nbsp;&nbsp;</Typography>
-          <div style={{ fontSize: "2rem", marginLeft: "0.5rem" }}>🌂</div>
-        </div>
-          <Typography className={classes.pos} color="textSecondary">
-            noun
-        </Typography>
-        </>}
+        {isJapanese && (
+          <>
+            <div className={classes.wordRow}>
+              <Typography variant="h5">
+                かさ&nbsp;&nbsp;kasa&nbsp;&nbsp;
+              </Typography>
+              <div style={{ fontSize: "2rem", marginLeft: "0.5rem" }}>🌂</div>
+            </div>
+            <Typography className={classes.pos} color="textSecondary">
+              noun
+            </Typography>
+          </>
+        )}
 
-        {false && <><div className={classes.wordRow}>
-          <Typography variant="h5">Ap{bull}fel</Typography>
-          <div style={{ fontSize: "2rem", marginLeft: "0.5rem" }}>🍏</div>
-        </div>
-          <Typography className={classes.pos} color="textSecondary">
-            noun, fruit
-        </Typography>
-        </>}
+        {false && (
+          <>
+            <div className={classes.wordRow}>
+              <Typography variant="h5">Ap{bull}fel</Typography>
+              <div style={{ fontSize: "2rem", marginLeft: "0.5rem" }}>🍏</div>
+            </div>
+            <Typography className={classes.pos} color="textSecondary">
+              noun, fruit
+            </Typography>
+          </>
+        )}
       </div>
 
-      <div className={classes.section}>
-        <Card elevation={4}>
-          <CardContent>
-            <Typography variant="h4" gutterBottom>
-              Tips for Tipping
-            </Typography>
-            <Typography variant="body1" color="textSecondary">
-              Tipping in Germany and tipping in some other countries, such as the United States, are totally different. In Germany, waitresses are paid more and so the tips are smaller compared to the USA. Nevertheless, the 5-10% rule of thumb still applies.{" "}
-              <Link to="/articles/tipping">Read More...</Link>
-            </Typography>
-          </CardContent>
-        </Card>
-      </div>
+      {!isJapanese && (
+        <>
+          <div className={classes.section}>
+            <Card elevation={4}>
+              <CardContent>
+                <Typography variant="h4" gutterBottom>
+                  Tips for Tipping
+                </Typography>
+                <Typography variant="body1" color="textSecondary">
+                  Tipping in Germany and tipping in some other countries, such
+                  as the United States, are totally different. In Germany,
+                  waitresses are paid more and so the tips are smaller compared
+                  to the USA. Nevertheless, the 5-10% rule of thumb still
+                  applies. <Link to="/articles/tipping">Read More...</Link>
+                </Typography>
+              </CardContent>
+            </Card>
+          </div>
+        </>
+      )}
+
+      {isJapanese && (
+        <>
+          <div className={classes.section}>
+            <Card elevation={4}>
+              <CardContent>
+                <Typography variant="h4" gutterBottom>
+                  Bowing Culture
+                </Typography>
+                <Typography variant="body1" color="textSecondary">
+                  The bow is an integral part of Japanese society. It is used to
+                  greet when meeting, to get attention, to show gratitude, to
+                  express sympathy, or to convey an apology. While doing
+                  business in Japan as a Westerner, you would not be expected to
+                  bow. <Link to="/articles/tipping">Read More...</Link>
+                </Typography>
+              </CardContent>
+            </Card>
+          </div>
+        </>
+      )}
 
       <div className={classes.section}>
         <Card elevation={4}>
