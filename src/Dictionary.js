@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect, useCallback } from "react";
 
 export const translate = (text, targetLanguageCode) =>
   window
-    .fetch("http://localhost:8000/translate", {
+    .fetch("/translate", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text, targetLanguageCode }),

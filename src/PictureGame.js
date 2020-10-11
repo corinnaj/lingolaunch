@@ -52,28 +52,28 @@ export function PictureGame() {
   return tasks ? (
     <PictureGameTasks tasks={tasks} />
   ) : (
-    <div
-      style={{
-        background: "#000",
-        color: "#fff",
-        minHeight: "calc(100vh - 56px)",
-        overflow: "hidden",
-      }}
-    >
-      <Typography style={{ margin: "2rem" }} variant="h4">
-        Pick Your Challenge!
+      <div
+        style={{
+          background: "#000",
+          color: "#fff",
+          minHeight: "calc(100vh - 56px)",
+          overflow: "hidden",
+        }}
+      >
+        <Typography style={{ margin: "2rem" }} variant="h4">
+          Pick Your Challenge!
       </Typography>
-      {challenges.map((challenge) => (
-        <Button
-          variant="contained"
-          onClick={() => setTasks(challenge.tasks)}
-          style={{ margin: "1rem 2rem" }}
-        >
-          {challenge.icon()} {challenge.title}
-        </Button>
-      ))}
-    </div>
-  );
+        {challenges.map((challenge) => (
+          <Button
+            variant="contained"
+            onClick={() => setTasks(challenge.tasks)}
+            style={{ margin: "1rem 2rem" }}
+          >
+            {challenge.icon()} {challenge.title}
+          </Button>
+        ))}
+      </div>
+    );
 }
 
 function PictureGameTasks({ tasks }) {
@@ -100,7 +100,7 @@ function PictureGameTasks({ tasks }) {
         onTakePhoto={(dataUri) => {
           setLoading(true);
           window
-            .fetch("http://localhost:8000/upload-image", {
+            .fetch("/upload-image", {
               method: "post",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
