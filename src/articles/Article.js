@@ -1,26 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 
 import { T } from "../PartialTranslationParagraph";
 import { Container, Typography } from "@material-ui/core";
 import { Dictionary } from "../Dictionary";
+import { reverse } from "lodash";
 
 export const Difficulty = React.createContext({ useSuggestions: false });
 
-const processChildString = (string, dictionary) => {
-  const englishWords = new RegExp(
-    "\\b(" +
-      Object.values(dictionary)
-        .map((d) => d.en)
-        .join("|") +
-      ")(s?\\b)",
-    "i"
-  );
-  const reverseMap = Object.fromEntries(
-    Object.entries(dictionary).map(([german, { en }]) => [
-      en.toLowerCase(),
-      german,
-    ])
-  );
+const processChildString = (string, dictionary, englishWords, reverseMap) => {
   const output = [];
 
   // adapted from https://github.com/artem-solovev/regexify-string/blob/master/src/index.ts
@@ -51,23 +38,23 @@ const processChildString = (string, dictionary) => {
   return output;
 };
 
-const tagChildList = (children, dictionary) => {
+const tagChildList = (children, dictionary, englishWords, reverseMap) => {
   const output = [];
 
   if (typeof children === "string") {
-    return processChildString(children, dictionary);
+    return processChildString(children, dictionary, englishWords, reverseMap);
   }
 
   for (const child of children) {
     if (typeof child === "string") {
-      for (const c of processChildString(child, dictionary)) output.push(c);
+      for (const c of processChildString(child, dictionary, englishWords, reverseMap)) output.push(c);
     } else {
       if (child.props.children) {
         output.push({
           ...child,
           props: {
             ...child.props,
-            children: tagChildList(child.props.children, dictionary),
+            children: tagChildList(child.props.children, dictionary, englishWords, reverseMap),
           },
         });
       } else {
@@ -79,16 +66,41 @@ const tagChildList = (children, dictionary) => {
 };
 
 export const Article = ({ title, children, image }) => {
-  const { dictionary } = useContext(Dictionary);
+  const { dictionary, progress } = useContext(Dictionary);
+  const myProgress = progress();
+  const [percentage, setPercentage] = useState(myProgress[0] / myProgress[1]);
+
+  //useEffect(() => {
+  //const interval = setInterval(() => {
+  //setPercentage(percentage => percentage + 0.01);
+  //}, 60);
+  //return () => clearInterval(interval);
+  //}, []);
+
+  const reverseMap = Object.fromEntries(
+    Object.entries(dictionary).map(([german, { en }]) => [
+      en.toLowerCase(),
+      german,
+    ])
+  );
+
+  const englishWords = new RegExp(
+    "\\b(" +
+    Object.values(dictionary).slice(0, parseInt(Object.keys(dictionary).length * percentage))
+      .map((d) => d.en)
+      .join("|") +
+    ")(s?\\b)",
+    "i"
+  );
 
   return (
-    <Difficulty.Provider value={{ useSuggestions: true }}>
+    <Difficulty.Provider value={{ useSuggestions: myProgress[0] < 13 }}>
       <Container>
         <img className="coverImage" src={image} />
         <div style={{ padding: "2rem" }}>
           <Typography variant="h3">{title}</Typography>
           <div style={{ fontSize: "1.1rem", lineHeight: "1.7rem" }}>
-            {tagChildList(children, dictionary)}
+            {tagChildList(children, dictionary, englishWords, reverseMap)}
           </div>
           <div style={{ height: "1.5rem" }}></div>
         </div>
