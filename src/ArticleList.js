@@ -42,7 +42,7 @@ function fetch_articles(user_id = 0) {
             'id': 0,
             'completed': true,
             'title': 'Apple Pie',
-            'content': 'German Apple Cake is a traditional German dessert that is so easy to make even if you aren’t totally kitchen confident! With a simple batter that rises up and bakes around the apples this easy apple coffee cake is the perfect everyday dessert that tastes best with a dollop of whipped cream on top.',
+            'content': 'German Apple Cake is a traditional German dessert that is so easy to make even if you aren’t totally kitchen confident! With a simple batter that rises up and bakes around the apples this easy apple coffee cake is the perfect everyday dessert that tastes best with a dollop of whipped cream on top. random thumb for a test.',
             'link': 'applepie',
             'category': 'Recipes',
             'media': applePieImage,
