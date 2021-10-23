@@ -122,40 +122,39 @@ function App() {
                   <Route exact path="/welcome">
                     <Welcome />
                   </Route>
-                  <Route exact path="/articles/tipping">
-                    <Tipping />
+                  <Route path={"/articles/:article_id?"} children={<ArticleList/>}>
                   </Route>
-                  <Route exact path="/articles/applepie">
-                    <ApplePie />
-                  </Route>
-                  <Route exact path="/articles/bluebear">
-                    <CapitainBluebear />
-                  </Route>
-                  <Route exact path="/articles/kangaroo">
-                    <Kangaroo />
-                  </Route>
-                  <Route exact path="/articles/characteristics">
-                    <Characteristics />
-                  </Route>
-                  <Route exact path="/articles/spaetzle">
-                    <Spaetzle />
-                  </Route>
-                  <Route exact path="/articles/myarticle">
-                    <MyArticle />
-                  </Route>
-                  <Route exact path="/article">
-                    <Container>
-                      <Typography variant="h3">Apple Pie Recipe</Typography>
-                      <div style={{ fontSize: "1.1rem" }}>
-                        Text comes <T w="hier" />
-                      </div>
-                    </Container>
-                  </Route>
+                  {/*<Route exact path="/articles/tipping">*/}
+                  {/*  <Tipping />*/}
+                  {/*</Route>*/}
+                  {/*<Route exact path="/articles/applepie">*/}
+                  {/*  <ApplePie />*/}
+                  {/*</Route>*/}
+                  {/*<Route exact path="/articles/bluebear">*/}
+                  {/*  <CapitainBluebear />*/}
+                  {/*</Route>*/}
+                  {/*<Route exact path="/articles/kangaroo">*/}
+                  {/*  <Kangaroo />*/}
+                  {/*</Route>*/}
+                  {/*<Route exact path="/articles/characteristics">*/}
+                  {/*  <Characteristics />*/}
+                  {/*</Route>*/}
+                  {/*<Route exact path="/articles/spaetzle">*/}
+                  {/*  <Spaetzle />*/}
+                  {/*</Route>*/}
+                  {/*<Route exact path="/articles/myarticle">*/}
+                  {/*  <MyArticle />*/}
+                  {/*</Route>*/}
+                  {/*<Route exact path="/article">*/}
+                  {/*  <Container>*/}
+                  {/*    <Typography variant="h3">Apple Pie Recipe</Typography>*/}
+                  {/*    <div style={{ fontSize: "1.1rem" }}>*/}
+                  {/*      Text comes <T w="hier" />*/}
+                  {/*    </div>*/}
+                  {/*  </Container>*/}
+                  {/*</Route>*/}
                   <Route path="/shopping">
                     <ShoppingList />
-                  </Route>
-                  <Route path="/articles">
-                    <ArticleList />
                   </Route>
                   <Route path="/vocab">
                     <VocabTrainer />
