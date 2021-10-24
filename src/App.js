@@ -21,13 +21,13 @@ import { T } from "./PartialTranslationParagraph";
 import { DictionaryContainer } from "./Dictionary";
 import { lightGreen } from "@material-ui/core/colors";
 
-import { Tipping } from "./articles/Tipping";
-import { ApplePie } from "./articles/ApplePie";
-import { CapitainBluebear } from "./articles/CapitainBluebear";
-import { Kangaroo } from "./articles/Kangaroo";
-import { Characteristics } from "./articles/Characteristics";
-import { Spaetzle } from "./articles/ASortOfPasta";
-import { MyArticle } from "./articles/MyArticle";
+// import { Tipping } from "./articles/Tipping";
+// import { ApplePie } from "./articles/ApplePie";
+// import { CapitainBluebear } from "./articles/CapitainBluebear";
+// import { Kangaroo } from "./articles/Kangaroo";
+// import { Characteristics } from "./articles/Characteristics";
+// import { Spaetzle } from "./articles/ASortOfPasta";
+// import { MyArticle } from "./articles/MyArticle";
 
 import { ArticleList } from "./ArticleList";
 import { Translate } from "./Translate";

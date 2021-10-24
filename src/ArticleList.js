@@ -14,11 +14,12 @@ import { applePieImage } from "./articles/ApplePie";
 import { Article } from "./articles/Article";
 import { kangarooImage } from "./articles/Kangaroo";
 import { germanImage } from "./articles/Characteristics";
-import { spaetzleImage } from "./articles/ASortOfPasta";
+// import { spaetzleImage } from "./articles/ASortOfPasta";
 import PostAddIcon from "@material-ui/icons/PostAdd";
 import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Box from '@material-ui/core/Box';
+
 
 const useStyles = makeStyles((theme) => ({
     article: {
@@ -89,12 +90,17 @@ function fetch_articles(user_id = 0) {
     ]
 }
 
+function fetch_user_level(user_id){
+    return 2
+}
+
 export function ArticleList() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [content, setContent] = React.useState('');
     const [notification, setNotification] = React.useState('');
     const [articles, setArticles] = React.useState(fetch_articles());
+    const [level, setLevel] = React.useState(fetch_user_level());
     const { article_id } = useParams();
     const history = useHistory();
     const vertical = 'bottom', horizontal = 'center';
@@ -157,7 +163,6 @@ export function ArticleList() {
                 <CardHeader title={title} subheader={category} >
                 </CardHeader>
                 <CardContent>
-                    <Typography gutterBottom variant="h3" component="h3" className="completed-banner"></Typography>
                     <Typography variant="body1" color="textSecondary">
                         {content}
                     </Typography>
@@ -170,6 +175,21 @@ export function ArticleList() {
                     </Link>
                 </CardActions>
             </Card >);
+    }
+
+    function LinearProgressWithLabel(props) {
+        return (
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Box sx={{ width: '100%', mr: 1 }}>
+                        <LinearProgress variant="determinate" {...props} />
+                    </Box>
+                    <Box sx={{ minWidth: 35 }}>
+                        <Typography variant="body2">{`${Math.round(
+                            props.value,
+                        )}%`}</Typography>
+                    </Box>
+                </Box>
+        );
     }
 
     return <div>
@@ -203,6 +223,17 @@ export function ArticleList() {
                 </Link>
             </DialogActions>
         </Dialog>
+
+        <Typography gutterBottom variant="h4" align='center'>
+            RandomUser, you are currently at level {level}
+        </Typography>
+        <Typography gutterBottom variant="body1" align='center' color="textSecondary">
+            in this level you will learn german words for: <br/>
+            you miss {articles.filter((article) => !article.completed).length} articles to reach level {level + 1}!
+        </Typography>
+        <LinearProgressWithLabel
+            value={100 * (articles.filter((article) => article.completed).length / articles.length)}
+        />
         { get_article(article_id) }
         <Snackbar
             autoHideDuration={3000}

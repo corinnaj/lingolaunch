@@ -38,7 +38,7 @@ export const Article = ({ title, children, image, onComplete }) => {
     "ig"
   );
   // keep track of how many matches are left to complete this article
-  const [match_left, Setmatch_left] = React.useState(((children || '').match(englishWords)).length)
+  const [match_left, Setmatch_left] = React.useState(((children).match(englishWords) || []).length)
 
   const updateMatchLeft = () => {
     if (match_left - 1 === 0)
