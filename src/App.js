@@ -5,7 +5,7 @@ import {
   AppBar,
   Toolbar,
   ThemeProvider,
-  createMuiTheme,
+  createTheme,
 } from "@material-ui/core";
 import "./App.css";
 import Dashboard from "./Dashboard.js";
@@ -38,7 +38,7 @@ import { IndexCard } from "./IndexCard";
 import { VocabList } from "./VocabList";
 import ScrollToTop from "./ScrollToTop";
 
-const theme = createMuiTheme({
+const theme = createTheme({
   typography: {
     letterSpacing: "-1px",
     fontFamily: ["Mulish", "sans-serif"].join(","),

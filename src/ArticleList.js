@@ -82,7 +82,7 @@ function fetch_articles(user_id = 0) {
             'id': 4,
             'completed': false,
             'title': 'Tipping Tips',
-            'content': 'Tipping in Germany and tipping in some other countries, such as the United States, are totally different.',
+            'content': 'Tipping in Germany and tipping in some other countries, such as the United States, are totally different. apple',
             'link': 'tipping',
             'category': 'Cultural Tips',
             'media': tippingImage
@@ -121,8 +121,22 @@ export function ArticleList() {
 
     useEffect(() => {
         // TODO: check from state if all articles are completed -> level up!
-        // use: articles.filter((article) => !article.completed).length
-        // check if it is zero
+        // use:
+        if (articles.filter((article) => !article.completed).length == 0) {
+            setNotification("CONGRATS! you just advanced to level " + (level + 1))
+            setLevel(level + 1)
+            // TODO: load new articles for the next level from backend
+            setArticles([{
+                    'id': 99,
+                    'completed': false,
+                    'title': 'Harder article',
+                    'content': 'this is a new article, harder and more complex with new words',
+                    'link': 'bluebear',
+                    'category': 'Media',
+                    'media': capitainBluebearImage
+                }],
+            )
+        }
     });
 
     const markAsComplete = (article_id) => {
@@ -234,6 +248,7 @@ export function ArticleList() {
         <LinearProgressWithLabel
             value={100 * (articles.filter((article) => article.completed).length / articles.length)}
         />
+
         { get_article(article_id) }
         <Snackbar
             autoHideDuration={3000}
