@@ -111,7 +111,7 @@ export function ArticleList() {
         let article = articles.find(article => article.id == article_id)
         if(article)
             return(
-                <Article title={article.title} image={article.media}>
+                <Article title={article.title} image={article.media} onComplete={(article_id) => markAsComplete(article_id)}>
                     {article.content}
                 </Article>
             )

@@ -8,7 +8,7 @@ import { reverse } from "lodash";
 export const Difficulty = React.createContext({ useSuggestions: false });
 
 
-export const Article = ({ title, children, image }) => {
+export const Article = ({ title, children, image, onComplete }) => {
   const { dictionary, progress } = useContext(Dictionary);
   const myProgress = progress();
   const [percentage, setPercentage] = useState(myProgress[0] / myProgress[1]);
@@ -27,8 +27,7 @@ export const Article = ({ title, children, image }) => {
     ])
   );
 
-  const wordCount =
-    Math.max(parseInt(Object.keys(dictionary).length * percentage), 1) + 5;
+  const wordCount = Math.max(parseInt(Object.keys(dictionary).length * percentage), 1) + 5;
   const englishWords = new RegExp(
     "\\b(" +
       Object.values(dictionary)
@@ -36,11 +35,20 @@ export const Article = ({ title, children, image }) => {
         .map((d) => d.en)
         .join("|") +
       ")",
-    "i"
+    "ig"
   );
+
+  // keep track of how many matches are left to complete this article
+  const [match_left, Setmatch_left] = React.useState(((children || '').match(englishWords)).length)
+
+  const updateMatchLeft = () => {
+    console.log("preso!")
+    Setmatch_left(match_left - 1)
+    console.log(match_left)
+  }
+
   const reactStringReplace = require('react-string-replace');
-  console.log(dictionary)
-  console.log(englishWords)
+
   return (
     <Difficulty.Provider value={{ useSuggestions: wordCount < 13 }}>
       <Container>
@@ -50,7 +58,7 @@ export const Article = ({ title, children, image }) => {
           <div style={{ fontSize: "1.1rem", lineHeight: "1.7rem" }}>
             {
               reactStringReplace(children, englishWords, (match, i) =>
-                  React.createElement(T, { w: reverseMap[match.toLowerCase()], i })
+                  React.createElement(T, { w: reverseMap[match.toLowerCase()], key:i, onComplete:updateMatchLeft})
               )
             }
           </div>
