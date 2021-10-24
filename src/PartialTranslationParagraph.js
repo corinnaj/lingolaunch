@@ -29,6 +29,11 @@ const MuiMenuItem = React.forwardRef((props, ref) => {
 });
 
 export const T = ({ w: german, readonly, onComplete}) => {
+    /*
+    TODO: since we are storing matches on state we could show here which word is already completed
+            some sort of saved progress from your exercise -> useful if articles are long and complex
+     */
+
   const [opened, setOpened] = useState(null);
   const [success, setSuccess] = useState(false);
   const [input, setInput] = useState("");

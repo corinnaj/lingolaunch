@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Typography, Card, CardContent, CardActions, Button, CardHeader, CardMedia, Fab } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -6,7 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { capitainBluebearImage } from "./articles/CapitainBluebear";
 import { tippingImage } from "./articles/Tipping";
@@ -16,6 +16,9 @@ import { kangarooImage } from "./articles/Kangaroo";
 import { germanImage } from "./articles/Characteristics";
 import { spaetzleImage } from "./articles/ASortOfPasta";
 import PostAddIcon from "@material-ui/icons/PostAdd";
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles((theme) => ({
     article: {
@@ -40,9 +43,9 @@ function fetch_articles(user_id = 0) {
     return [
         {
             'id': 0,
-            'completed': true,
+            'completed': false,
             'title': 'Apple Pie',
-            'content': 'German Apple Cake is a traditional German dessert that is so easy to make even if you aren’t totally kitchen confident! With a simple batter that rises up and bakes around the apples this easy apple coffee cake is the perfect everyday dessert that tastes best with a dollop of whipped cream on top. random thumb for a test.',
+            'content': 'German Apple Cake is a traditional German dessert that is so easy to make even if you aren’t totally kitchen confident! With a simple batter that rises up and bakes around the apples this easy apple coffee cake is the perfect everyday dessert that tastes best with a dollop of whipped cream on top.',
             'link': 'applepie',
             'category': 'Recipes',
             'media': applePieImage,
@@ -51,7 +54,7 @@ function fetch_articles(user_id = 0) {
             'id': 1,
             'completed': true,
             'title': 'German Characteristics',
-            'content': 'It is true that many Germans tend to place punctuality as a high priority. Hence the global observation that German trains often run perfectly on time.',
+            'content': 'It is true that many Germans tend to place punctuality as a high priority. Hence the global observation that German trains often run perfectly on time. apple',
             'link': 'characteristics',
             'category': 'Cultural Tips',
             'media': germanImage
@@ -60,7 +63,7 @@ function fetch_articles(user_id = 0) {
             'id': 2,
             'completed': false,
             'title': 'Capitain Bluebear',
-            'content': 'The 13​¹⁄₂ Lives of Captain Bluebear is a 1999 fantasy novel by German writer and cartoonist Walter Moers which details the numerous lives of a human-sized bear with blue fur.',
+            'content': 'The 13​¹⁄₂ Lives of Captain Bluebear is a 1999 fantasy novel by German writer and cartoonist Walter Moers which details the numerous lives of a human-sized bear with blue fur.apple',
             'link': 'bluebear',
             'category': 'Media',
             'media': capitainBluebearImage
@@ -69,7 +72,7 @@ function fetch_articles(user_id = 0) {
             'id': 3,
             'completed': false,
             'title': 'The Kangaroo Chronicles',
-            'content': 'Marc-Uwe Kling writes funny songs and stories. His business model is to write books that fiercely criticize capitalism and sell incredibly well.',
+            'content': '"Marc-Uwe Kling writes funny songs and stories. His business model is to write ooks that fiercely criticize capitalism and sell incredibly well. For his Kangaroo stories he was awarded the German Radio Award, the German Cabaret Award and the German Audio Book Prize. apple',
             'link': 'kangaroo',
             'category': 'Media',
             'media': kangarooImage
@@ -90,8 +93,11 @@ export function ArticleList() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [content, setContent] = React.useState('');
-    const [articles, setArticles] = React.useState(fetch_articles())
-    const { article_id } = useParams()
+    const [notification, setNotification] = React.useState('');
+    const [articles, setArticles] = React.useState(fetch_articles());
+    const { article_id } = useParams();
+    const history = useHistory();
+    const vertical = 'bottom', horizontal = 'center';
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -103,15 +109,35 @@ export function ArticleList() {
         setContent('');
     };
 
+    const notificationReset = () => {
+        setNotification('')
+    }
+
+    useEffect(() => {
+        // TODO: check from state if all articles are completed -> level up!
+        // use: articles.filter((article) => !article.completed).length
+        // check if it is zero
+    });
+
     const markAsComplete = (article_id) => {
-        alert("this was marked as completed: " + article_id);
+        let updated_articles = articles.map(
+            (article) => {
+                return((article.id == article_id && !article.completed) ? {...article, 'completed': true}: article
+                )
+            }
+        )
+        setArticles(updated_articles)
+        // TODO: send new state to backend, we reset this on page refresh atm
+        history.push("/articles")
+        setNotification("CONGRATS! Article \"" + articles[article_id].title + "\" is completed!")
+
     }
 
     function get_article(article_id){
         let article = articles.find(article => article.id == article_id)
         if(article)
             return(
-                <Article title={article.title} image={article.media} onComplete={(article_id) => markAsComplete(article_id)}>
+                <Article title={article.title} image={article.media} onComplete={() => markAsComplete(article_id)}>
                     {article.content}
                 </Article>
             )
@@ -119,25 +145,31 @@ export function ArticleList() {
             preview(article.title, article.content, article.link, article.category, article.media, article.id, article.completed )
         ))
     }
+
     function preview(title, content, link, category, image, article_id, completed=false) {
-        return (<Card key={article_id} elevation={4} className={classes.article}>
-            <CardMedia image={image} component="img" height="160">
-            </CardMedia>
-            <CardHeader title={completed ? title + '[completed]': title} subheader={category} >
-            </CardHeader>
-            <CardContent>
-                <Typography variant="body1" color="textSecondary">
-                    {content}
-                </Typography>
-            </CardContent>
-            <CardActions>
-                <Link to={"/articles/" + article_id}>
-                    <Button size="small" color="primary">
-                        Read More
-                </Button>
-                </Link>
-            </CardActions>
-        </Card >);
+        return (
+            <Card key={article_id} elevation={4} className={classes.article}>
+                <div className="completed-anchor">
+                    <CardMedia image={image} className={completed? 'completed-article': null} component="img" height="160">
+                    </CardMedia>
+                    {completed? <span className='completed-banner'>COMPLETED</span>:null}
+                </div>
+                <CardHeader title={title} subheader={category} >
+                </CardHeader>
+                <CardContent>
+                    <Typography gutterBottom variant="h3" component="h3" className="completed-banner"></Typography>
+                    <Typography variant="body1" color="textSecondary">
+                        {content}
+                    </Typography>
+                </CardContent>
+                <CardActions>
+                    <Link to={"/articles/" + article_id}>
+                        <Button size="small" color="primary">
+                            Read More
+                    </Button>
+                    </Link>
+                </CardActions>
+            </Card >);
     }
 
     return <div>
@@ -172,6 +204,14 @@ export function ArticleList() {
             </DialogActions>
         </Dialog>
         { get_article(article_id) }
+        <Snackbar
+            autoHideDuration={3000}
+            anchorOrigin={{ vertical, horizontal }}
+            open={Boolean(notification)}
+            onClose={notificationReset}
+            message={notification}
+            key={notification}
+        />
         <Fab aria-label="import" color="primary" className={classes.fab} onClick={handleClickOpen}>
             <PostAddIcon />
         </Fab>
