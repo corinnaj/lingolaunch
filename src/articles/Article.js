@@ -38,12 +38,12 @@ export const Article = ({ title, children, image, onComplete }) => {
     "ig"
   );
   // keep track of how many matches are left to complete this article
-  const [match_left, Setmatch_left] = React.useState(((children).match(englishWords) || []).length)
+  const [matchLeft, SetmatchLeft] = React.useState(((children).match(englishWords) || []).length)
 
   const updateMatchLeft = () => {
-    if (match_left - 1 === 0)
+    if (matchLeft - 1 === 0)
       onComplete();
-    Setmatch_left(match_left - 1)
+    SetmatchLeft(matchLeft - 1)
   }
 
   const reactStringReplace = require('react-string-replace');

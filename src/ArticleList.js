@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { Typography, Card, CardContent, CardActions, Button, CardHeader, CardMedia, Fab } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -14,7 +14,6 @@ import { applePieImage } from "./articles/ApplePie";
 import { Article } from "./articles/Article";
 import { kangarooImage } from "./articles/Kangaroo";
 import { germanImage } from "./articles/Characteristics";
-// import { spaetzleImage } from "./articles/ASortOfPasta";
 import PostAddIcon from "@material-ui/icons/PostAdd";
 import Snackbar from '@material-ui/core/Snackbar';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -96,12 +95,12 @@ function fetch_user_level(user_id){
 
 export function ArticleList() {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
-    const [content, setContent] = React.useState('');
-    const [notification, setNotification] = React.useState('');
-    const [articles, setArticles] = React.useState(fetch_articles());
-    const [level, setLevel] = React.useState(fetch_user_level());
-    const { article_id } = useParams();
+    const [open, setOpen] = useState(false);
+    const [content, setContent] = useState('');
+    const [notification, setNotification] = useState('');
+    const [articles, setArticles] = useState(fetch_articles());
+    const [level, setLevel] = useState(fetch_user_level());
+    const { articleId } = useParams();
     const history = useHistory();
     const vertical = 'bottom', horizontal = 'center';
 
@@ -121,8 +120,7 @@ export function ArticleList() {
 
     useEffect(() => {
         // TODO: check from state if all articles are completed -> level up!
-        // use:
-        if (articles.filter((article) => !article.completed).length == 0) {
+        if (articles.every((article) => article.completed)) {
             setNotification("CONGRATS! you just advanced to level " + (level + 1))
             setLevel(level + 1)
             // TODO: load new articles for the next level from backend
@@ -139,25 +137,18 @@ export function ArticleList() {
         }
     });
 
-    const markAsComplete = (article_id) => {
-        let updated_articles = articles.map(
-            (article) => {
-                return((article.id == article_id && !article.completed) ? {...article, 'completed': true}: article
-                )
-            }
-        )
-        setArticles(updated_articles)
+    const markAsComplete = (articleId) => {
+        setArticles(articles.map((article) => article.id === articleId ? {...article, completed: true} : article));
         // TODO: send new state to backend, we reset this on page refresh atm
         history.push("/articles")
-        setNotification("CONGRATS! Article \"" + articles[article_id].title + "\" is completed!")
-
+        setNotification("CONGRATS! Article \"" + articles[articleId].title + "\" is completed!")
     }
 
-    function get_article(article_id){
-        let article = articles.find(article => article.id == article_id)
+    function getArticle(articleId){
+        let article = articles.find(article => article.id === articleId)
         if(article)
             return(
-                <Article title={article.title} image={article.media} onComplete={() => markAsComplete(article_id)}>
+                <Article title={article.title} image={article.media} onComplete={() => markAsComplete(articleId)}>
                     {article.content}
                 </Article>
             )
@@ -166,23 +157,21 @@ export function ArticleList() {
         ))
     }
 
-    function preview(title, content, link, category, image, article_id, completed=false) {
+    function preview(title, content, link, category, image, articleId, completed=false) {
         return (
-            <Card key={article_id} elevation={4} className={classes.article}>
+            <Card key={articleId} elevation={4} className={classes.article}>
                 <div className="completed-anchor">
-                    <CardMedia image={image} className={completed? 'completed-article': null} component="img" height="160">
-                    </CardMedia>
+                    <CardMedia image={image} className={completed? 'completed-article': null} component="img" height="160"/>
                     {completed? <span className='completed-banner'>COMPLETED</span>:null}
                 </div>
-                <CardHeader title={title} subheader={category} >
-                </CardHeader>
+                <CardHeader title={title} subheader={category}/>
                 <CardContent>
                     <Typography variant="body1" color="textSecondary">
                         {content}
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Link to={"/articles/" + article_id}>
+                    <Link to={"/articles/" + articleId}>
                         <Button size="small" color="primary">
                             Read More
                     </Button>
@@ -249,7 +238,7 @@ export function ArticleList() {
             value={100 * (articles.filter((article) => article.completed).length / articles.length)}
         />
 
-        { get_article(article_id) }
+        { getArticle(parseInt(articleId)) }
         <Snackbar
             autoHideDuration={3000}
             anchorOrigin={{ vertical, horizontal }}
