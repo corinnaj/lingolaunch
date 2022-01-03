@@ -17,7 +17,6 @@ import japanFlag from "./japan-flag.svg";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-import { T } from "./PartialTranslationParagraph";
 import { DictionaryContainer } from "./Dictionary";
 import { lightGreen } from "@material-ui/core/colors";
 import { ArticleList } from "./ArticleList";

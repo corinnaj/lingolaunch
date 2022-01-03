@@ -1,9 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 
+import parse from 'html-react-parser';
 import { T } from "../PartialTranslationParagraph";
 import { Container, Typography } from "@material-ui/core";
 import { Dictionary } from "../Dictionary";
-import { reverse } from "lodash";
+import reactStringReplace from "react-string-replace";
 
 export const Difficulty = React.createContext({ useSuggestions: false });
 
@@ -12,13 +13,6 @@ export const Article = ({ title, children, image, onComplete }) => {
   const { dictionary, progress } = useContext(Dictionary);
   const myProgress = progress();
   const [percentage, setPercentage] = useState(myProgress[0] / myProgress[1]);
-
-  //useEffect(() => {
-  //const interval = setInterval(() => {
-  //setPercentage(percentage => percentage + 0.01);
-  //}, 60);
-  //return () => clearInterval(interval);
-  //}, []);
 
   const reverseMap = Object.fromEntries(
     Object.entries(dictionary).map(([german, { en }]) => [
@@ -46,8 +40,6 @@ export const Article = ({ title, children, image, onComplete }) => {
     SetmatchLeft(matchLeft - 1)
   }
 
-  const reactStringReplace = require('react-string-replace');
-
   return (
     <Difficulty.Provider value={{ useSuggestions: wordCount < 13 }}>
       <Container>
@@ -56,9 +48,17 @@ export const Article = ({ title, children, image, onComplete }) => {
           <Typography variant="h3">{title}</Typography>
           <div style={{ fontSize: "1.1rem", lineHeight: "1.7rem" }}>
             {
-              reactStringReplace(children, englishWords, (match, i) =>
-                  React.createElement(T, { w: reverseMap[match.toLowerCase()], key:i, onComplete:updateMatchLeft})
-              )
+              parse(children, {
+                replace: domNode => {
+                  if(domNode.data)
+                    return(
+                        <span>
+                          {reactStringReplace(domNode.data, englishWords, (match, i) =>
+                              <T w={reverseMap[match.toLowerCase()]} key={i} onComplete={updateMatchLeft}/>)}
+                        </span>
+                    );
+                }
+              })
             }
           </div>
           <div style={{ height: "1.5rem" }}></div>

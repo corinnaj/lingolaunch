@@ -77,13 +77,14 @@ export const T = ({ w: german, readonly, onComplete}) => {
       >
         {german}
       </motion.span>
-      <div className="confetti-wrapper">
+      <span className="confetti-wrapper">
+        {/* TODO: the confetti component generates a div tag inside our paragraph - not good. */}
         <Confetti
           style={{ position: "absolute" }}
           active={success}
           config={confettiConfig}
         />
-      </div>
+      </span>
 
       {/*<Button onClick={e => setAnchorEl(e.currentTarget)}>CLICK ME</Button>*/}
       <MuiMenu
