@@ -1,6 +1,6 @@
 import React, { useContext, useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { TextField, Menu, MenuItem } from "@material-ui/core";
+import { TextField, Select, SelectProps, Menu, MenuItem } from "@material-ui/core";
 import { Dictionary } from "./Dictionary";
 import Confetti from "react-dom-confetti";
 import { Difficulty } from "./articles/Article";
@@ -19,19 +19,42 @@ export const confettiConfig = {
   colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
 };
 
-export const T = ({ w: german, readonly }) => {
+
+const MuiMenu = React.forwardRef((props, ref) => {
+  return <Menu ref={ref} {...props} />;
+});
+
+const MuiMenuItem = React.forwardRef((props, ref) => {
+  return <MenuItem ref={ref} {...props} />;
+});
+
+export const T = ({ w: german, readonly, onComplete}) => {
+    /*
+    TODO: since we are storing matches on state we could show here which word is already completed
+            some sort of saved progress from your exercise -> useful if articles are long and complex
+     */
+
   const [opened, setOpened] = useState(null);
-  const { confirmWord, getWordCount } = useContext(Dictionary);
   const [success, setSuccess] = useState(false);
+  const [input, setInput] = useState("");
+
+  const { useSuggestions } = useContext(Difficulty);
+  const { confirmWord, getWordCount, dictionary } = useContext(Dictionary);
 
   const handleSubmit = (answer) => {
     if (confirmWord(german, answer)) {
       setSuccess(true);
       setOpened(false);
+      onComplete();
       return true;
     }
     return false;
   };
+
+  const wordList = useMemo(
+      () => shuffle([...dictionary[german].wrong, dictionary[german].en]),
+      [dictionary, german]
+  );
 
   const colors = ["new", "bronze", "silver", "gold", "emerald"];
 
@@ -54,31 +77,53 @@ export const T = ({ w: german, readonly }) => {
       >
         {german}
       </motion.span>
-      <div className="confetti-wrapper">
+      <span className="confetti-wrapper">
+        {/* TODO: the confetti component generates a div tag inside our paragraph - not good. */}
         <Confetti
           style={{ position: "absolute" }}
           active={success}
           config={confettiConfig}
         />
-      </div>
+      </span>
 
-      <Menu
-        elevation={4}
-        getContentAnchorEl={null}
-        anchorEl={opened}
-        onClose={() => setOpened(null)}
-        open={!!opened}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "center",
-        }}
+      {/*<Button onClick={e => setAnchorEl(e.currentTarget)}>CLICK ME</Button>*/}
+      <MuiMenu
+          elevation={4}
+          getContentAnchorEl={null}
+          anchorEl={opened}
+          onClose={() => setOpened(null)}
+          open={!!opened}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
       >
-        <PartialTranslationOverlay german={german} onSubmit={handleSubmit} />
-      </Menu>
+      {
+        useSuggestions ?
+            wordList.map(word => {
+              return(
+                  <MuiMenuItem onClick={() => handleSubmit(word)} key={word}>
+                    {word}
+                  </MuiMenuItem>
+              );
+            }):
+            <div style={{ padding: "1rem" }}>
+              <TextField
+                  autoFocus
+                  value={input}
+                  label="Translated ..."
+                  onKeyPress={(e) =>
+                      e.key === "Enter" && (handleSubmit(e.target.value) || setInput(""))
+                  }
+                  onChange={(e) => setInput(e.target.value)}
+              />
+            </div>
+      }
+      </MuiMenu>
     </span>
   );
 };
@@ -95,33 +140,3 @@ function shuffle(a) {
   }
   return a;
 }
-
-const PartialTranslationOverlay = ({ onSubmit, german }) => {
-  const [input, setInput] = useState("");
-  const { useSuggestions } = useContext(Difficulty);
-  const { dictionary } = useContext(Dictionary);
-  const wordList = useMemo(
-    () => shuffle([...dictionary[german].wrong, dictionary[german].en]),
-    [dictionary, german]
-  );
-
-  return useSuggestions ? (
-    wordList.map((label) => (
-      <MenuItem onClick={() => onSubmit(label)} key={label}>
-        {label}
-      </MenuItem>
-    ))
-  ) : (
-    <div style={{ padding: "1rem" }}>
-      <TextField
-        autoFocus
-        value={input}
-        label="Translated ..."
-        onKeyPress={(e) =>
-          e.key === "Enter" && (onSubmit(e.target.value) || setInput(""))
-        }
-        onChange={(e) => setInput(e.target.value)}
-      />
-    </div>
-  );
-};

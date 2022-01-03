@@ -117,8 +117,8 @@ function Dashboard({ isJapanese }) {
       <div className={classes.section}>
         <Card elevation={4}>
           <CardContent>
-            <Typography variant="body1">
-            <p>Your first German Words!</p>
+            <Typography component={'span'} variant="body1">
+              <p>Your first German Words!</p>
             </Typography>
             <ProgressBarExample />
           </CardContent>

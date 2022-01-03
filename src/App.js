@@ -5,7 +5,7 @@ import {
   AppBar,
   Toolbar,
   ThemeProvider,
-  createMuiTheme,
+  createTheme,
 } from "@material-ui/core";
 import "./App.css";
 import Dashboard from "./Dashboard.js";
@@ -17,18 +17,8 @@ import japanFlag from "./japan-flag.svg";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-import { T } from "./PartialTranslationParagraph";
 import { DictionaryContainer } from "./Dictionary";
 import { lightGreen } from "@material-ui/core/colors";
-
-import { Tipping } from "./articles/Tipping";
-import { ApplePie } from "./articles/ApplePie";
-import { CapitainBluebear } from "./articles/CapitainBluebear";
-import { Kangaroo } from "./articles/Kangaroo";
-import { Characteristics } from "./articles/Characteristics";
-import { Spaetzle } from "./articles/ASortOfPasta";
-import { MyArticle } from "./articles/MyArticle";
-
 import { ArticleList } from "./ArticleList";
 import { Translate } from "./Translate";
 import { VocabTrainer } from "./VocabTrainer";
@@ -38,7 +28,7 @@ import { IndexCard } from "./IndexCard";
 import { VocabList } from "./VocabList";
 import ScrollToTop from "./ScrollToTop";
 
-const theme = createMuiTheme({
+const theme = createTheme({
   typography: {
     letterSpacing: "-1px",
     fontFamily: ["Mulish", "sans-serif"].join(","),
@@ -122,40 +112,10 @@ function App() {
                   <Route exact path="/welcome">
                     <Welcome />
                   </Route>
-                  <Route exact path="/articles/tipping">
-                    <Tipping />
-                  </Route>
-                  <Route exact path="/articles/applepie">
-                    <ApplePie />
-                  </Route>
-                  <Route exact path="/articles/bluebear">
-                    <CapitainBluebear />
-                  </Route>
-                  <Route exact path="/articles/kangaroo">
-                    <Kangaroo />
-                  </Route>
-                  <Route exact path="/articles/characteristics">
-                    <Characteristics />
-                  </Route>
-                  <Route exact path="/articles/spaetzle">
-                    <Spaetzle />
-                  </Route>
-                  <Route exact path="/articles/myarticle">
-                    <MyArticle />
-                  </Route>
-                  <Route exact path="/article">
-                    <Container>
-                      <Typography variant="h3">Apple Pie Recipe</Typography>
-                      <div style={{ fontSize: "1.1rem" }}>
-                        Text comes <T w="hier" />
-                      </div>
-                    </Container>
+                  <Route path={"/articles/:articleId?"} children={<ArticleList/>}>
                   </Route>
                   <Route path="/shopping">
                     <ShoppingList />
-                  </Route>
-                  <Route path="/articles">
-                    <ArticleList />
                   </Route>
                   <Route path="/vocab">
                     <VocabTrainer />

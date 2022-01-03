@@ -27,3 +27,5 @@ server/My Project-386a662ca057.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+.idea
