@@ -18,6 +18,7 @@ import PostAddIcon from "@material-ui/icons/PostAdd";
 import Snackbar from '@material-ui/core/Snackbar';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Box from '@material-ui/core/Box';
+import {supabase} from "./supabaseClient";
 
 const useStyles = makeStyles((theme) => ({
     article: {
@@ -97,7 +98,7 @@ function fetch_user_level(user_id){
     return 2
 }
 
-export function ArticleList() {
+export function ArticleList({userInfo, updateUserInfo}) {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const [content, setContent] = useState('');
@@ -122,8 +123,12 @@ export function ArticleList() {
         setNotification('')
     }
 
+    function logout(event){
+        supabase.auth.signOut()
+        updateUserInfo({...userInfo, status: "Guest"})
+    }
+
     useEffect(() => {
-        // TODO: check from state if all articles are completed -> level up!
         if (articles.every((article) => article.completed)) {
             setNotification("CONGRATS! you just advanced to level " + (level + 1))
             setLevel(level + 1)
@@ -232,7 +237,7 @@ export function ArticleList() {
         </Dialog>
 
         <Typography gutterBottom variant="h4" align='center'>
-            RandomUser, you are currently at level {level}
+            {userInfo.username}, you are currently at level {userInfo.level}. <a href="#" onClick={logout}>logout</a>
         </Typography>
         <Typography gutterBottom variant="body1" align='center' color="textSecondary">
             in this level you will learn german words for: <br/>
