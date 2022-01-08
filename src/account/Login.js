@@ -34,10 +34,6 @@ export const Login = ({userInfo, updateUserInfo}) => {
                 if (error) throw error
                 updateUserInfo({
                     ...userInfo,
-                    username: user[0].username,
-                    language: user[0].language,
-                    level: user[0].level,
-                    session: supabase.auth.session(),
                     status: 'Completed'
                 })
                 setLoading(false)

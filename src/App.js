@@ -87,7 +87,7 @@ function App() {
     else if (userInfo.status !== "Completed") {
       supabase
           .from('profiles')
-          .select('*', {count: 'exact'})
+          .select('username, level, languages(name)', {count: 'exact'})
           .eq('id', supabase.auth.user().id)
           .then(response => {
             const {data, count, error} = response
@@ -98,7 +98,7 @@ function App() {
                 ...userInfo,
                 status: 'Completed',
                 username: data[0].username,
-                language: data[0].language,
+                language: data[0].languages.name,
                 level: data[0].level,
                 session: supabase.auth.session()
               })

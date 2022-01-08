@@ -125,7 +125,7 @@ export function ArticleList({userInfo, updateUserInfo}) {
 
     function logout(event){
         supabase.auth.signOut()
-        updateUserInfo({...userInfo, status: "Guest"})
+        updateUserInfo({status: "Guest"})
     }
 
     useEffect(() => {

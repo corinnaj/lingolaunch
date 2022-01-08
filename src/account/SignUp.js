@@ -44,7 +44,7 @@ export default function SignUp({userInfo, updateUserInfo}) {
 
     function logout(event){
         supabase.auth.signOut()
-        updateUserInfo({status: "Guest", session: null, username: undefined})
+        updateUserInfo({status: "Guest"})
     }
 
     function signUpForm(){

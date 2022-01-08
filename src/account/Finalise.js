@@ -59,10 +59,7 @@ export default function Finalise({userInfo, updateUserInfo}) {
                     setSubmitted(true)
                     updateUserInfo({
                         ...userInfo,
-                        status: 'Completed',
-                        username: username,
-                        language: language,
-                        level: 0,
+                        status: 'Completed'
                     })
                     setLoading(false)
                 })
