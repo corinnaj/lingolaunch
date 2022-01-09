@@ -37,7 +37,15 @@ export default function Finalise({userInfo, updateUserInfo}) {
             setError(error)
         }
         setLanguageList(data)
-        setLanguage(data[0].id)
+    }
+
+    function updateLanguage(languageId) {
+        setLanguage(languageId)
+        languageList.map((l, k) => {
+            if(l.id === parseInt(languageId)) {
+                updateUserInfo({...userInfo, language: l.name})
+            }
+        })
     }
 
     async function submitHandler(event){
@@ -88,19 +96,22 @@ export default function Finalise({userInfo, updateUserInfo}) {
                 </Grid>
                 <Grid item xs={12}>
                     <InputLabel variant="standard" required htmlFor="uncontrolled-native">
-                        Pick the language to study
+                        Language you want to learn
                     </InputLabel>
                     <NativeSelect
                         inputProps={{
                             name: 'pick the language to study',
                             id: 'uncontrolled-native',
-                            defaultValue: {language}
+                            defaultValue: 0
                         }}
-                        onChange={(e) => setLanguage(e.target.value)}
+                        onChange={(e) => updateLanguage(e.target.value)}
                     >
-                        {languageList ? languageList.map((l, k) => {
-                            return(<option key={k} value={l.id}>{l.name}</option>)
-                        }): <option>loading</option>}
+                        {languageList ?
+                            languageList.map((l, k) => {
+                                    return(<option key={k} value={l.id}>{l.name}</option>)
+                            })
+                            : <option>loading</option>}
+                        <option disabled key={0} value={0}>Select language</option>
                     </NativeSelect>
                 </Grid>
                 <Button

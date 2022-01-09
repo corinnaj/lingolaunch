@@ -24,7 +24,8 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const appName = 'LingoLaunch'
 
 const appBarStyles = {
-    minHeight: '70px'
+    minHeight: "70px",
+    filter: "brightness(90%)"
 }
 
 const MainNavbar = ({userInfo, updateUserInfo}) => {
@@ -53,7 +54,7 @@ const MainNavbar = ({userInfo, updateUserInfo}) => {
     }
 
     return (
-        <AppBar position="static" elevation={8} style={appBarStyles}>
+        <AppBar position="static" elevation={8} style={appBarStyles} className={userInfo.language ? userInfo.language : ''}>
             <Container maxWidth={false}>
                 <Toolbar disableGutters>
                     {/*MOBILE*/}
