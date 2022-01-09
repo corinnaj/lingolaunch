@@ -1,17 +1,18 @@
 import React, {useState, useEffect} from "react";
 import { supabase } from './supabaseClient'
-import {Typography, Container, AppBar, Toolbar, ThemeProvider, createTheme} from "@material-ui/core";
+import {ThemeProvider, createTheme} from "@material-ui/core";
 import "./App.css";
 import Dashboard from "./Dashboard.js";
 import ShoppingList from "./ShoppingList.js";
 import SignUp from "./account/SignUp.js"
 import Finalise from "./account/Finalise"
+import CircularProgress from '@mui/material/CircularProgress';
 import bundeseagleIcon from "./bundeseagle-icon.svg";
 import pheasantIcon from "./pheasant-icon.png";
 import germanFlag from "./german-flag.svg";
-
 import japanFlag from "./japan-flag.svg";
-
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import { DictionaryContainer } from "./Dictionary";
 import { lightGreen } from "@material-ui/core/colors";
@@ -23,50 +24,54 @@ import { PictureGame } from "./PictureGame";
 import { IndexCard } from "./IndexCard";
 import { VocabList } from "./VocabList";
 import ScrollToTop from "./ScrollToTop";
+import MainNavbar from "./MainNavbar";
+import {blue} from "@mui/material/colors";
+import CssBaseline from "@mui/material/CssBaseline";
 
 const theme = createTheme({
   typography: {
     letterSpacing: "-1px",
     fontFamily: ["Mulish", "sans-serif"].join(","),
-    h3: {
-      fontWeight: 900,
-      margin: "1.5rem 0 4rem 0",
-      letterSpacing: "-1px",
-    },
-    h4: {
-      fontWeight: 900,
-      letterSpacing: "-1px",
-      fontSize: "20px",
-    },
-    h6: {
-      fontWeight: 900,
-      letterSpacing: "-1px",
-    },
+  },
+  h3: {
+    fontWeight: 900,
+    margin: "1.5rem 0 4rem 0",
+    letterSpacing: "-1px",
+  },
+  h4: {
+    fontWeight: 900,
+    letterSpacing: "-1px",
+    fontSize: "20px",
+  },
+  h6: {
+    fontWeight: 900,
+    letterSpacing: "-1px",
   },
   overrides: {},
   palette: {
-    primary: lightGreen,
+    primary: blue,
   },
 });
 
 function App() {
   const isJapanese = false;
   const usePhoneFrame = false;
-  const appBarStyles = isJapanese
-    ? {
-        color: "white",
-        backgroundImage: `url(${japanFlag})`,
-        backgroundPosition: "center center",
-        backgroundColor: "white",
-        backgroundRepeat: "no-repeat",
-      }
-    : {
-        color: "black",
-        backgroundImage: `url(${germanFlag})`,
-        backgroundPosition: "center center",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-      };
+  // const appBarStyles = isJapanese
+  //   ? {
+  //       color: "white",
+  //       backgroundImage: `url(${japanFlag})`,
+  //       backgroundPosition: "center center",
+  //       backgroundColor: "white",
+  //       backgroundRepeat: "no-repeat",
+  //     }
+  //   : {
+  //       color: "black",
+  //       backgroundImage: `url(${germanFlag})`,
+  //       backgroundPosition: "center center",
+  //       backgroundSize: "cover",
+  //       backgroundRepeat: "no-repeat",
+  //     };
+
   const [loading, setLoading] = useState(true)
 
   const [userInfo, setUserInfo] = useState({
@@ -81,9 +86,12 @@ function App() {
     setLoading(true)
     if (!userInfo.status || !supabase.auth.user()) {
       setUserInfo({...userInfo, status: 'Guest'})
+      setLoading(false)
     }
-    else if (!supabase.auth.session())
+    else if (!supabase.auth.session()) {
       setUserInfo({...userInfo, status: 'ToVerify'})
+      setLoading(false)
+    }
     else if (userInfo.status !== "Completed") {
       supabase
           .from('profiles')
@@ -110,9 +118,9 @@ function App() {
                 session: supabase.auth.session()
               })
             }
+            setLoading(false)
           })
     }
-    setLoading(false)
   }
 
 
@@ -134,36 +142,49 @@ function App() {
     <div className={usePhoneFrame ? "phone-wrapper-outer" : null}>
       <div className={usePhoneFrame ? "phone-wrapper" : null}>
         <ThemeProvider theme={theme}>
+          <MainNavbar userInfo={userInfo} updateUserInfo={setUserInfo}/>
           <DictionaryContainer>
             <Router>
               <ScrollToTop />
-              <AppBar position="static" elevation={8} style={appBarStyles}>
-                <Toolbar style={{ minHeight: "56px" }}>
-                  <Link
-                    to="/"
-                    style={{
-                      flexGrow: 1,
-                      color: "black",
-                      textDecoration: "none",
-                    }}
-                  >
-                    <Typography
-                      variant="h6"
-                      style={{ color: isJapanese ? "black" : "white" }}
-                    >
-                      LingoLaunch
-                    </Typography>
-                  </Link>
-                  {!isJapanese ? (
-                    <img src={bundeseagleIcon} />
-                  ) : (
-                    <img height="40px" src={pheasantIcon} />
-                  )}
-                </Toolbar>
-              </AppBar>
-              <div>
+              {/*<AppBar position="static" elevation={8} style={appBarStyles}>*/}
+              {/*  <Toolbar style={{ minHeight: "56px" }}>*/}
+              {/*    <Link*/}
+              {/*      to="/"*/}
+              {/*      style={{*/}
+              {/*        flexGrow: 1,*/}
+              {/*        color: "black",*/}
+              {/*        textDecoration: "none",*/}
+              {/*      }}*/}
+              {/*    >*/}
+              {/*      <Typography*/}
+              {/*        variant="h6"*/}
+              {/*        style={{ color: isJapanese ? "black" : "white" }}*/}
+              {/*      >*/}
+              {/*        LingoLaunch*/}
+              {/*      </Typography>*/}
+              {/*    </Link>*/}
+              {/*    {!isJapanese ? (*/}
+              {/*      <img src={bundeseagleIcon} />*/}
+              {/*    ) : (*/}
+              {/*      <img height="40px" src={pheasantIcon} />*/}
+              {/*    )}*/}
+              {/*  </Toolbar>*/}
+              {/*</AppBar>*/}
                 {
-                  loading ? 'loading' :
+                  loading ?
+
+                      <Container component="main" maxWidth="xs">
+                        <Box
+                            sx={{
+                              marginTop: 8,
+                              display: 'flex',
+                              flexDirection: 'column',
+                              alignItems: 'center',
+                            }}
+                            ><CircularProgress/>
+                        </Box>
+                      </Container> :
+
                       <Switch>
                         <Route exact path="/login">
                           {userInfo.status === 'Guest' ? <Login/> : <Redirect to="/" /> }
@@ -210,7 +231,6 @@ function App() {
                         </SafeZone>
                       </Switch>
                 }
-              </div>
             </Router>
             {/*TODO: handle here messages from children components as notifications*/}
           </DictionaryContainer>
