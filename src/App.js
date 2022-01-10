@@ -117,81 +117,79 @@ function App() {
     setUserInfo({...userInfo, session: supabase.auth.session()})
     sync_permissions()
   }, [])
-
+  
   return (
     <div className={usePhoneFrame ? "phone-wrapper-outer" : null}>
       <div className={usePhoneFrame ? "phone-wrapper" : null}>
         <StyledEngineProvider injectFirst>
           <ThemeProvider theme={theme}>
-            {
-              loading ?
-                  <Container component="main" maxWidth="xs">
-                    <Box
-                        sx={{
-                          marginTop: 8,
-                          display: 'flex',
-                          flexDirection: 'column',
-                          alignItems: 'center',
-                        }}
-                    ><CircularProgress/>
-                    </Box>
-                  </Container> :
-                  <>
-                  <MainNavbar userInfo={userInfo} updateUserInfo={setUserInfo}/>
-                  <DictionaryContainer>
-                    <Router>
-                      <ScrollToTop/>
-                      <Switch>
-                        <Route exact path="/login">
-                          {userInfo.status === 'Guest' ? <Login/> : <Redirect to="/"/>}
-                        </Route>
-                        <Route exact path="/signup">
-                          {['Guest', 'ToVerify'].includes(userInfo.status) ?
-                              <SignUp userInfo={userInfo} updateUserInfo={setUserInfo}/> : <Redirect to="/"/>
-                          }
-                        </Route>
-                        <Route exact path="/finalise">
-                          {userInfo.status === 'ToComplete' ?
-                              <Finalise userInfo={userInfo} updateUserInfo={setUserInfo}/> : <Redirect to="/"/>}
-                        </Route>
+            {loading ? '': <MainNavbar userInfo={userInfo} updateUserInfo={setUserInfo}/>}
+            <DictionaryContainer>
+              <Router>
+                <ScrollToTop />
+                  {
+                    loading ?
+                        <Container component="main" maxWidth="xs">
+                          <Box
+                              sx={{
+                                marginTop: 8,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                              }}
+                              ><CircularProgress/>
+                          </Box>
+                        </Container> :
 
-                        {/*TODO: soon!*/}
-                        {/*<Route exact path="/recovery">*/}
-                        {/*  <PasswordRecovery/>*/}
-                        {/*</Route>*/}
+                        <Switch>
+                          <Route exact path="/login">
+                            {userInfo.status === 'Guest' ? <Login/> : <Redirect to="/" /> }
+                          </Route>
+                          <Route exact path="/signup">
+                            {['Guest', 'ToVerify'].includes(userInfo.status) ?
+                                <SignUp userInfo={userInfo} updateUserInfo={setUserInfo}/> : <Redirect to="/" />
+                            }
+                          </Route>
+                          <Route exact path="/finalise">
+                            {userInfo.status === 'ToComplete' ? <Finalise userInfo={userInfo} updateUserInfo={setUserInfo}/> : <Redirect to="/" /> }
+                          </Route>
 
-                        <SafeZone userInfo={userInfo} updateUserInfo={setUserInfo}>
-                          <Route exact path="/">
-                            <Dashboard/>
-                          </Route>
-                          <Route path={"/articles/:articleId?"}>
-                            <ArticleList userInfo={userInfo} updateUserInfo={setUserInfo}/>
-                          </Route>
-                          <Route path="/shopping">
-                            <ShoppingList/>
-                          </Route>
-                          <Route path="/vocab">
-                            <VocabTrainer/>
-                          </Route>
-                          <Route path="/picture-game">
-                            <PictureGame/>
-                          </Route>
-                          <Route path="/translate">
-                            <Translate/>
-                          </Route>
-                          <Route path="/indexcards">
-                            <IndexCard/>
-                          </Route>
-                          <Route path="/vocablist">
-                            <VocabList/>
-                          </Route>
-                        </SafeZone>
-                      </Switch>
-                    </Router>
-                    {/*TODO: handle here messages from children components as notifications*/}
-                  </DictionaryContainer>
-                  </>
-            }
+                          {/*TODO: soon!*/}
+                          {/*<Route exact path="/recovery">*/}
+                          {/*  <PasswordRecovery/>*/}
+                          {/*</Route>*/}
+
+                          <SafeZone userInfo={userInfo} updateUserInfo={setUserInfo}>
+                            <Route exact path="/">
+                              <Dashboard/>
+                            </Route>
+                            <Route path={"/articles/:articleId?"}>
+                              <ArticleList userInfo={userInfo} updateUserInfo={setUserInfo}/>
+                            </Route>
+                            <Route path="/shopping">
+                              <ShoppingList/>
+                            </Route>
+                            <Route path="/vocab">
+                              <VocabTrainer/>
+                            </Route>
+                            <Route path="/picture-game">
+                              <PictureGame/>
+                            </Route>
+                            <Route path="/translate">
+                              <Translate/>
+                            </Route>
+                            <Route path="/indexcards">
+                              <IndexCard/>
+                            </Route>
+                            <Route path="/vocablist">
+                              <VocabList/>
+                            </Route>
+                          </SafeZone>
+                        </Switch>
+                  }
+              </Router>
+              {/*TODO: handle here messages from children components as notifications*/}
+            </DictionaryContainer>
           </ThemeProvider>
         </StyledEngineProvider>
       </div>
