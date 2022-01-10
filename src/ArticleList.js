@@ -1,23 +1,16 @@
 import React, {useEffect, useState} from "react";
-import { Typography, Card, CardContent, CardActions, Button, CardHeader, CardMedia, Fab } from "@material-ui/core";
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import { Typography, Card, CardContent, CardActions, Button, CardHeader, CardMedia, Fab } from '@mui/material';
+import { TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Box } from '@mui/material';
+import { Snackbar, LinearProgress } from '@mui/material';
 import { Link, useHistory, useParams } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@mui/styles';
 import { capitainBluebearImage } from "./articles/CapitainBluebear";
 import { tippingImage } from "./articles/Tipping";
 import { applePieImage } from "./articles/ApplePie";
 import { Article } from "./articles/Article";
 import { kangarooImage } from "./articles/Kangaroo";
 import { germanImage } from "./articles/Characteristics";
-import PostAddIcon from "@material-ui/icons/PostAdd";
-import Snackbar from '@material-ui/core/Snackbar';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import Box from '@material-ui/core/Box';
+import PostAddIcon from '@mui/icons-material/PostAdd';
 import {supabase} from "./supabaseClient";
 
 const useStyles = makeStyles((theme) => ({

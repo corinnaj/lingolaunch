@@ -1,19 +1,11 @@
-import {
-  Button,
-  Checkbox,
-  CircularProgress,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-} from "@material-ui/core";
+import {Button, Checkbox, CircularProgress, List, ListItem, ListItemIcon, ListItemText, Typography} from "@mui/material";
 import React, { useState } from "react";
 import Camera, { FACING_MODES } from "react-html5-camera-photo";
 import "react-html5-camera-photo/build/css/index.css";
 import Confetti from "react-dom-confetti";
 import { confettiConfig } from "./PartialTranslationParagraph";
-import { AddShoppingCart, Apartment } from "@material-ui/icons";
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import ApartmentIcon from '@mui/icons-material/Apartment';
 
 export function PictureGame() {
   const [tasks, setTasks] = useState(null);
@@ -21,7 +13,7 @@ export function PictureGame() {
   const challenges = [
     {
       title: "A Walk Through the Streets",
-      icon: () => <Apartment />,
+      icon: () => <ApartmentIcon />,
       tasks: [
         {
           check: (text) => text.toLowerCase().includes("straße"),
@@ -35,7 +27,7 @@ export function PictureGame() {
     },
     {
       title: "Skimming the Supermarket",
-      icon: () => <AddShoppingCart />,
+      icon: () => <AddShoppingCartIcon />,
       tasks: [
         {
           check: (text) => text.toLowerCase().includes("käse"),

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Dictionary } from "./Dictionary.js";
-import { List, ListItem, ListItemText, ListSubheader } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { List, ListItem, ListItemText, ListSubheader } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Dictionary } from "./Dictionary.js";
-import { Typography } from "@material-ui/core";
+import Typography from '@mui/material/Typography';
 
 export default function ProgressBar() {
     const {progress} = useContext(Dictionary)

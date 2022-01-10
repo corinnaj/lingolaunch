@@ -1,15 +1,7 @@
-import {
-  Button,
-  ButtonGroup,
-  CircularProgress,
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-  Typography,
-} from "@material-ui/core";
-import { PlaylistAdd, PlaylistAddCheck, Send } from "@material-ui/icons";
+import {Button, ButtonGroup, CircularProgress, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, Typography} from "@mui/material";
+import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
+import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
+import SendIcon from '@mui/icons-material/Send';
 import Camera, { FACING_MODES } from "react-html5-camera-photo";
 import React, { useState, useContext } from "react";
 import "react-html5-camera-photo/build/css/index.css";
@@ -56,8 +48,8 @@ export function Translate() {
                 disabled={hasTheWord}
                 onClick={addNewWord}
                 tooltip="Add to vocabulary"
-              >
-                {hasTheWord ? <PlaylistAddCheck /> : <PlaylistAdd />}
+                size="large">
+                {hasTheWord ? <PlaylistAddCheckIcon /> : <PlaylistAddIcon />}
               </IconButton>
             </div>
           </>
@@ -104,12 +96,8 @@ export function Translate() {
             labelWidth={180}
             endAdornment={
               <InputAdornment position="end">
-                <IconButton
-                  disabled={loading}
-                  onClick={translateText}
-                  edge="end"
-                >
-                  <Send />
+                <IconButton disabled={loading} onClick={translateText} edge="end" size="large">
+                  <SendIcon />
                 </IconButton>
               </InputAdornment>
             }

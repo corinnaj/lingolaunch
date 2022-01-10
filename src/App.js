@@ -1,21 +1,20 @@
 import React, {useState, useEffect} from "react";
 import { supabase } from './supabaseClient'
-import {ThemeProvider, createTheme} from "@material-ui/core";
+import { ThemeProvider, StyledEngineProvider, createTheme } from '@mui/material/styles';
 import "./App.css";
 import Dashboard from "./Dashboard.js";
 import ShoppingList from "./ShoppingList.js";
 import SignUp from "./account/SignUp.js"
 import Finalise from "./account/Finalise"
 import CircularProgress from '@mui/material/CircularProgress';
-import bundeseagleIcon from "./bundeseagle-icon.svg";
-import pheasantIcon from "./pheasant-icon.png";
-import germanFlag from "./german-flag.svg";
-import japanFlag from "./japan-flag.svg";
+// import bundeseagleIcon from "./bundeseagle-icon.svg";
+// import pheasantIcon from "./pheasant-icon.png";
+// import germanFlag from "./german-flag.svg";
+// import japanFlag from "./japan-flag.svg";
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import { DictionaryContainer } from "./Dictionary";
-import { lightGreen } from "@material-ui/core/colors";
 import { ArticleList } from "./ArticleList";
 import { Translate } from "./Translate";
 import { VocabTrainer } from "./VocabTrainer";
@@ -26,7 +25,6 @@ import { VocabList } from "./VocabList";
 import ScrollToTop from "./ScrollToTop";
 import MainNavbar from "./MainNavbar";
 import {blue} from "@mui/material/colors";
-import CssBaseline from "@mui/material/CssBaseline";
 
 const theme = createTheme({
   typography: {
@@ -54,23 +52,7 @@ const theme = createTheme({
 });
 
 function App() {
-  const isJapanese = false;
   const usePhoneFrame = false;
-  // const appBarStyles = isJapanese
-  //   ? {
-  //       color: "white",
-  //       backgroundImage: `url(${japanFlag})`,
-  //       backgroundPosition: "center center",
-  //       backgroundColor: "white",
-  //       backgroundRepeat: "no-repeat",
-  //     }
-  //   : {
-  //       color: "black",
-  //       backgroundImage: `url(${germanFlag})`,
-  //       backgroundPosition: "center center",
-  //       backgroundSize: "cover",
-  //       backgroundRepeat: "no-repeat",
-  //     };
 
   const [loading, setLoading] = useState(true)
 
@@ -136,66 +118,41 @@ function App() {
     sync_permissions()
   }, [])
 
-
-
   return (
     <div className={usePhoneFrame ? "phone-wrapper-outer" : null}>
       <div className={usePhoneFrame ? "phone-wrapper" : null}>
-        <ThemeProvider theme={theme}>
-          <MainNavbar userInfo={userInfo} updateUserInfo={setUserInfo}/>
-          <DictionaryContainer>
-            <Router>
-              <ScrollToTop />
-              {/*<AppBar position="static" elevation={8} style={appBarStyles}>*/}
-              {/*  <Toolbar style={{ minHeight: "56px" }}>*/}
-              {/*    <Link*/}
-              {/*      to="/"*/}
-              {/*      style={{*/}
-              {/*        flexGrow: 1,*/}
-              {/*        color: "black",*/}
-              {/*        textDecoration: "none",*/}
-              {/*      }}*/}
-              {/*    >*/}
-              {/*      <Typography*/}
-              {/*        variant="h6"*/}
-              {/*        style={{ color: isJapanese ? "black" : "white" }}*/}
-              {/*      >*/}
-              {/*        LingoLaunch*/}
-              {/*      </Typography>*/}
-              {/*    </Link>*/}
-              {/*    {!isJapanese ? (*/}
-              {/*      <img src={bundeseagleIcon} />*/}
-              {/*    ) : (*/}
-              {/*      <img height="40px" src={pheasantIcon} />*/}
-              {/*    )}*/}
-              {/*  </Toolbar>*/}
-              {/*</AppBar>*/}
-                {
-                  loading ?
-
-                      <Container component="main" maxWidth="xs">
-                        <Box
-                            sx={{
-                              marginTop: 8,
-                              display: 'flex',
-                              flexDirection: 'column',
-                              alignItems: 'center',
-                            }}
-                            ><CircularProgress/>
-                        </Box>
-                      </Container> :
-
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={theme}>
+            {
+              loading ?
+                  <Container component="main" maxWidth="xs">
+                    <Box
+                        sx={{
+                          marginTop: 8,
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                        }}
+                    ><CircularProgress/>
+                    </Box>
+                  </Container> :
+                  <>
+                  <MainNavbar userInfo={userInfo} updateUserInfo={setUserInfo}/>
+                  <DictionaryContainer>
+                    <Router>
+                      <ScrollToTop/>
                       <Switch>
                         <Route exact path="/login">
-                          {userInfo.status === 'Guest' ? <Login/> : <Redirect to="/" /> }
+                          {userInfo.status === 'Guest' ? <Login/> : <Redirect to="/"/>}
                         </Route>
                         <Route exact path="/signup">
                           {['Guest', 'ToVerify'].includes(userInfo.status) ?
-                              <SignUp userInfo={userInfo} updateUserInfo={setUserInfo}/> : <Redirect to="/" />
+                              <SignUp userInfo={userInfo} updateUserInfo={setUserInfo}/> : <Redirect to="/"/>
                           }
                         </Route>
                         <Route exact path="/finalise">
-                          {userInfo.status === 'ToComplete' ? <Finalise userInfo={userInfo} updateUserInfo={setUserInfo}/> : <Redirect to="/" /> }
+                          {userInfo.status === 'ToComplete' ?
+                              <Finalise userInfo={userInfo} updateUserInfo={setUserInfo}/> : <Redirect to="/"/>}
                         </Route>
 
                         {/*TODO: soon!*/}
@@ -205,7 +162,7 @@ function App() {
 
                         <SafeZone userInfo={userInfo} updateUserInfo={setUserInfo}>
                           <Route exact path="/">
-                            <Dashboard isJapanese={isJapanese}/>
+                            <Dashboard/>
                           </Route>
                           <Route path={"/articles/:articleId?"}>
                             <ArticleList userInfo={userInfo} updateUserInfo={setUserInfo}/>
@@ -230,11 +187,13 @@ function App() {
                           </Route>
                         </SafeZone>
                       </Switch>
-                }
-            </Router>
-            {/*TODO: handle here messages from children components as notifications*/}
-          </DictionaryContainer>
-        </ThemeProvider>
+                    </Router>
+                    {/*TODO: handle here messages from children components as notifications*/}
+                  </DictionaryContainer>
+                  </>
+            }
+          </ThemeProvider>
+        </StyledEngineProvider>
       </div>
     </div>
   );

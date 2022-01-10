@@ -261,6 +261,9 @@ body {
     background: linear-gradient(131deg, rgba(0,0,0,1) 8%, rgba(222,4,0,1) 55%, rgba(255,206,0,1) 100%);
     animation: smooth-de .8s ease-in;
 }
+.German .sandwich-appbar{
+    color: white;
+}
 @keyframes smooth-de {
     0% {opacity: 0.2;}
     100% {opacity: 1;}

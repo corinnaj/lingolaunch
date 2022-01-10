@@ -1,6 +1,6 @@
 import React, { useContext, useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { TextField, Select, SelectProps, Menu, MenuItem } from "@material-ui/core";
+import { TextField, Menu, MenuItem } from "@mui/material";
 import { Dictionary } from "./Dictionary";
 import Confetti from "react-dom-confetti";
 import { Difficulty } from "./articles/Article";

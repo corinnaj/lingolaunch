@@ -1,9 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Dictionary } from "./Dictionary.js";
-import { Typography, Fab, Card, CardContent, ListItemText} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-
+import { Typography, Fab, Card, CardContent, ListItemText} from "@mui/material";
+import { makeStyles } from '@mui/styles';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,7 +62,7 @@ export function IndexCard() {
           variant="extended"
           onClick={() => {showNewWord()}}
         >
-          <ArrowForwardIosIcon />
+          <ArrowForwardIcon />
           Next Card
         </Fab>
       </div>

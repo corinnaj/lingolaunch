@@ -1,6 +1,6 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Button, Typography } from '@material-ui/core';
+import { makeStyles } from '@mui/styles';
+import { Button, Typography } from '@mui/material';
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({

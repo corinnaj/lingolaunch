@@ -1,23 +1,12 @@
 import React, { useState, useContext } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import {
-  TextField,
-  Checkbox,
-  List,
-  ListItem,
-  ListItemIcon,
-  IconButton,
-  ListItemText,
-  ListItemSecondaryAction,
-  Snackbar,
-  Button,
-} from "@material-ui/core";
+import { makeStyles } from '@mui/styles';
+import {TextField, Checkbox, List, ListItem, ListItemIcon, IconButton, ListItemText, ListItemSecondaryAction, Snackbar, Button} from "@mui/material";
 import { Dictionary, translate } from "./Dictionary.js";
 import Confetti from "react-dom-confetti";
 import { T } from "./PartialTranslationParagraph";
-import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
-import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
-import CloseIcon from "@material-ui/icons/Close";
+import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
+import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
+import CloseIcon from '@mui/icons-material/Close';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -122,7 +111,7 @@ export default function ShoppingList() {
         <ListItemSecondaryAction
           onClick={() => addWordToDictionary(item, translatedItem)}
         >
-          <IconButton>
+          <IconButton size="large">
             <PlaylistAddIcon />
           </IconButton>
         </ListItemSecondaryAction>
@@ -130,7 +119,7 @@ export default function ShoppingList() {
     } else {
       return (
         <ListItemSecondaryAction disabled>
-          <IconButton disabled>
+          <IconButton disabled size="large">
             <PlaylistAddCheckIcon />
           </IconButton>
         </ListItemSecondaryAction>

@@ -1,18 +1,14 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Typography, Card, CardContent } from "@material-ui/core";
+import { createTheme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
+import Typography from '@mui/material/Typography';
+import { Card, CardContent } from "@mui/material";
 import { Link } from "react-router-dom";
-
-import Fab from "@material-ui/core/Fab";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import MusicNoteIcon from "@material-ui/icons/MusicNote";
-import SpellcheckIcon from "@material-ui/icons/Spellcheck";
-import TranslateIcon from "@material-ui/icons/Translate";
-import bundeseagle from "./bundeseagle.svg";
-import pheasant from "./green-pheasant.svg";
+// import bundeseagle from "./bundeseagle.svg";
+// import pheasant from "./green-pheasant.svg";
 import ProgressBarExample from "./ProgressBar.js";
-import { CameraEnhance } from "@material-ui/icons";
 
+const theme = createTheme();
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -57,20 +53,21 @@ const useStyles = makeStyles((theme) => ({
 function Dashboard({ isJapanese }) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
-  const logo = isJapanese ? pheasant : bundeseagle;
+  // const logo = bundeseagle;
 
   return (
     <div
       style={{
-        backgroundImage: `url(${logo})`,
-        backgroundSize: "contain",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "bottom left",
-        minHeight: "140vh",
+        // backgroundImage: `url(${logo})`,
+        // backgroundSize: "contain",
+        // backgroundRepeat: "no-repeat",
+        // backgroundPosition: "bottom left",
+        // minHeight: "140vh",
       }}
     >
+
       <div className={classes.section}>
-        <Typography className={classes.title} color="textSecondary">
+        <Typography>
           Word of the Day
         </Typography>
         {!isJapanese && (
@@ -97,18 +94,6 @@ function Dashboard({ isJapanese }) {
             </div>
             <Typography className={classes.pos} color="textSecondary">
               noun
-            </Typography>
-          </>
-        )}
-
-        {false && (
-          <>
-            <div className={classes.wordRow}>
-              <Typography variant="h5">Ap{bull}fel</Typography>
-              <div style={{ fontSize: "2rem", marginLeft: "0.5rem" }}>🍏</div>
-            </div>
-            <Typography className={classes.pos} color="textSecondary">
-              noun, fruit
             </Typography>
           </>
         )}
@@ -167,58 +152,58 @@ function Dashboard({ isJapanese }) {
         </>
       )}
 
-      <div className={classes.section}>
-        <div
-          className={classes.avatar_root}
-          style={{
-            alignItems: "center",
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-          }}
-        >
-          <Fab
-            color="primary"
-            component={Link}
-            to="./shopping"
-            className="icon-button"
-          >
-            <ShoppingCartIcon />
-            Shopping List
-          </Fab>
-          <Fab
-            color="secondary"
-            to="/articles"
-            component={Link}
-            className="icon-button"
-          >
-            <MusicNoteIcon />
-            Learn About Culture
-          </Fab>
-          <Fab
-            color="primary"
-            component={Link}
-            to="/vocab"
-            className="icon-button"
-          >
-            <SpellcheckIcon />
-            Check Your Vocab
-          </Fab>
-          <Fab
-            color="secondary"
-            component={Link}
-            to="/translate"
-            className="icon-button"
-          >
-            <TranslateIcon />
-            Translate
-          </Fab>
-          <Fab component={Link} to="/picture-game" className="icon-button">
-            <CameraEnhance />
-            Picture Game
-          </Fab>
-        </div>
-      </div>
+    {/*  <div className={classes.section}>*/}
+    {/*    <div*/}
+    {/*      className={classes.avatar_root}*/}
+    {/*      style={{*/}
+    {/*        alignItems: "center",*/}
+    {/*        display: "flex",*/}
+    {/*        flexWrap: "wrap",*/}
+    {/*        justifyContent: "center",*/}
+    {/*      }}*/}
+    {/*    >*/}
+    {/*      <Fab*/}
+    {/*        color="primary"*/}
+    {/*        component={Link}*/}
+    {/*        to="./shopping"*/}
+    {/*        className="icon-button"*/}
+    {/*      >*/}
+    {/*        <ShoppingCartIcon />*/}
+    {/*        Shopping List*/}
+    {/*      </Fab>*/}
+    {/*      <Fab*/}
+    {/*        color="secondary"*/}
+    {/*        to="/articles"*/}
+    {/*        component={Link}*/}
+    {/*        className="icon-button"*/}
+    {/*      >*/}
+    {/*        <MusicNoteIcon />*/}
+    {/*        Learn About Culture*/}
+    {/*      </Fab>*/}
+    {/*      <Fab*/}
+    {/*        color="primary"*/}
+    {/*        component={Link}*/}
+    {/*        to="/vocab"*/}
+    {/*        className="icon-button"*/}
+    {/*      >*/}
+    {/*        <SpellcheckIcon />*/}
+    {/*        Check Your Vocab*/}
+    {/*      </Fab>*/}
+    {/*      <Fab*/}
+    {/*        color="secondary"*/}
+    {/*        component={Link}*/}
+    {/*        to="/translate"*/}
+    {/*        className="icon-button"*/}
+    {/*      >*/}
+    {/*        <TranslateIcon />*/}
+    {/*        Translate*/}
+    {/*      </Fab>*/}
+    {/*      <Fab component={Link} to="/picture-game" className="icon-button">*/}
+    {/*        <CameraEnhance />*/}
+    {/*        Picture Game*/}
+    {/*      </Fab>*/}
+    {/*    </div>*/}
+    {/*  </div>*/}
     </div>
   );
 }

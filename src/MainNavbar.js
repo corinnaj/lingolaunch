@@ -25,7 +25,7 @@ const appName = 'LingoLaunch'
 
 const appBarStyles = {
     minHeight: "70px",
-    filter: "brightness(90%)"
+    // filter: "brightness(90%)"
 }
 
 const MainNavbar = ({userInfo, updateUserInfo}) => {
@@ -69,6 +69,7 @@ const MainNavbar = ({userInfo, updateUserInfo}) => {
                     {userInfo.status !== 'Completed' ? '' :
                         <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
                             <IconButton
+                                className={"sandwich-appbar"}
                                 size="large"
                                 aria-label="account of current user"
                                 aria-controls="menu-appbar"
@@ -129,7 +130,7 @@ const MainNavbar = ({userInfo, updateUserInfo}) => {
 
                             <Box sx={{flexGrow: 0}}>
                                 <Tooltip title="Open settings">
-                                    <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
+                                    <IconButton onClick={handleOpenUserMenu} sx={{p: 0}} size="large">
                                         <Avatar>{userInfo.username.charAt(0).toUpperCase()}</Avatar>
                                     </IconButton>
                                 </Tooltip>

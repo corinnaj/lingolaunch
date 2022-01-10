@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 
 import parse from 'html-react-parser';
 import { T } from "../PartialTranslationParagraph";
-import { Container, Typography } from "@material-ui/core";
+import { Container, Typography } from "@mui/material";
 import { Dictionary } from "../Dictionary";
 import reactStringReplace from "react-string-replace";
 
