@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Dictionary } from "./Dictionary.js";
 import Typography from '@mui/material/Typography';
 
-export default function ProgressBar() {
+export default function VocabProgressBar() {
     const {progress} = useContext(Dictionary)
     const words = progress() 
 

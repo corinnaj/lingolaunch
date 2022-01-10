@@ -6,7 +6,7 @@ import { Card, CardContent } from "@mui/material";
 import { Link } from "react-router-dom";
 // import bundeseagle from "./bundeseagle.svg";
 // import pheasant from "./green-pheasant.svg";
-import ProgressBarExample from "./ProgressBar.js";
+import VocabProgressBar from "./ProgressBar.js";
 
 const theme = createTheme();
 const useStyles = makeStyles((theme) => ({
@@ -83,20 +83,6 @@ function Dashboard({ isJapanese }) {
             </Typography>
           </>
         )}
-
-        {isJapanese && (
-          <>
-            <div className={classes.wordRow}>
-              <Typography variant="h5">
-                かさ&nbsp;&nbsp;kasa&nbsp;&nbsp;
-              </Typography>
-              <div style={{ fontSize: "2rem", marginLeft: "0.5rem" }}>🌂</div>
-            </div>
-            <Typography className={classes.pos} color="textSecondary">
-              noun
-            </Typography>
-          </>
-        )}
       </div>
 
       <div className={classes.section}>
@@ -105,7 +91,7 @@ function Dashboard({ isJapanese }) {
             <Typography component={'span'} variant="body1">
               <p>Your first German Words!</p>
             </Typography>
-            <ProgressBarExample />
+            <VocabProgressBar />
           </CardContent>
         </Card>
       </div>

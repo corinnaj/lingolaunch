@@ -245,48 +245,61 @@ body {
 
 /* FLAGS BACKGROUNDS FOR NAVBAR */
 
+.logo-title {
+    font-weight: 550;
+}
+
+/* ITALIAN */
 .Italian {
     background: rgb(0,140,69);
-    background: linear-gradient(131deg, rgba(0,140,69,1) 0%, rgba(244,245,240,1) 49%, rgba(205,33,42,1) 100%);
-
+    background: linear-gradient(157deg, rgba(0,140,69,1) 25%, rgba(244,245,240,1) 42%, rgba(244,245,240,1) 65%, rgba(205,33,42,1) 85%);
     animation: smooth-it .8s ease-in;
 }
 @keyframes smooth-it {
     0% {opacity: 0.2;}
     100% {opacity: 1;}
 }
+.Italian .logo-title, .Italian .navbar-links, .Italian .sandwich-appbar{
+    color: black;
+}
 
+/* FELLOW GERMANS */
 .German {
     background: rgb(0,0,0);
-    background: linear-gradient(131deg, rgba(0,0,0,1) 8%, rgba(222,4,0,1) 55%, rgba(255,206,0,1) 100%);
+    background: linear-gradient(157deg, rgba(0,0,0,1) 25%, rgba(222,4,0,1) 50%, rgba(255,206,0,1) 75%);
     animation: smooth-de .8s ease-in;
 }
 .German .sandwich-appbar{
     color: white;
 }
+
 @keyframes smooth-de {
     0% {opacity: 0.2;}
     100% {opacity: 1;}
 }
 
+/* JAPANESE */
 .Japanese {
-    background: rgb(255,255,255);
-    background: radial-gradient(circle, rgba(255,255,255,1) 16%, rgba(188,0,45,1) 100%);
+    background: rgb(188,0,45);
+    background: radial-gradient(circle, rgba(188,0,45,1) 0%, rgba(188,0,45,1) 9%, rgba(255,255,255,1) 32%);
     animation: smooth-ja .8s ease-in;
+}
+.Japanese .logo-title, .Japanese .navbar-links, .Japanese .sandwich-appbar{
+    color: black;
 }
 @keyframes smooth-ja {
     0% {opacity: 0.2;}
     100% {opacity: 1;}
 }
 
+/* FRENCH */
 .French {
     background: rgb(0,85,164);
-    background: linear-gradient(131deg, rgba(0,85,164,1) 0%, rgba(255,255,255,1) 51%, rgba(239,65,53,1) 100%);
-    /*-moz-animation: smooth .8s ease-in;*/
-    /*-webkit-animation: smooth .8s ease-in;*/
-    /*-o-animation: smooth .8s ease-in;*/
-    /*-ms-animation: smooth .8s ease-in;*/
+    background: linear-gradient(157deg, rgba(0,85,164,1) 25%, rgba(255,255,255,1) 42%, rgba(255,255,255,1) 65%, rgba(239,65,53,1) 85%);
     animation: smooth-fr .8s ease-in;
+}
+.French .logo-title, .French .navbar-links{
+    color: black;
 }
 @keyframes smooth-fr {
     0% {opacity: 0.2;}

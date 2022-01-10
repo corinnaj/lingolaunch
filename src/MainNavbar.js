@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {Link} from "@mui/material";
 import {supabase} from "./supabaseClient";
+
 const pages = [
     { 'title': 'Picture Game', 'link': '/picture-game'},
     { 'title': 'Translate', 'link': '/translate'},
@@ -20,12 +21,10 @@ const pages = [
     { 'title': 'Shopping List', 'link': '/shopping'}
 ];
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const appName = 'LingoLaunch'
 
 const appBarStyles = {
     minHeight: "70px",
-    // filter: "brightness(90%)"
 }
 
 const MainNavbar = ({userInfo, updateUserInfo}) => {
@@ -61,6 +60,7 @@ const MainNavbar = ({userInfo, updateUserInfo}) => {
                     <Typography
                         variant="h6"
                         noWrap
+                        className={"logo-title"}
                         component="div"
                         sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
                     >
@@ -112,6 +112,7 @@ const MainNavbar = ({userInfo, updateUserInfo}) => {
                         variant="h6"
                         noWrap
                         component="div"
+                        className={"logo-title"}
                         sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
                     >
                         {appName}
@@ -122,7 +123,7 @@ const MainNavbar = ({userInfo, updateUserInfo}) => {
                                 {pages.map(function(page, index){
                                     return(
                                         <MenuItem key={index} onClick={handleCloseNavMenu}>
-                                            <Link underline={"none"} color={"white"} href={page.link}>{page.title}</Link>
+                                            <Link underline={"none"} className={"navbar-links"} color={"white"} href={page.link}>{page.title}</Link>
                                         </MenuItem>
                                     );
                                 })}
@@ -130,8 +131,8 @@ const MainNavbar = ({userInfo, updateUserInfo}) => {
 
                             <Box sx={{flexGrow: 0}}>
                                 <Tooltip title="Open settings">
-                                    <IconButton onClick={handleOpenUserMenu} sx={{p: 0}} size="large">
-                                        <Avatar>{userInfo.username.charAt(0).toUpperCase()}</Avatar>
+                                    <IconButton onClick={handleOpenUserMenu} sx={{p: 0}} size="medium">
+                                        <Avatar sx={{ bgcolor: "black" }}>{userInfo.username.charAt(0).toUpperCase()}</Avatar>
                                     </IconButton>
                                 </Tooltip>
                                 <Menu
