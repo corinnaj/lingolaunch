@@ -64,7 +64,7 @@ const MainNavbar = ({userInfo, updateUserInfo}) => {
                         component="div"
                         sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
                     >
-                        {appName}
+                        <Link underline={"none"} color="white" href="/">{appName}</Link>
                     </Typography>
                     {userInfo.status !== 'Completed' ? '' :
                         <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
@@ -115,7 +115,7 @@ const MainNavbar = ({userInfo, updateUserInfo}) => {
                         className={"logo-title"}
                         sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
                     >
-                        {appName}
+                        <Link underline={"none"} color="white" href="/">{appName}</Link>
                     </Typography>
                     {userInfo.status !== 'Completed' ? '' :
                         <>

@@ -12,6 +12,9 @@ const translate = new Translate();
 
 const app = express();
 
+app.use(express.static('public'))
+
+
 async function translateText(text, targetLanguageCode) {
   const [translation] = await translate.translate(text, targetLanguageCode);
   return translation;

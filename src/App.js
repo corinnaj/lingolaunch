@@ -7,13 +7,10 @@ import ShoppingList from "./ShoppingList.js";
 import SignUp from "./account/SignUp.js"
 import Finalise from "./account/Finalise"
 import CircularProgress from '@mui/material/CircularProgress';
-// import bundeseagleIcon from "./bundeseagle-icon.svg";
-// import pheasantIcon from "./pheasant-icon.png";
-// import germanFlag from "./german-flag.svg";
-// import japanFlag from "./japan-flag.svg";
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
+import Welcome from "./Welcome"
 import { DictionaryContainer } from "./Dictionary";
 import { ArticleList } from "./ArticleList";
 import { Translate } from "./Translate";
@@ -47,7 +44,7 @@ const theme = createTheme({
   },
   overrides: {},
   palette: {
-    primary: blue,
+    primary: {main: '#343434'}
   },
 });
 
@@ -117,7 +114,7 @@ function App() {
     setUserInfo({...userInfo, session: supabase.auth.session()})
     sync_permissions()
   }, [])
-  
+
   return (
     <div className={usePhoneFrame ? "phone-wrapper-outer" : null}>
       <div className={usePhoneFrame ? "phone-wrapper" : null}>
@@ -210,6 +207,7 @@ function SafeZone({ children, userInfo, updateUserInfo, ...rest }) {
     case 'Completed':
       return children
     case 'Guest':
+      return <Welcome/>
     default:
       return <Redirect to="/login" />
   }

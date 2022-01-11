@@ -327,3 +327,36 @@ body {
 /*    100% { opacity: 1;}*/
 /*}*/
 /* apparently if you have the same keyframe name linked to different classes, animation on transition is skipped */
+
+
+/* welcome page background */
+
+.video-container {
+    background: black;
+    filter: brightness(27%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow:hidden;
+    z-index: -1;
+}
+.video-container > video {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+@media screen and (max-aspect-ratio: 1920/1080) {
+    .video-container > video {
+        height: 100%;
+    }
+}
+@media screen and (min-aspect-ratio: 1920/1080) {
+    .video-container > video {
+        width: 100%;
+    }
+}
