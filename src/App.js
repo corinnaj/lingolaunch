@@ -9,7 +9,7 @@ import Finalise from "./account/Finalise"
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import Welcome from "./Welcome"
 import { DictionaryContainer } from "./Dictionary";
 import { ArticleList } from "./ArticleList";
@@ -21,7 +21,6 @@ import { IndexCard } from "./IndexCard";
 import { VocabList } from "./VocabList";
 import ScrollToTop from "./ScrollToTop";
 import MainNavbar from "./MainNavbar";
-import {blue} from "@mui/material/colors";
 
 const theme = createTheme({
   typography: {
@@ -51,81 +50,109 @@ const theme = createTheme({
 function App() {
   const usePhoneFrame = false;
 
-  const [loading, setLoading] = useState(true)
-
   const [userInfo, setUserInfo] = useState({
-    status: 'Guest',
+    status: JSON.parse(localStorage.getItem('status')) || undefined,
     username: undefined,
     language: undefined,
     level: undefined,
-    session: null
+    articles: null,
+    sync_user:true,
+    sync_articles: false,
   })
 
-  function sync_permissions(){
-    setLoading(true)
-    if (!userInfo.status || !supabase.auth.user()) {
-      setUserInfo({...userInfo, status: 'Guest'})
-      setLoading(false)
+  function sync_articles(){
+    console.log("query 2")
+    supabase
+        .rpc('get_completed_articles', {
+          logged_user_id: supabase.auth.user().id
+        })
+        .eq('level', userInfo.level)
+        .eq('lang', userInfo.language)
+        .then(articles => {
+          if (articles.error)
+            console.log(articles.error)
+          setUserInfo({
+            ...userInfo,
+            articles: articles.data ? articles.data : articles.error,
+            sync_articles: false
+          })
+        })
+  }
+
+  function sync_permissions() {
+    console.log("from.. ", userInfo.status)
+
+    if (!supabase.auth.session()) {
+      const newStatus = (userInfo.status === 'ToVerify') ? 'ToVerify' : 'Guest';
+      console.log("new status: ", newStatus)
+      localStorage.setItem('status', JSON.stringify(newStatus))
+      setUserInfo({status: newStatus, sync_user:false})
     }
-    else if (!supabase.auth.session()) {
-      setUserInfo({...userInfo, status: 'ToVerify'})
-      setLoading(false)
-    }
-    else if (userInfo.status !== "Completed") {
+    else {  // has potentially just logged in, we have to check
+      console.log("query 1")
       supabase
           .from('profiles')
           .select('username, level, languages(name)', {count: 'exact'})
           .eq('id', supabase.auth.user().id)
           .then(response => {
             const {data, count, error} = response
-            if (error)
-              console.log(error)
-            if (data && count > 0){
-              setUserInfo({
-                ...userInfo,
-                status: 'Completed',
-                username: data[0].username,
-                language: data[0].languages.name,
-                level: data[0].level,
-                session: supabase.auth.session()
-              })
-            }
-            else {
-              setUserInfo({
-                ...userInfo,
-                status: 'ToComplete',
-                session: supabase.auth.session()
-              })
-            }
-            setLoading(false)
+            if (error) console.log(error)
+            const newStatus = count > 0 ? "Completed" : "ToComplete"
+            localStorage.setItem('status', JSON.stringify(newStatus))
+            setUserInfo({
+              ...userInfo,
+              status: newStatus,
+              username: count > 0 ? data[0].username : undefined,
+              language: count > 0 ? data[0].languages.name : undefined,
+              level: count > 0 ? data[0].level : undefined,
+              sync_user: false,
+              sync_articles: (!userInfo.articles && count > 0) // if we are completed and still not have articles..
+            })
           })
     }
   }
 
-
   useEffect(() => {
 
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setUserInfo({...userInfo, session: session})
+    // we have 4 types of user status: Guest, ToVerify (email), ToComplete (last fields), Completed
+
+    if (userInfo.sync_user) {
+      console.log("use effect triggered")
       sync_permissions()
+    }
+
+    if (userInfo.sync_articles){
+      sync_articles()
+    }
+
+    // use effect if triggered every time userInfo state changes but only two events
+    // really trigger a refresh of informations and permissions namely a session change or
+    // when a component changes the userInfo.sync var to True. Note: these event should not happen
+    // at the same time! (e.g. on login we don't need to set sync True as the session hook already
+    // carries the info refresh.
+    const {data: listener} = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!userInfo.sync_user) { // if sync is active useEffect is already handling changes.
+        console.log("auth hook triggered", _event)
+        sync_permissions()
+      }
     })
 
-    // we have 4 types of user status: Guest, ToVerify (email), ToComplete (last fields), Completed
-    setUserInfo({...userInfo, session: supabase.auth.session()})
-    sync_permissions()
-  }, [])
+    return () => {
+      listener?.unsubscribe()
+    }
+
+  }, [userInfo])
 
   return (
     <div className={usePhoneFrame ? "phone-wrapper-outer" : null}>
       <div className={usePhoneFrame ? "phone-wrapper" : null}>
         <StyledEngineProvider injectFirst>
           <ThemeProvider theme={theme}>
-            {loading ? '': <MainNavbar userInfo={userInfo} updateUserInfo={setUserInfo}/>}
             <DictionaryContainer>
               <Router>
                 <ScrollToTop />
                   {
-                    loading ?
+                    (userInfo.sync_user || userInfo.sync_articles) ?
                         <Container component="main" maxWidth="xs">
                           <Box
                               sx={{
@@ -138,6 +165,8 @@ function App() {
                           </Box>
                         </Container> :
 
+                        <>
+                        <MainNavbar userInfo={userInfo} updateUserInfo={setUserInfo}/>
                         <Switch>
                           <Route exact path="/login">
                             {userInfo.status === 'Guest' ? <Login/> : <Redirect to="/" /> }
@@ -158,7 +187,7 @@ function App() {
 
                           <SafeZone userInfo={userInfo} updateUserInfo={setUserInfo}>
                             <Route exact path="/">
-                              <Dashboard/>
+                              <Dashboard userInfo={userInfo} updateUserInfo={setUserInfo}/>
                             </Route>
                             <Route path={"/articles/:articleId?"}>
                               <ArticleList userInfo={userInfo} updateUserInfo={setUserInfo}/>
@@ -183,6 +212,7 @@ function App() {
                             </Route>
                           </SafeZone>
                         </Switch>
+                        </>
                   }
               </Router>
               {/*TODO: handle here messages from children components as notifications*/}

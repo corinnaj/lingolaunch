@@ -12,6 +12,9 @@ import { kangarooImage } from "./articles/Kangaroo";
 import { germanImage } from "./articles/Characteristics";
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import {supabase} from "./supabaseClient";
+import CircularProgress from '@mui/material/CircularProgress';
+import Container from "@mui/material/Container";
+import { Grid } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
     article: {
@@ -96,11 +99,12 @@ export function ArticleList({userInfo, updateUserInfo}) {
     const [open, setOpen] = useState(false);
     const [content, setContent] = useState('');
     const [notification, setNotification] = useState('');
-    const [articles, setArticles] = useState(fetch_articles());
+    const [articles, setArticles] = useState();
     const [level, setLevel] = useState(fetch_user_level());
     const { articleId } = useParams();
     const history = useHistory();
     const vertical = 'bottom', horizontal = 'center';
+    const [loading, setLoading] = useState(true)
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -116,27 +120,42 @@ export function ArticleList({userInfo, updateUserInfo}) {
         setNotification('')
     }
 
-    function logout(event){
-        supabase.auth.signOut()
-        updateUserInfo({status: "Guest"})
-    }
-
     useEffect(() => {
-        if (articles.every((article) => article.completed)) {
-            setNotification("CONGRATS! you just advanced to level " + (level + 1))
-            setLevel(level + 1)
-            // TODO: load new articles for the next level from backend
-            setArticles([{
-                    'id': 99,
-                    'completed': false,
-                    'title': 'Harder article',
-                    'content': 'this is a new article, harder and more complex with new words',
-                    'link': 'bluebear',
-                    'category': 'Media',
-                    'media': capitainBluebearImage
-                }],
-            )
+        if (!articles) {
+            setLoading(true)
+            supabase
+                .rpc('get_completed_articles', {
+                    logged_user_id: supabase.auth.session().user.id
+                })
+                .eq('level', userInfo.level)
+                .eq('lang', userInfo.language)
+                .then(response => {
+                    const {data, error} = response
+                    if (error)
+                        console.log(error)
+                        setArticles(["call failed"])
+                    if (data){
+                        setArticles(data)
+                    }
+                    setLoading(false)
+                })
         }
+
+        // if (articles.every((article) => article.completed)) {
+        //     setNotification("CONGRATS! you just advanced to level " + (level + 1))
+        //     setLevel(level + 1)
+        //     // TODO: load new articles for the next level from backend
+        //     setArticles([{
+        //             'id': 99,
+        //             'completed': false,
+        //             'title': 'Harder article',
+        //             'content': 'this is a new article, harder and more complex with new words',
+        //             'link': 'bluebear',
+        //             'category': 'Media',
+        //             'media': capitainBluebearImage
+        //         }],
+        //     )
+        // }
     });
 
     const markAsComplete = (articleId) => {
@@ -154,14 +173,22 @@ export function ArticleList({userInfo, updateUserInfo}) {
                     {article.content}
                 </Article>
             )
-        return(articles.map(article =>
-            preview(article.title, article.preview, article.link, article.category, article.media, article.id, article.completed )
-        ))
+        return(
+            <Grid container spacing={2} alignItems="stretch">
+                {articles.map((article, i) => {
+                   return (
+                       <Grid item xs={12} lg={4} md={6} key={i}>
+                           {preview(article.title, article.preview, article.link, article.category, article.media, article.id, article.completed)}
+                       </Grid>
+                   )
+                })}
+            </Grid>
+        )
     }
 
     function preview(title, content, link, category, image, articleId, completed=false) {
         return (
-            <Card key={articleId} elevation={4} className={classes.article}>
+            <Card key={articleId} elevation={4} sx={{ height: '100%' }} className={classes.article}>
                 <div className="completed-anchor">
                     <CardMedia image={image} className={completed? 'completed-article': null} component="img" height="160"/>
                     {completed? <span className='completed-banner'>COMPLETED</span>:null}
@@ -180,21 +207,6 @@ export function ArticleList({userInfo, updateUserInfo}) {
                     </Link>
                 </CardActions>
             </Card >);
-    }
-
-    function LinearProgressWithLabel(props) {
-        return (
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Box sx={{ width: '100%', mr: 1 }}>
-                        <LinearProgress variant="determinate" {...props} />
-                    </Box>
-                    <Box sx={{ minWidth: 35 }}>
-                        <Typography variant="body2">{`${Math.round(
-                            props.value,
-                        )}%`}</Typography>
-                    </Box>
-                </Box>
-        );
     }
 
     return <div>
@@ -228,27 +240,20 @@ export function ArticleList({userInfo, updateUserInfo}) {
                 </Link>
             </DialogActions>
         </Dialog>
-
-        <Typography gutterBottom variant="h4" align='center'>
-            {userInfo.username}, you are currently at level {userInfo.level}. <a href="#" onClick={logout}>logout</a>
-        </Typography>
-        <Typography gutterBottom variant="body1" align='center' color="textSecondary">
-            in this level you will learn german words for: <br/>
-            you miss {articles.filter((article) => !article.completed).length} articles to reach level {level + 1}!
-        </Typography>
-        <LinearProgressWithLabel
-            value={100 * (articles.filter((article) => article.completed).length / articles.length)}
-        />
-
-        { getArticle(parseInt(articleId)) }
-        <Snackbar
-            autoHideDuration={3000}
-            anchorOrigin={{ vertical, horizontal }}
-            open={Boolean(notification)}
-            onClose={notificationReset}
-            message={notification}
-            key={notification}
-        />
+        {
+            loading ? <CircularProgress/> :
+                <>
+                    {getArticle(parseInt(articleId))}
+                    <Snackbar
+                        autoHideDuration={3000}
+                        anchorOrigin={{vertical, horizontal}}
+                        open={Boolean(notification)}
+                        onClose={notificationReset}
+                        message={notification}
+                        key={notification}
+                    />
+                </>
+        }
         <Fab aria-label="import" color="primary" className={classes.fab} onClick={handleClickOpen}>
             <PostAddIcon />
         </Fab>

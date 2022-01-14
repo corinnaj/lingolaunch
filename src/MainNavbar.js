@@ -12,12 +12,12 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {Link} from "@mui/material";
+import { Link as RouterLink} from "react-router-dom";
 import {supabase} from "./supabaseClient";
 
 const pages = [
     { 'title': 'Picture Game', 'link': '/picture-game'},
     { 'title': 'Translate', 'link': '/translate'},
-    { 'title': 'Check Vocab', 'link': '/vocab'},
     { 'title': 'Shopping List', 'link': '/shopping'}
 ];
 
@@ -49,7 +49,6 @@ const MainNavbar = ({userInfo, updateUserInfo}) => {
 
     function logout(event){
         supabase.auth.signOut()
-        updateUserInfo({status: "Guest"})
     }
 
     return (
@@ -64,7 +63,7 @@ const MainNavbar = ({userInfo, updateUserInfo}) => {
                         component="div"
                         sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
                     >
-                        <Link underline={"none"} color="white" href="/">{appName}</Link>
+                        <Link component={RouterLink} underline={"none"} color="white" to="/">{appName}</Link>
                     </Typography>
                     {userInfo.status !== 'Completed' ? '' :
                         <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
@@ -100,7 +99,7 @@ const MainNavbar = ({userInfo, updateUserInfo}) => {
                                 {pages.map(function(page, index){
                                     return(
                                         <MenuItem key={index} onClick={handleCloseNavMenu}>
-                                            <Link underline={"none"} color={"black"} href={page.link}>{page.title}</Link>
+                                            <Link component={RouterLink} underline={"none"} color={"black"} to={page.link}>{page.title}</Link>
                                         </MenuItem>
                                     );
                                 })}
@@ -115,7 +114,7 @@ const MainNavbar = ({userInfo, updateUserInfo}) => {
                         className={"logo-title"}
                         sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
                     >
-                        <Link underline={"none"} color="white" href="/">{appName}</Link>
+                        <Link component={RouterLink} underline={"none"} color="white" to="/">{appName}</Link>
                     </Typography>
                     {userInfo.status !== 'Completed' ? '' :
                         <>
@@ -123,7 +122,7 @@ const MainNavbar = ({userInfo, updateUserInfo}) => {
                                 {pages.map(function(page, index){
                                     return(
                                         <MenuItem key={index} onClick={handleCloseNavMenu}>
-                                            <Link underline={"none"} className={"navbar-links"} color={"white"} href={page.link}>{page.title}</Link>
+                                            <Link component={RouterLink} underline={"none"} className={"navbar-links"} color={"white"} to={page.link}>{page.title}</Link>
                                         </MenuItem>
                                     );
                                 })}
@@ -151,9 +150,9 @@ const MainNavbar = ({userInfo, updateUserInfo}) => {
                                     open={Boolean(anchorElUser)}
                                     onClose={handleCloseUserMenu}
                                 >
-                                <MenuItem onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center" onClick={() => logout()}>Logout</Typography>
-                                </MenuItem>
+                                    <MenuItem onClick={handleCloseUserMenu}>
+                                        <Typography textAlign="center" onClick={() => logout()}>Logout </Typography>
+                                    </MenuItem>
                                 </Menu>
                             </Box>
                         </>

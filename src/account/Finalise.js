@@ -65,18 +65,14 @@ export default function Finalise({userInfo, updateUserInfo}) {
                 }).then(({error}) => {
                     if (error) throw error
                     setSubmitted(true)
-                    updateUserInfo({
-                        ...userInfo,
-                        username: username,
-                        status: 'Completed'
-                    })
-                    setLoading(false)
+                    updateUserInfo({...userInfo, sync_user:true})
                 })
 
             }
         } catch(error) {
             console.log(error)
             setError(error.message)
+            setLoading(false)
         }
     }
 

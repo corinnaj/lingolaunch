@@ -14,6 +14,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import CircularProgress from "@mui/material/CircularProgress";
+import {Link as RouterLink} from "react-router-dom";
 
 
 export const Login = ({userInfo, updateUserInfo}) => {
@@ -27,22 +28,13 @@ export const Login = ({userInfo, updateUserInfo}) => {
         event.preventDefault();
         try {
             setLoading(true)
-            const {error, user} = await supabase.auth.signIn({
+            await supabase.auth.signIn({
                 email: email,
                 password: password
-            }).then((error, user) => {
-                if (error) throw error
-                updateUserInfo({
-                    ...userInfo,
-                    status: 'Completed'
-                })
-                setLoading(false)
-            })
-
+            }) // if success App component handles redirect and loading
         } catch (error) {
             setError(error.message)
-        } finally {
-
+            setLoading(false)
         }
     }
 
@@ -107,7 +99,7 @@ export const Login = ({userInfo, updateUserInfo}) => {
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="/signup" variant="body2">
+                                <Link component={RouterLink} to="/signup" variant="body2">
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>

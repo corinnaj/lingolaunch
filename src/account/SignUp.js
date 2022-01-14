@@ -8,16 +8,17 @@ import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import TagFacesIcon from '@mui/icons-material/TagFaces';
+import ForwardToInboxIcon from '@mui/icons-material/ForwardToInbox';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import {Link as RouterLink} from "react-router-dom";
 
 export default function SignUp({userInfo, updateUserInfo}) {
     const [loading, setLoading] = useState(false)
     const [email, setEmail] = useState('')
     const [error, setError] = useState('')
     const [password, setPassword] = useState('')
-    const [submitted, setSubmitted] = useState(supabase.auth.user() === undefined)
 
     async function submitHandler(event){
         event.preventDefault();
@@ -26,24 +27,17 @@ export default function SignUp({userInfo, updateUserInfo}) {
             if (userInfo.status === 'Guest') {
                 // TODO: check if fields are filled client-side
                 // TODO: check if email is already used and throw error
-                let {user, error } = await supabase.auth.signUp({
+                let {user} = await supabase.auth.signUp({
                     email: email,
                     password: password,
                     }, { redirectTo: "http://localhost:3000/finalise" }
                 )
-                if (error) throw error
-                if (user) updateUserInfo({...userInfo, status: 'ToVerify'})
+                if (user) updateUserInfo({status: 'ToVerify', sync_user:true})
             }
         } catch(error) {
             setError(error.message)
-        } finally {
             setLoading(false)
         }
-    }
-
-    function logout(event){
-        supabase.auth.signOut()
-        updateUserInfo({status: "Guest"})
     }
 
     function signUpForm(){
@@ -81,7 +75,7 @@ export default function SignUp({userInfo, updateUserInfo}) {
                 > Sign Up </Button>
                 <Grid container justifyContent="flex-end">
                     <Grid item>
-                        <Link href="/login" variant="body2">
+                        <Link component={RouterLink} to="/login" variant="body2">
                             Already have an account? Login
                         </Link>
                     </Grid>
@@ -93,8 +87,7 @@ export default function SignUp({userInfo, updateUserInfo}) {
     function emailSentSection(){
         return(
             <p>
-                all set! go to you email and click on the activation link to start using your account! <br/>
-                <a href="#" onClick={logout}>logout</a>
+                <strong>All set!</strong> please check your email for activation link to start using Lingo today <br/>
             </p>
         )
     }
@@ -113,7 +106,7 @@ export default function SignUp({userInfo, updateUserInfo}) {
                     {loading ? <CircularProgress/> :
                         <>
                         <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
-                            <LockOutlinedIcon/>
+                            {userInfo.status === 'Guest' ? <TagFacesIcon/> : <ForwardToInboxIcon/>}
                         </Avatar>
                         <Typography component="h1" variant="h5">
                         Sign up

@@ -1,14 +1,15 @@
-import React from "react";
-import { createTheme } from '@mui/material/styles';
+import React, {useEffect, useState} from "react";
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
-import { Card, CardContent } from "@mui/material";
+import {Card, CardContent, CardActions, Button, Box, LinearProgress} from "@mui/material";
 import { Link } from "react-router-dom";
-// import bundeseagle from "./bundeseagle.svg";
-// import pheasant from "./green-pheasant.svg";
+import { Divider } from '@mui/material';
 import VocabProgressBar from "./ProgressBar.js";
+import { Container } from '@mui/material';
+import { Grid } from '@mui/material';
+import {supabase} from "./supabaseClient";
+import CircularProgress from '@mui/material/CircularProgress';
 
-const theme = createTheme();
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -50,148 +51,116 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Dashboard({ isJapanese }) {
+function Dashboard({userInfo, updateUserInfo}) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
-  // const logo = bundeseagle;
 
   return (
-    <div
-      style={{
-        // backgroundImage: `url(${logo})`,
-        // backgroundSize: "contain",
-        // backgroundRepeat: "no-repeat",
-        // backgroundPosition: "bottom left",
-        // minHeight: "140vh",
-      }}
-    >
+    <Container component="main" maxWidth="lg">
+      <Grid container spacing={2}>
 
-      <div className={classes.section}>
-        <Typography>
-          Word of the Day
-        </Typography>
-        {!isJapanese && (
-          <>
+        {userInfo.articles ?
+            <Grid item xs={12}>
+              <div className={classes.section}>
+                <Typography variant="h6">
+                  Welcome {userInfo.username}. your current level is {userInfo.level}.
+                  You miss {userInfo.articles.filter((article) => !article.completed).length} articles to reach
+                  level {userInfo.level + 1}! <br/>
+                  Complete articles and grammar exercises to level up.
+                </Typography>
+                <LinearProgressWithLabel
+                    value={100 * (userInfo.articles.filter((article) => article.completed).length / userInfo.articles.length)}
+                />
+              </div>
+            </Grid> : ''
+        }
+          <Divider/>
+
+          <Grid item xs={12} md={4}>
+            <Card elevation={4}>
+              <CardContent>
+                <Typography variant="h4" gutterBottom>
+                  Partial Translation
+                </Typography>
+                <Typography variant="body1" color="textSecondary">
+                  Start discovering your first {userInfo.language} words from context and learn beautiful
+                  {userInfo.language} books, stories and recipes from the {userInfo.language} culture.
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button component={Link} to="/articles" size="small">Let's go</Button>
+              </CardActions>
+            </Card>
+          </Grid>
+
+          <Grid item xs={12} md={4}>
+            <Card elevation={4}>
+              <CardContent>
+                <Typography variant="h4" gutterBottom>
+                  Grammar Exercises
+                </Typography>
+                <Typography variant="body1" color="textSecondary">
+                  No pain, no gain {userInfo.username}!
+                  You need grammar to learn a language. In this section you will learn the basic rules of
+                  the {userInfo.language} language through fancy exercises.
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small">Start over</Button>
+              </CardActions>
+            </Card>
+          </Grid>
+
+        <Grid item xs={12} md={4}>
+          <div className={classes.section}>
+            <Typography>
+              Word of the Day
+            </Typography>
             <div className={classes.wordRow}>
               <Typography variant="h5">
                 Ge{bull}sund{bull}heit
               </Typography>
-              <div style={{ fontSize: "2rem", marginLeft: "0.5rem" }}>🤧</div>
+              <div style={{fontSize: "2rem", marginLeft: "0.5rem"}}>🤧</div>
             </div>
             <Typography className={classes.pos} color="textSecondary">
               noun
             </Typography>
-          </>
-        )}
-      </div>
+          </div>
+        </Grid>
 
-      <div className={classes.section}>
-        <Card elevation={4}>
-          <CardContent>
-            <Typography component={'span'} variant="body1">
-              <p>Your first German Words!</p>
-            </Typography>
-            <VocabProgressBar />
-          </CardContent>
-        </Card>
-      </div>
-
-      {!isJapanese && (
-        <>
-          <div className={classes.section}>
+          <Grid item xs={12}>
             <Card elevation={4}>
               <CardContent>
                 <Typography variant="h4" gutterBottom>
-                  Article of the Day {bull} Tips for Tipping
+                  Vocabulary
                 </Typography>
-                <Typography variant="body1" color="textSecondary">
-                  Tipping in Germany and tipping in some other countries, such
-                  as the United States, are totally different. In Germany,
-                  waitresses are paid more and so the tips are smaller compared
-                  to the USA. Nevertheless, the 5-10% rule of thumb still
-                  applies. <Link to="/articles/tipping">Read More...</Link>
-                </Typography>
+                <VocabProgressBar/>
               </CardContent>
+              <CardActions>
+                <Button component={Link} to="/vocab" size="small">Check your progresses</Button>
+              </CardActions>
             </Card>
-          </div>
-        </>
-      )}
+          </Grid>
+      </Grid>
+    </Container>
 
-      {isJapanese && (
-        <>
-          <div className={classes.section}>
-            <Card elevation={4}>
-              <CardContent>
-                <Typography variant="h4" gutterBottom>
-                  Article of the Day {bull} Bowing Culture
-                </Typography>
-                <Typography variant="body1" color="textSecondary">
-                  The bow is an integral part of Japanese society. It is used to
-                  greet when meeting, to get attention, to show gratitude, to
-                  express sympathy, or to convey an apology. While doing
-                  business in Japan as a Westerner, you would not be expected to
-                  bow. <Link to="/articles/tipping">Read More...</Link>
-                </Typography>
-              </CardContent>
-            </Card>
-          </div>
-        </>
-      )}
-
-    {/*  <div className={classes.section}>*/}
-    {/*    <div*/}
-    {/*      className={classes.avatar_root}*/}
-    {/*      style={{*/}
-    {/*        alignItems: "center",*/}
-    {/*        display: "flex",*/}
-    {/*        flexWrap: "wrap",*/}
-    {/*        justifyContent: "center",*/}
-    {/*      }}*/}
-    {/*    >*/}
-    {/*      <Fab*/}
-    {/*        color="primary"*/}
-    {/*        component={Link}*/}
-    {/*        to="./shopping"*/}
-    {/*        className="icon-button"*/}
-    {/*      >*/}
-    {/*        <ShoppingCartIcon />*/}
-    {/*        Shopping List*/}
-    {/*      </Fab>*/}
-    {/*      <Fab*/}
-    {/*        color="secondary"*/}
-    {/*        to="/articles"*/}
-    {/*        component={Link}*/}
-    {/*        className="icon-button"*/}
-    {/*      >*/}
-    {/*        <MusicNoteIcon />*/}
-    {/*        Learn About Culture*/}
-    {/*      </Fab>*/}
-    {/*      <Fab*/}
-    {/*        color="primary"*/}
-    {/*        component={Link}*/}
-    {/*        to="/vocab"*/}
-    {/*        className="icon-button"*/}
-    {/*      >*/}
-    {/*        <SpellcheckIcon />*/}
-    {/*        Check Your Vocab*/}
-    {/*      </Fab>*/}
-    {/*      <Fab*/}
-    {/*        color="secondary"*/}
-    {/*        component={Link}*/}
-    {/*        to="/translate"*/}
-    {/*        className="icon-button"*/}
-    {/*      >*/}
-    {/*        <TranslateIcon />*/}
-    {/*        Translate*/}
-    {/*      </Fab>*/}
-    {/*      <Fab component={Link} to="/picture-game" className="icon-button">*/}
-    {/*        <CameraEnhance />*/}
-    {/*        Picture Game*/}
-    {/*      </Fab>*/}
-    {/*    </div>*/}
-    {/*  </div>*/}
-    </div>
   );
 }
 
 export default Dashboard;
+
+
+function LinearProgressWithLabel(props) {
+  return (
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box sx={{ width: '100%', mr: 1 }}>
+          <LinearProgress variant="determinate" {...props} />
+        </Box>
+        <Box sx={{ minWidth: 35 }}>
+          <Typography variant="body2">{`${Math.round(
+              props.value,
+          )}%`}</Typography>
+        </Box>
+      </Box>
+  );
+}

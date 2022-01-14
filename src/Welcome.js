@@ -9,6 +9,7 @@ import {width} from "@mui/system";
 import {useEffect, useState, useRef} from "react";
 import {supabase} from "./supabaseClient";
 import CircularProgress from '@mui/material/CircularProgress';
+import {Link as RouterLink} from "react-router-dom";
 
 export default function Welcome() {
 
@@ -95,10 +96,10 @@ export default function Welcome() {
                             history and recipes book. So you also dive into its real culture. <br/>
                         </Typography>
                         <Typography variant="h5" sx={{mb: 1.5}}>
-                            We are Lingo, <Link href="/signup" color={"#FFF"} fontWeight={700}>join us.</Link> <br/>
+                            We are Lingo, <Link component={RouterLink} to="/signup" color={"#FFF"} fontWeight={700}>join us.</Link> <br/>
                         </Typography>
                         <Typography variant="h6">
-                            Already have an account? <Link href="/login" color={"#FFF"} fontWeight={700}>Login.</Link>
+                            Already have an account? <Link component={RouterLink} to="/login" color={"#FFF"} fontWeight={700}>Login.</Link>
                         </Typography>
                     </>
                 }
