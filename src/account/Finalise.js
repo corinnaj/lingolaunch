@@ -65,7 +65,7 @@ export default function Finalise({userInfo, updateUserInfo}) {
                 }).then(({error}) => {
                     if (error) throw error
                     setSubmitted(true)
-                    updateUserInfo({...userInfo, sync_user:true})
+                    updateUserInfo({...userInfo, syncUser:true})
                 })
 
             }

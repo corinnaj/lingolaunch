@@ -56,12 +56,11 @@ function App() {
     language: undefined,
     level: undefined,
     articles: null,
-    sync_user:true,
-    sync_articles: false,
+    syncUser:true,
+    syncArticles: false,
   })
 
-  function sync_articles(){
-    console.log("query 2")
+  function syncArticles(){
     supabase
         .rpc('get_completed_articles', {
           logged_user_id: supabase.auth.user().id
@@ -74,22 +73,18 @@ function App() {
           setUserInfo({
             ...userInfo,
             articles: articles.data ? articles.data : articles.error,
-            sync_articles: false
+            syncArticles: false
           })
         })
   }
 
   function sync_permissions() {
-    console.log("from.. ", userInfo.status)
-
     if (!supabase.auth.session()) {
       const newStatus = (userInfo.status === 'ToVerify') ? 'ToVerify' : 'Guest';
-      console.log("new status: ", newStatus)
       localStorage.setItem('status', JSON.stringify(newStatus))
-      setUserInfo({status: newStatus, sync_user:false})
+      setUserInfo({status: newStatus, syncUser:false})
     }
     else {  // has potentially just logged in, we have to check
-      console.log("query 1")
       supabase
           .from('profiles')
           .select('username, level, languages(name)', {count: 'exact'})
@@ -105,8 +100,8 @@ function App() {
               username: count > 0 ? data[0].username : undefined,
               language: count > 0 ? data[0].languages.name : undefined,
               level: count > 0 ? data[0].level : undefined,
-              sync_user: false,
-              sync_articles: (!userInfo.articles && count > 0) // if we are completed and still not have articles..
+              syncUser: false,
+              syncArticles: (!userInfo.articles && count > 0) // if we are completed and still not have articles..
             })
           })
     }
@@ -115,14 +110,12 @@ function App() {
   useEffect(() => {
 
     // we have 4 types of user status: Guest, ToVerify (email), ToComplete (last fields), Completed
-
-    if (userInfo.sync_user) {
-      console.log("use effect triggered")
+    if (userInfo.syncUser) {
       sync_permissions()
     }
 
-    if (userInfo.sync_articles){
-      sync_articles()
+    if (userInfo.syncArticles){
+      syncArticles()
     }
 
     // use effect if triggered every time userInfo state changes but only two events
@@ -131,8 +124,7 @@ function App() {
     // at the same time! (e.g. on login we don't need to set sync True as the session hook already
     // carries the info refresh.
     const {data: listener} = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!userInfo.sync_user) { // if sync is active useEffect is already handling changes.
-        console.log("auth hook triggered", _event)
+      if (!userInfo.syncUser) { // if sync is active useEffect is already handling changes.
         sync_permissions()
       }
     })
@@ -152,7 +144,7 @@ function App() {
               <Router>
                 <ScrollToTop />
                   {
-                    (userInfo.sync_user || userInfo.sync_articles) ?
+                    (userInfo.syncUser || userInfo.syncArticles) ?
                         <Container component="main" maxWidth="xs">
                           <Box
                               sx={{

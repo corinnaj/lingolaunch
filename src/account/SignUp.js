@@ -32,7 +32,7 @@ export default function SignUp({userInfo, updateUserInfo}) {
                     password: password,
                     }, { redirectTo: "http://localhost:3000/finalise" }
                 )
-                if (user) updateUserInfo({status: 'ToVerify', sync_user:true})
+                if (user) updateUserInfo({status: 'ToVerify', syncUser:true})
             }
         } catch(error) {
             setError(error.message)
