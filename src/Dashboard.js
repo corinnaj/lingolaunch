@@ -1,14 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import {Card, CardContent, CardActions, Button, Box, LinearProgress} from "@mui/material";
 import { Link } from "react-router-dom";
 import { Divider } from '@mui/material';
-import VocabProgressBar from "./ProgressBar.js";
+import LinearProgressWithLabel from "./ProgressBar.js";
 import { Container } from '@mui/material';
 import { Grid } from '@mui/material';
-import {supabase} from "./supabaseClient";
-import CircularProgress from '@mui/material/CircularProgress';
+import {Dictionary} from "./Dictionary";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,6 +53,9 @@ const useStyles = makeStyles((theme) => ({
 function Dashboard({userInfo, updateUserInfo}) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
+
+  const {progress} = useContext(Dictionary)
+  const words = progress()
 
   return (
     <Container component="main" maxWidth="lg">
@@ -134,7 +136,12 @@ function Dashboard({userInfo, updateUserInfo}) {
                 <Typography variant="h4" gutterBottom>
                   Vocabulary
                 </Typography>
-                <VocabProgressBar/>
+                <div>
+                  <Typography variant="body2" color="textSecondary">You learned {words[0]} of 500 words</Typography>
+                  <LinearProgressWithLabel
+                      value={100 * (words[0]/words[1])}
+                  />
+                </div>
               </CardContent>
               <CardActions>
                 <Button component={Link} to="/vocab" size="small">Check your progresses</Button>
@@ -148,19 +155,3 @@ function Dashboard({userInfo, updateUserInfo}) {
 }
 
 export default Dashboard;
-
-
-function LinearProgressWithLabel(props) {
-  return (
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Box sx={{ width: '100%', mr: 1 }}>
-          <LinearProgress variant="determinate" {...props} />
-        </Box>
-        <Box sx={{ minWidth: 35 }}>
-          <Typography variant="body2">{`${Math.round(
-              props.value,
-          )}%`}</Typography>
-        </Box>
-      </Box>
-  );
-}

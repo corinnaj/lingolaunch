@@ -1,22 +1,19 @@
-import React, { useContext } from "react";
-import { Dictionary } from "./Dictionary.js";
+import React from "react";
 import Typography from '@mui/material/Typography';
 import {Box, LinearProgress} from "@mui/material";
 
-export default function VocabProgressBar() {
-    const {progress} = useContext(Dictionary)
-    const words = progress()
 
-    const Filler = (props) => {
-        return <div className="filler" style={{ width: `${props.percentage}%` }} />
-    }
-
+export default function LinearProgressWithLabel(props) {
     return (
-        <div>
-            <Typography variant="body2" color="textSecondary">You learned {words[0]} of 500 words</Typography>
-            <div className="progress-bar">
-                <Filler percentage={(words[0]/words[1])*100} />
-            </div>
-        </div>
-    )
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ width: '100%', mr: 1 }}>
+                <LinearProgress variant="determinate" {...props} />
+            </Box>
+            <Box sx={{ minWidth: 35 }}>
+                <Typography variant="body2">{`${Math.round(
+                    props.value,
+                )}%`}</Typography>
+            </Box>
+        </Box>
+    );
 }
