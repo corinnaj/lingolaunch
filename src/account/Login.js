@@ -15,7 +15,11 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import CircularProgress from "@mui/material/CircularProgress";
 import {Link as RouterLink} from "react-router-dom";
+import MuiAlert from '@mui/material/Alert';
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export const Login = ({userInfo, updateUserInfo}) => {
 
@@ -26,16 +30,18 @@ export const Login = ({userInfo, updateUserInfo}) => {
 
     const handleLogin = async (event) => {
         event.preventDefault();
-        try {
-            setLoading(true)
-            await supabase.auth.signIn({
-                email: email,
-                password: password
-            }) // if success App component handles redirect and loading
-        } catch (error) {
-            setError(error.message)
-            setLoading(false)
-        }
+        setLoading(true)
+        await supabase.auth.signIn({
+            email: email,
+            password: password
+        }).then(({error}) => {
+            // if success App component handles redirect and loading automatically
+            if (error) {
+                setError(error.message)
+                setLoading(false)
+            }
+        })
+
     }
 
     return (
@@ -102,6 +108,9 @@ export const Login = ({userInfo, updateUserInfo}) => {
                                 <Link component={RouterLink} to="/signup" variant="body2">
                                     {"Don't have an account? Sign Up"}
                                 </Link>
+                            </Grid>
+                            <Grid mt={3} xs={12}>
+                                {error ? <Alert severity="error">{error}</Alert>: ''}
                             </Grid>
                         </Grid>
                     </Box>

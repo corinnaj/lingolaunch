@@ -7,9 +7,9 @@ import { makeStyles } from '@mui/styles';
 import { Article } from "./articles/Article";
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import CircularProgress from '@mui/material/CircularProgress';
-import Container from "@mui/material/Container";
 import { Grid } from '@mui/material';
 import {supabase} from "./supabaseClient";
+import { Fade } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
     article: {
@@ -27,7 +27,6 @@ export function ArticleList({userInfo, updateUserInfo}) {
     const [open, setOpen] = useState(false);
     const [content, setContent] = useState('');
     const [notification, setNotification] = useState('');
-    const [articles, setArticles] = useState();
     const { articleId } = useParams();
     const history = useHistory();
     const vertical = 'bottom', horizontal = 'center';
@@ -48,11 +47,10 @@ export function ArticleList({userInfo, updateUserInfo}) {
     }
 
     useEffect(() => {
-
         if (userInfo.articles.every((article) => article.completed)) {
             const newLevel = userInfo.level + 1
             setNotification("CONGRATS! you just advanced to level " + newLevel)
-            const { data, error } = supabase
+            supabase
                 .from('profiles')
                 .update({ level: newLevel })
                 .eq('id', supabase.auth.user().id)
@@ -67,7 +65,8 @@ export function ArticleList({userInfo, updateUserInfo}) {
     });
 
     const markAsComplete = async (articleId) => {
-        const { data, error } = await supabase
+        setLoading(true)
+        await supabase
             .from('progresses')
             .insert([
                 { article_id: articleId, user_id: supabase.auth.user().id },
@@ -76,6 +75,7 @@ export function ArticleList({userInfo, updateUserInfo}) {
                     ...userInfo,
                     articles: userInfo.articles.map((article) => article.id === articleId ? {...article, completed: true} : article)
                 });
+                setLoading(false)
                 setNotification("CONGRATS! Article completed!")
                 history.push("/articles")
             })
@@ -93,9 +93,11 @@ export function ArticleList({userInfo, updateUserInfo}) {
             <Grid container spacing={2} alignItems="stretch">
                 {userInfo.articles.map((article, i) => {
                    return (
-                       <Grid item xs={12} lg={4} md={6} key={i}>
-                           {preview(article.title, article.preview, article.link, article.category, article.media, article.id, article.completed)}
-                       </Grid>
+                       <Fade in={!loading} {...(!loading ? { timeout: 200 + 1000 * i } : {})}>
+                           <Grid item xs={12} lg={4} md={6} key={i}>
+                               {preview(article.title, article.preview, article.link, article.category, article.media, article.id, article.completed)}
+                           </Grid>
+                       </Fade>
                    )
                 })}
             </Grid>

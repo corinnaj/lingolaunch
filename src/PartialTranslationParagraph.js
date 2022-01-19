@@ -89,7 +89,6 @@ export const T = ({ w: german, readonly, onComplete}) => {
       {/*<Button onClick={e => setAnchorEl(e.currentTarget)}>CLICK ME</Button>*/}
       <MuiMenu
           elevation={4}
-          getContentAnchorEl={null}
           anchorEl={opened}
           onClose={() => setOpened(null)}
           open={!!opened}

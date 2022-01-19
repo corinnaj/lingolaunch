@@ -13,6 +13,11 @@ import ForwardToInboxIcon from '@mui/icons-material/ForwardToInbox';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {Link as RouterLink} from "react-router-dom";
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export default function SignUp({userInfo, updateUserInfo}) {
     const [loading, setLoading] = useState(false)
@@ -114,6 +119,9 @@ export default function SignUp({userInfo, updateUserInfo}) {
                         <Box component="form" noValidate onSubmit={submitHandler} sx={{mt: 3}}>
                         <Grid container spacing={2}>
                             {userInfo.status === 'Guest' ? signUpForm() : emailSentSection()}
+                        </Grid>
+                        <Grid mt={3} xs={12}>
+                            {error ? <Alert severity="error">{error}</Alert>: ''}
                         </Grid>
                         </Box>
                         </>
