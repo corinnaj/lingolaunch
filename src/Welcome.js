@@ -93,7 +93,7 @@ export default function Welcome() {
                             Lingo uses the concept of <i>partial translations</i> to make you
                             learn a language by context, like children. <br/>
                             On each level you acquire new words and grammar from your favourite country's literature,
-                            history and recipes book. So you also dive into its real culture. <br/>
+                            history and recipe books. So you also dive into its real culture. <br/>
                         </Typography>
                         <Typography variant="h5" sx={{mb: 1.5}}>
                             We are Lingo, <Link component={RouterLink} to="/signup" color={"#FFF"} fontWeight={700}>join us.</Link> <br/>
